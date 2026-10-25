@@ -2,7 +2,7 @@
   import Button from '../design/Button.svelte';
   import ContactForm from './ContactForm.svelte';
 
-  const subject = 'Makeda Green Coffee';
+  const subject = "I'd like to get in touch";
 
   let contactForm = $state<HTMLFormElement | null>(null);
 

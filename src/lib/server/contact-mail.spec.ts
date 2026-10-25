@@ -1,17 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { sendContactMessage } from './contact-mail';
-
-const companyForm = `
-<form action="https://makedagreencoffee.com/wp-admin/admin-ajax.php?action=kernel&amp;p=%2Fyooessentials%2Fform" method="POST" data-uk-yooessentials-form>
-	<input name="name">
-	<input name="email">
-	<input name="subject">
-	<textarea name="message"></textarea>
-	<input type="checkbox" name="checkbox-page#8-0-1-5[]" value="privacy" required>
-	<input type="hidden" name="formid" value="fe4da51d">
-	<input type="hidden" name="_wpnonce_yooessentials" value="nonce-1">
-</form>
-`;
+import { sendContactMessage, type OutboundMail } from './contact-mail';
 
 const message = {
   name: 'Ada',
@@ -22,52 +10,40 @@ const message = {
 };
 
 describe('sendContactMessage', () => {
-  it('delivers the visitor message through the company contact form', async () => {
-    const fetchImpl = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
-      if (init?.method === 'POST') {
-        return Response.json({ success: true });
-      }
-      return new Response(companyForm);
-    });
+  it('sends the visitor message to the company inbox', async () => {
+    const sent: OutboundMail[] = [];
 
-    const result = await sendContactMessage(message, fetchImpl);
+    const result = await sendContactMessage(message, async (mail) => {
+      sent.push(mail);
+    });
 
     expect(result).toEqual({ ok: true });
-
-    const post = fetchImpl.mock.calls.find((call) => call[1]?.method === 'POST');
-    expect(post?.[0]).toBe(
-      'https://makedagreencoffee.com/wp-admin/admin-ajax.php?action=kernel&p=%2Fyooessentials%2Fform'
-    );
-
-    const fields = new URLSearchParams(String(post?.[1]?.body));
-    expect(fields.get('name')).toBe('Ada');
-    expect(fields.get('email')).toBe('ada@example.com');
-    expect(fields.get('subject')).toBe('Green coffee');
-    expect(fields.get('message')).toBe('Hello from the roastery');
-    expect(fields.get('formid')).toBe('fe4da51d');
-    expect(fields.get('_wpnonce_yooessentials')).toBe('nonce-1');
-    expect(fields.get('checkbox-page#8-0-1-5[]')).toBe('privacy');
+    expect(sent).toHaveLength(1);
+    expect(sent[0]).toMatchObject({
+      from: 'Makeda Green Coffee <info@makedagreencoffee.com>',
+      to: 'info@makedagreencoffee.com',
+      replyTo: 'ada@example.com',
+      subject: 'Green coffee'
+    });
+    expect(sent[0].text).toContain('Ada');
+    expect(sent[0].text).toContain('ada@example.com');
+    expect(sent[0].text).toContain('Hello from the roastery');
   });
 
-  it('reports failure when the company form rejects the message', async () => {
-    const fetchImpl = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
-      if (init?.method === 'POST') {
-        return Response.json({ success: false }, { status: 422 });
-      }
-      return new Response(companyForm);
+  it('reports failure when the mailbox rejects the message', async () => {
+    const result = await sendContactMessage(message, async () => {
+      throw new Error('mailbox rejected the message');
     });
 
-    const result = await sendContactMessage(message, fetchImpl);
-
     expect(result).toEqual({ ok: false });
   });
 
-  it('does not submit a message without privacy consent', async () => {
-    const fetchImpl = vi.fn();
+  it('does not send a message without privacy consent', async () => {
+    const send = vi.fn<(mail: OutboundMail) => Promise<void>>();
 
-    const result = await sendContactMessage({ ...message, consent: false }, fetchImpl);
+    const result = await sendContactMessage({ ...message, consent: false }, send);
 
     expect(result).toEqual({ ok: false });
-    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(send).not.toHaveBeenCalled();
   });
 });

@@ -62,7 +62,7 @@
   let selectedLot = $state<Lot | null>(null);
 
   async function requestInfo(lot: Lot) {
-    inquirySubject = `Inquiry: ${lot.origin}, crop ${lot.crop}`;
+    inquirySubject = `Inquiry: ${lot.origin}, ${lot.crop}`;
     await tick();
     inquiryOpen = true;
   }

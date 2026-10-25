@@ -59,14 +59,14 @@ describe('OurCoffeePage', () => {
     await expect.element(dialog).toBeVisible();
     await expect
       .element(dialog.getByRole('textbox', { name: 'Subject *' }))
-      .toHaveValue('Inquiry: Arabica Natural K4, crop 2025');
+      .toHaveValue('Inquiry: Arabica Natural K4, 2025');
 
     await dialog.getByRole('button', { name: 'Close' }).click();
 
     await inStore.getByRole('button', { name: 'Order' }).click();
     await expect
       .element(dialog.getByRole('textbox', { name: 'Subject *' }))
-      .toHaveValue('Inquiry: Arabica Fully Washed K3 Microlot Special Selection, crop 2025');
+      .toHaveValue('Inquiry: Arabica Fully Washed K3 Microlot Special Selection, 2025');
   });
 
   it('opens a placeholder for the clicked lot', async () => {

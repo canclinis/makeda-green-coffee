@@ -123,6 +123,32 @@ Motion stays quiet. A section arrives as type on a flat field.
 
 Keep these out of the chrome: orange and yellow highlights, gradient-filled words, Darwin Pro or Playfair, a staggered zigzag of mission points, a black letterbox around the hero video.
 
+## Voice
+
+Taken from the homepage. New sentences should sound like those.
+
+We speak as the company, to one person. Warm, plain, and direct. A short sentence carries the feeling. The next one carries the fact.
+
+Name the place, the people, and the coffee. Kivu, the farmers, the roasteries, Resistance Coffee. Use a plain word when it will do.
+
+Body copy is sentence case. Uppercase is for section titles and the legal line.
+
+An exclamation is rare. The homepage uses one: “We’re a Swedish company with an Italian soul!”
+
+A prefilled mail subject is the first line of that letter. It says what the person wants, and which button they used, so the inbox can tell the messages apart.
+
+| Where they start                                                   | Subject                                                            |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| Order now, on the homepage                                         | I’d like to order coffee                                           |
+| Email icon, Contact, or the form at the bottom of the homepage     | I’d like to get in touch                                           |
+| Order on a coffee lot                                              | Inquiry: {coffee}, {year}                                          |
+
+The homepage lines this follows:
+
+- Bring home a unique coffee, a symbol of strength and courage.
+- We are not intermediaries, we follow all stages from the field to the delivery.
+- We don’t just trade coffee. We build relationships.
+
 ## Profile text
 
 Italian profile text, kept here for comparison with the live English site. Published English stays as it is until the user asks to sync. When the two differ, say so in the reply.

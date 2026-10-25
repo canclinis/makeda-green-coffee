@@ -25,7 +25,10 @@
     <p class="order-line">Bring home a unique coffee, a symbol of strength and courage.</p>
     <Button onclick={() => (contactOpen = true)}>Order now</Button>
     <Modal bind:open={contactOpen} labelledBy="contact-modal-heading">
-      <ContactForm headingId="contact-modal-heading" />
+      <ContactForm
+        headingId="contact-modal-heading"
+        initialSubject="I'd like to order coffee"
+      />
     </Modal>
   </div>
 </section>

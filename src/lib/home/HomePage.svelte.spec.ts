@@ -53,6 +53,9 @@ describe('HomePage', () => {
     await page.getByRole('button', { name: 'Order now' }).click();
     const dialog = page.getByRole('dialog', { name: 'Get In Touch' });
     await expect.element(dialog).toBeVisible();
+    await expect
+      .element(dialog.getByRole('textbox', { name: 'Subject *' }))
+      .toHaveValue("I'd like to order coffee");
 
     await expect.element(dialog.getByRole('heading', { name: 'Get In Touch' })).toBeVisible();
     await expect.element(dialog.getByLabelText('Name *')).toBeVisible();
@@ -73,6 +76,6 @@ describe('HomePage', () => {
     await expect.element(contact.getByRole('textbox', { name: 'Name *' })).toHaveFocus();
     await expect
       .element(contact.getByRole('textbox', { name: 'Subject *' }))
-      .toHaveValue('Makeda Green Coffee');
+      .toHaveValue("I'd like to get in touch");
   });
 });
