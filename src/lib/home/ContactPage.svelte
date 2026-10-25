@@ -1,9 +1,9 @@
 <script lang="ts">
-  import SectionTitle from '../design/SectionTitle.svelte';
+  import PageSection from '../design/PageSection.svelte';
   import ZigZag from '../design/ZigZag.svelte';
   import ContactFilm from './ContactFilm.svelte';
   import ContactForm from './ContactForm.svelte';
-  import SitePage from './SitePage.svelte';
+  import Page from './Page.svelte';
 
   const subject = "I'd like to get in touch";
 
@@ -30,9 +30,8 @@
   />
 {/snippet}
 
-<SitePage onEmail={openForm}>
-  <section id="contact" aria-labelledby="contact-heading">
-    <SectionTitle id="contact-heading">CONTACT</SectionTitle>
+<Page onEmail={openForm}>
+  <PageSection id="contact" headingId="contact-heading" title="CONTACT">
     <ZigZag mediaSide="left" mediaSlot={contactFilm}>
       <ContactForm
         headingId="contact-heading"
@@ -41,14 +40,5 @@
         bind:element={contactForm}
       />
     </ZigZag>
-  </section>
-</SitePage>
-
-<style>
-  section {
-    scroll-margin-top: 80px;
-    padding-bottom: 72px;
-    background: #fff;
-    border-inline: 25px solid var(--makeda-coffee);
-  }
-</style>
+  </PageSection>
+</Page>

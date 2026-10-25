@@ -2,9 +2,9 @@
   import { tick } from 'svelte';
   import Button from '../design/Button.svelte';
   import Modal from '../design/Modal.svelte';
+  import PageSection from '../design/PageSection.svelte';
   import ContactForm from './ContactForm.svelte';
-  import SectionTitle from '../design/SectionTitle.svelte';
-  import SitePage from './SitePage.svelte';
+  import Page from './Page.svelte';
   import CoffeeLotDetail from './CoffeeLotDetail.svelte';
   import { commercialLots, specialtyLots, type CoffeeLot } from './coffee-lots';
 
@@ -39,99 +39,77 @@
   <title>Our coffee — Makeda Green Coffee</title>
 </svelte:head>
 
-<SitePage>
-  <section aria-labelledby="our-coffee-heading">
-    <SectionTitle id="our-coffee-heading">OUR COFFEE</SectionTitle>
-    <div class="container">
-      {@render lotTable('Specialty coffee', specialty)}
-      {@render lotTable('Commercial coffee', commercial)}
+<Page>
+  <PageSection headingId="our-coffee-heading" title="OUR COFFEE">
+    <div style="overflow-x: auto">
+      <table>
+        <caption>Coffee lots</caption>
+        {@render lotGroup('Specialty coffee', specialty)}
+        {@render lotGroup('Commercial coffee', commercial)}
+      </table>
     </div>
-  <Modal
-    bind:open={inquiryOpen}
-    title="Coffee inquiry"
-    image={{
-      src: '/images/lots/dried-on-bed.jpg',
-      alt: 'Hands sorting green coffee beans on a drying bed'
-    }}
-  >
-    {#if inquirySubject}
-      {#key inquirySubject}
-        <ContactForm
-          headingId="coffee-inquiry-heading"
-          hideHeading
-          initialSubject={inquirySubject}
-          submitLabel="Order"
-        />
-      {/key}
-    {/if}
-  </Modal>
+    <Modal
+      bind:open={inquiryOpen}
+      title="Coffee inquiry"
+      image={{
+        src: '/images/lots/dried-on-bed.jpg',
+        alt: 'Hands sorting green coffee beans on a drying bed'
+      }}
+    >
+      {#if inquirySubject}
+        {#key inquirySubject}
+          <ContactForm
+            headingId="coffee-inquiry-heading"
+            hideHeading
+            initialSubject={inquirySubject}
+            submitLabel="Order"
+          />
+        {/key}
+      {/if}
+    </Modal>
     <Modal bind:open={lotOpen} title={selectedLot?.origin ?? 'Coffee'} image={selectedLot?.image}>
       {#if selectedLot}
         <CoffeeLotDetail lot={selectedLot} />
       {/if}
     </Modal>
-  </section>
-</SitePage>
+  </PageSection>
+</Page>
 
-{#snippet lotTable(caption: string, rows: CoffeeLot[])}
-  <div>
-    <table>
-      <caption>{caption}</caption>
-      <thead>
-        <tr>
-          <th scope="col">Origin</th>
-          <th class="center" scope="col">Crop</th>
-          <th class="center" scope="col">Bags (60 kg)</th>
-          <th class="center" scope="col">Status</th>
-          <th class="center" scope="col">Request</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#each rows as lot (lot.id)}
-          <tr
-            onclick={() => openLot(lot)}
-            onkeydown={(event) => onRowKeydown(event, lot)}
-            tabindex="0"
+{#snippet lotGroup(title: string, rows: CoffeeLot[])}
+  <tbody>
+    <tr>
+      <th class="group" colspan="5" scope="rowgroup">{title}</th>
+    </tr>
+    <tr>
+      <th scope="col">Origin</th>
+      <th class="center" scope="col">Crop</th>
+      <th class="center" scope="col">Bags (60 kg)</th>
+      <th class="center" scope="col">Status</th>
+      <th class="center" scope="col">Request</th>
+    </tr>
+    {#each rows as lot (lot.id)}
+      <tr onclick={() => openLot(lot)} onkeydown={(event) => onRowKeydown(event, lot)} tabindex="0">
+        <td data-label="Origin" style="font-weight: 600">{lot.origin}</td>
+        <td class="center" data-label="Crop">{lot.crop}</td>
+        <td class="center" data-label="Bags">{lot.bags}</td>
+        <td class="center" data-label="Status">{lot.status}</td>
+        <td class="center">
+          <Button
+            style="padding-inline: 16px; white-space: nowrap"
+            onclick={(event: MouseEvent) => {
+              event.stopPropagation();
+              requestInfo(lot);
+            }}
           >
-            <td data-label="Origin" style="font-weight: 600">{lot.origin}</td>
-            <td class="center" data-label="Crop">{lot.crop}</td>
-            <td class="center" data-label="Bags">{lot.bags}</td>
-            <td class="center" data-label="Status">{lot.status}</td>
-            <td class="center">
-              <Button
-                style="padding-inline: 16px; white-space: nowrap"
-                onclick={(event: MouseEvent) => {
-                  event.stopPropagation();
-                  requestInfo(lot);
-                }}
-              >
-                Order
-              </Button>
-            </td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-  </div>
+            Order
+          </Button>
+        </td>
+      </tr>
+    {/each}
+  </tbody>
 {/snippet}
 
 <style>
-  section {
-    padding-bottom: 72px;
-    background: #fff;
-    border-inline: 25px solid var(--makeda-coffee);
-  }
-
-  .container {
-    display: grid;
-    gap: 56px;
-    padding: 36px 0 56px;
-  }
-
-  .container > div {
-    overflow-x: auto;
-  }
-
   table {
     width: 100%;
     border-collapse: collapse;
@@ -140,13 +118,25 @@
   }
 
   caption {
-    caption-side: top;
-    margin: 0 0 0.75rem;
-    text-align: left;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .group {
+    padding: 0 0 0.75rem;
+    border-bottom: 0;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.18em;
+    text-align: left;
     text-transform: uppercase;
+  }
+
+  tbody + tbody .group {
+    padding-top: 56px;
   }
 
   th,
@@ -162,7 +152,7 @@
     vertical-align: middle;
   }
 
-  thead th {
+  th[scope='col'] {
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.14em;
@@ -170,15 +160,15 @@
     border-bottom-color: var(--makeda-ink);
   }
 
-  tbody tr {
+  tbody tr:has(td) {
     cursor: pointer;
   }
 
-  tbody tr:hover {
+  tbody tr:has(td):hover {
     background: rgba(92, 16, 34, 0.06);
   }
 
-  tbody tr:focus-visible {
+  tbody tr:has(td):focus-visible {
     outline: 2px solid var(--makeda-coffee);
     outline-offset: -2px;
   }
@@ -187,12 +177,13 @@
     table,
     tbody,
     tr,
-    td {
+    td,
+    th {
       display: block;
       width: auto;
     }
 
-    thead {
+    tr:has(th[scope='col']) {
       position: absolute;
       width: 1px;
       height: 1px;
@@ -200,7 +191,7 @@
       clip: rect(0 0 0 0);
     }
 
-    tr {
+    tr:has(td) {
       padding: 16px 0;
       border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     }

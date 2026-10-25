@@ -1,13 +1,12 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
   import Button from '../design/Button.svelte';
-  import SectionTitle from '../design/SectionTitle.svelte';
+  import PageSection from '../design/PageSection.svelte';
   import Text from '../design/Text.svelte';
   import ZigZag from '../design/ZigZag.svelte';
 </script>
 
-<section id="coffee" aria-labelledby="coffee-heading">
-  <SectionTitle id="coffee-heading">OUR COFFEE</SectionTitle>
+<PageSection id="coffee" headingId="coffee-heading" title="OUR COFFEE">
   <ZigZag
     mediaSide="left"
     media={{
@@ -43,13 +42,4 @@
     <Text>We don't just trade coffee. We build relationships.</Text>
     <Button href={resolve('/our-coffee')}>Discover our coffees</Button>
   </ZigZag>
-</section>
-
-<style>
-  section {
-    scroll-margin-top: 80px;
-    padding-bottom: 72px;
-    background: #fff;
-    border-inline: 25px solid var(--makeda-coffee);
-  }
-</style>
+</PageSection>

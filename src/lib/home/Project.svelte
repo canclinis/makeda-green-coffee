@@ -1,11 +1,10 @@
 <script lang="ts">
-  import SectionTitle from '../design/SectionTitle.svelte';
+  import PageSection from '../design/PageSection.svelte';
   import Text from '../design/Text.svelte';
   import ZigZag from '../design/ZigZag.svelte';
 </script>
 
-<section id="project">
-  <SectionTitle>The Project</SectionTitle>
+<PageSection id="project" headingId="project-heading" title="The Project">
   <ZigZag
     mediaSide="right"
     media={{
@@ -29,13 +28,4 @@
     <Text>We are not intermediaries, we follow all stages from the field to the delivery.</Text>
     <Text>We’re a Swedish company with an Italian soul!</Text>
   </ZigZag>
-</section>
-
-<style>
-  section {
-    scroll-margin-top: 80px;
-    padding-bottom: 72px;
-    background: #fff;
-    border-inline: 25px solid var(--makeda-coffee);
-  }
-</style>
+</PageSection>

@@ -8,7 +8,7 @@ Chrome uses four flat colors. Photography is the only place other hues appear.
 
 | Name     | Hex       | Where it goes                      | Type on it   |
 | -------- | --------- | ---------------------------------- | ------------ |
-| Burgundy | `#5c1022` | Sheet frame, logo plate, CTA bands | White        |
+| Burgundy | `#5c1022` | Page section frame, logo plate, CTA bands | White        |
 | Black    | `#000000` | Section title bars, legal footer   | White        |
 | White    | `#ffffff` | Body fields, cover title half      | Ink or black |
 | Ink      | `#111111` | Body copy                          | —            |
@@ -50,13 +50,13 @@ Documentary and close. Natural light. No caption, no type on the picture, no add
 
 The photo is a full-width band, edge to edge inside the frame.
 
-## Sheet
+## Page section
 
 Interior pages share one stack, top to bottom. A thick burgundy frame runs down the left, the right, and across the top. The black legal bar closes the bottom. The frame is a real margin, not a hairline.
 
 1. **Photo band.** About the top third. Full width inside the frame.
 2. **Black title bar.** Full width. Tall enough that the title has clear space above and below.
-3. **White body.** The rest of the sheet. Text inset from the frame, left aligned, a comfortable measure. A short page keeps the empty white. Type does not stretch to fill it.
+3. **White body.** The rest of the section. Text inset from the frame, left aligned, a comfortable measure. A short page keeps the empty white. Type does not stretch to fill it.
 4. **Legal bar.** Black, five centered lines:
 
 ```

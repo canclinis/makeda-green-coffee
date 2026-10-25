@@ -2,15 +2,15 @@
   import Coffee from './Coffee.svelte';
   import Hero from './Hero.svelte';
   import Project from './Project.svelte';
-  import SitePage from './SitePage.svelte';
+  import Page from './Page.svelte';
 </script>
 
 <svelte:head>
   <title>Makeda Green Coffee</title>
 </svelte:head>
 
-<SitePage>
+<Page>
   <Hero />
   <Project />
   <Coffee />
-</SitePage>
+</Page>

@@ -55,7 +55,7 @@
   {/if}
 {/snippet}
 
-<div class="container">
+<div class="columns">
   {#if mediaSide === 'left'}
     {@render frame()}
     <div style="max-width: 42rem">{@render children()}</div>
@@ -66,11 +66,10 @@
 </div>
 
 <style>
-  .container {
+  .columns {
     display: grid;
     gap: 36px;
     align-items: start;
-    padding: 36px 0 56px;
   }
 
   .media {
@@ -80,7 +79,7 @@
   }
 
   @media (min-width: 960px) {
-    .container {
+    .columns {
       grid-template-columns: 1fr 1fr;
       gap: 48px;
     }

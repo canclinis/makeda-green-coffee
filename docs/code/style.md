@@ -28,7 +28,7 @@ When the same arrangement of regions appears on more than one surface — or is 
 
 **Extract when** you can name the layout without naming the page (“copy beside media, either side first”). **Keep local when** it exists only once.
 
-Existing chrome already follows this: `Button`, `IconButton`, `Text`, `SectionTitle`, `Modal`. New recurring layouts join that set.
+Existing chrome already follows this: `Button`, `IconButton`, `Text`, `SectionTitle`, `PageSection`, `Modal`. New recurring layouts join that set.
 
 ## Where a style lives
 
