@@ -82,16 +82,6 @@ p {
   color: var(--makeda-ink);
 }
 
-/* Profile has plain ink — neutralize legacy highlight / gradient chrome */
-.mark-yellow,
-.mark-coffee,
-.gd-coffee,
-.gd-orange {
-  background: none;
-  color: inherit;
-  -webkit-text-fill-color: currentColor;
-}
-
 .button {
   display: inline-flex;
   align-items: center;
