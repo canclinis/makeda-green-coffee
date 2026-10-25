@@ -1,0 +1,15 @@
+---
+description: Makeda brand language. Use when styling, laying out, or adding UI for the Makeda Green Coffee site.
+globs: src/lib/home/**/*.{svelte,css},src/routes/**/*.{svelte,css}
+alwaysApply: false
+---
+
+# Makeda brand
+
+Before changing look or layout, read `docs/brand/visual-language.md` and follow it. That file is the brand source of truth.
+
+**Tokens:** burgundy `#5c1022`, black `#000`, white `#fff`, ink `#111`. Type: geometric sans (Montserrat). Section titles: ALL CAPS on a black bar.
+
+**Avoid:** orange/yellow highlights, gradient-filled words, Darwin Pro / Playfair as brand chrome, staggered mission “zigzag” as the default, black letterbox around the hero video.
+
+**Copy:** keep existing website strings unless the user asks to sync with the profile text in the brand file. Gap notes belong in the reply, not as silent rewrites.
