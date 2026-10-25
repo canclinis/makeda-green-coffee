@@ -73,7 +73,10 @@ describe('Modal', () => {
       props: {
         open: true,
         title: 'Lot details',
-        image: { src: '/images/lots/cherries.jpg', alt: 'Ripe coffee cherries on the branch' },
+        image: {
+          src: '/images/lots/drying.jpg',
+          alt: 'Women sorting coffee cherries on raised drying beds'
+        },
         children: createRawSnippet(() => ({
           render: () => '<p>More about this coffee is coming soon.</p>'
         }))
@@ -82,7 +85,9 @@ describe('Modal', () => {
 
     const dialog = page.getByRole('dialog', { name: 'Lot details' });
     await expect
-      .element(dialog.getByRole('img', { name: 'Ripe coffee cherries on the branch' }))
+      .element(
+        dialog.getByRole('img', { name: 'Women sorting coffee cherries on raised drying beds' })
+      )
       .toBeVisible();
     await expect.element(dialog.getByRole('button', { name: 'Close' })).toHaveStyle({
       color: 'rgb(255, 255, 255)'
@@ -98,13 +103,13 @@ describe('Modal', () => {
     await render(Modal, {
       props: {
         open: true,
-        title: 'Fully Washed K3 Special Selection',
+        title: 'Fully Washed K3 Classic',
         children: createRawSnippet(() => ({ render: () => '<p>Details</p>' }))
       }
     });
 
     const sectionTitle = page.getByRole('heading', { name: 'OUR COFFEE' });
-    const modalTitle = page.getByRole('heading', { name: 'Fully Washed K3 Special Selection' });
+    const modalTitle = page.getByRole('heading', { name: 'Fully Washed K3 Classic' });
     await expect.element(sectionTitle).toBeVisible();
     await expect.element(modalTitle).toBeVisible();
 

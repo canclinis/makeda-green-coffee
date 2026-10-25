@@ -1,17 +1,17 @@
 # Makeda brand language
 
-This file is the whole brand. Color, type, logo, photography, layout, and the Italian profile text are all here. Nothing else in the repo is a brand source. The live site stays in English until the user asks to sync copy.
+This file is the whole brand. Color, type, logo, photography, layout, and the Italian profile text are all here. Nothing else in the repo is a brand source. The live site stays in British English until the user asks to sync copy.
 
 ## Color
 
 Chrome uses four flat colors. Photography is the only place other hues appear.
 
-| Name     | Hex       | Where it goes                      | Type on it   |
-| -------- | --------- | ---------------------------------- | ------------ |
+| Name     | Hex       | Where it goes                             | Type on it   |
+| -------- | --------- | ----------------------------------------- | ------------ |
 | Burgundy | `#5c1022` | Page section frame, logo plate, CTA bands | White        |
-| Black    | `#000000` | Section title bars, legal footer   | White        |
-| White    | `#ffffff` | Body fields, cover title half      | Ink or black |
-| Ink      | `#111111` | Body copy                          | —            |
+| Black    | `#000000` | Section title bars, legal footer          | White        |
+| White    | `#ffffff` | Body fields, cover title half             | Ink or black |
+| Ink      | `#111111` | Body copy                                 | —            |
 
 Cherry red, leaf green, skin, and earth stay inside photographs. They are not UI colors.
 
@@ -90,7 +90,7 @@ Four paragraphs of plain prose: the project, Antonio, Giovanni, Giacomo. No foun
 
 Title: LA NOSTRA MISSIONE.
 
-One lead sentence, then four items. Each item is a hyphen at the left margin and a sentence. Space between items, as separate blocks, not a tight list. The first item starts with a capital. The next three start lowercase. Each item ends with a semicolon.
+One lead sentence, then four items. Each item is a dash at the left margin and a sentence. Space between items, as separate blocks, not a tight list. The first item starts with a capital. The next three start lowercase. Every item ends with a semicolon except the last, which ends with a full stop. The items share one grammatical form (on the site, each opens with an -ing verb: importing, bringing, improving, following).
 
 ### Contatti
 
@@ -136,7 +136,23 @@ Name the place, the people, and the coffee. Kivu, the farmers, the roasteries, R
 
 Body copy is sentence case. Uppercase is for section titles and the legal line.
 
-An exclamation is rare. The homepage uses one: “We’re a Swedish company with an Italian soul!”
+An exclamation is rare. The homepage uses one: ‘We’re a Swedish company with an Italian soul!’
+
+One thought per sentence. Join two clauses with a full stop, not a comma. Lists keep the same grammatical shape all the way through.
+
+Button and dialog labels are sentence case: Order now, Get in touch, Discover our coffees. CSS may set them in capitals; the source text stays sentence case.
+
+### British English
+
+The site is written in British English (`<html lang="en-GB">`).
+
+- **Spelling.** -ise and -isation (organisation, prioritise), -our (colour, favour), -re (metres, centre), programme, enquiry, hand-pick, travelled.
+- **Trade terms stay as the trade writes them.** _Specialty coffee_ follows SCA usage, also in the UK. Green coffee, washing station, screen size, raised beds.
+- **Punctuation.** Curly apostrophes (’) and single curly quotes (‘ ’), double quotes (“ ”) only inside a quote. No serial comma: ‘sustainability, transparency and fair trade’. The full stop goes outside the closing quote unless the quote is a full sentence.
+- **Titles of films and documents** in italics: _Amuka_.
+- **Places.** First mention in prose: the Democratic Republic of the Congo. After that, or in a list: the DR Congo, or the Congo. Kivu, Lake Kivu, South-East Asia.
+- **Numbers.** Comma for thousands (1,850). A space before units (60 kg, 1,850 m). En dash for ranges (1,850–2,050 m).
+- **Status words.** In stock, Arriving soon. Count nouns agree with the number: 1 bag, 42 bags.
 
 A prefilled mail subject is the first line of that letter. It says what the person wants, and which button they used, so the inbox can tell the messages apart.
 
@@ -144,12 +160,12 @@ A prefilled mail subject is the first line of that letter. It says what the pers
 | ------------------------------------------ | ------------------------- |
 | Order now, on the homepage                 | I’d like to order coffee  |
 | Email icon or the form on the contact page | I’d like to get in touch  |
-| Order on a coffee lot                      | Inquiry: {coffee}, {year} |
+| Order on a coffee lot                      | Enquiry: {coffee}, {year} |
 
 The homepage lines this follows:
 
 - Bring home a unique coffee, a symbol of strength and courage.
-- We are not intermediaries, we follow all stages from the field to the delivery.
+- We are not intermediaries. We follow every stage, from the field to delivery.
 - We don’t just trade coffee. We build relationships.
 
 ## Profile text

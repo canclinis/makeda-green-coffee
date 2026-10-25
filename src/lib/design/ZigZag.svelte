@@ -77,13 +77,17 @@
     align-items: start;
   }
 
+  .columns > * {
+    min-width: 0;
+  }
+
   .media {
     display: block;
     width: 100%;
     height: auto;
   }
 
-  @media (min-width: 960px) {
+  @media (min-width: 760px) {
     .columns {
       grid-template-columns: 1fr 1fr;
       gap: 48px;

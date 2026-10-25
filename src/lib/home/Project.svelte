@@ -17,15 +17,15 @@
     }}
   >
     <Text>
-      Makeda Green Coffee is a project of sustainability and fair trade commerce born in 2021. The
-      goal is to support the Congolese farmers from Kivu, a region that suffered for a war during
-      decades, to reach the Roasteries in Europe.
+      Makeda Green Coffee is a sustainability and fair-trade project, founded in 2021. Our aim is to
+      help the coffee farmers of Kivu, a region of the Congo scarred by decades of war, reach
+      roasteries in Europe.
     </Text>
     <Text>
-      This coffee is a symbol of resistance, these women and men risk their lives to deliver this
-      coffee. That’s why we call it Resistance Coffee.
+      This coffee is a symbol of resistance. The women and men who grow it risk their lives to bring
+      it to market. That’s why we call it Resistance Coffee.
     </Text>
-    <Text>We are not intermediaries, we follow all stages from the field to the delivery.</Text>
+    <Text>We are not intermediaries. We follow every stage, from the field to delivery.</Text>
     <Text>We’re a Swedish company with an Italian soul!</Text>
   </ZigZag>
 </PageSection>

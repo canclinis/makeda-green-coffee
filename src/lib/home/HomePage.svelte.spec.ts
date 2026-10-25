@@ -13,6 +13,7 @@ describe('HomePage', () => {
   });
 
   it('tells the project story and collects contact instead of taking an order', async () => {
+    await page.viewport(1200, 900);
     render(HomePage);
 
     const nav = page.getByRole('navigation', { name: 'Primary' });
@@ -21,11 +22,8 @@ describe('HomePage', () => {
       .element(nav.getByRole('link', { name: 'Makeda Green Coffee', exact: true }))
       .toBeInTheDocument();
     await expect
-      .element(nav.getByRole('link', { name: 'The Project', exact: true }))
-      .toBeInTheDocument();
-    await expect
-      .element(nav.getByRole('link', { name: 'Coffee', exact: true }))
-      .toBeInTheDocument();
+      .element(nav.getByRole('link', { name: 'Our coffee', exact: true }))
+      .toHaveAttribute('href', '/our-coffee');
     await expect
       .element(nav.getByRole('link', { name: 'About', exact: true }))
       .toHaveAttribute('href', '/about');
@@ -59,7 +57,7 @@ describe('HomePage', () => {
       .not.toBeInTheDocument();
 
     await page.getByRole('button', { name: 'Order now' }).click();
-    const dialog = page.getByRole('dialog', { name: 'Get In Touch' });
+    const dialog = page.getByRole('dialog', { name: 'Get in touch' });
     await expect.element(dialog).toBeVisible();
     await expect
       .element(dialog.getByRole('img', { name: 'A volcano rising above dense forest' }))
@@ -68,17 +66,17 @@ describe('HomePage', () => {
       .element(dialog.getByRole('textbox', { name: 'Subject *' }))
       .toHaveValue("I'd like to order coffee");
 
-    await expect.element(dialog.getByRole('heading', { name: 'Get In Touch' })).toBeVisible();
+    await expect.element(dialog.getByRole('heading', { name: 'Get in touch' })).toBeVisible();
     await expect.element(dialog.getByLabelText('Name *')).toBeVisible();
     await expect.element(dialog.getByLabelText('Email *')).toBeVisible();
     await expect.element(dialog.getByLabelText('Subject *')).toBeVisible();
     await expect.element(dialog.getByLabelText('Message *')).toBeVisible();
     await expect.element(dialog.getByRole('checkbox', { name: /privacy policy/ })).toBeVisible();
     await expect
-      .element(page.getByRole('region', { name: 'Get In Touch' }))
+      .element(page.getByRole('region', { name: 'Get in touch' }))
       .not.toBeInTheDocument();
 
-    const footer = page.getByRole('contentinfo');
+    const footer = page.getByRole('contentinfo').locator('.desktop');
     await expect
       .element(footer.getByRole('link', { name: 'Vimeo' }))
       .toHaveAttribute('href', 'https://vimeo.com/user192364448');

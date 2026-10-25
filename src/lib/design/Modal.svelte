@@ -54,7 +54,7 @@
   <SectionTitle id={headingId} style="font-size: 1.5rem; padding-inline: 3.25rem">
     {title}
   </SectionTitle>
-  <div style="padding: 1.75rem 2rem 2rem">
+  <div class="sheet">
     {@render children()}
   </div>
 </dialog>
@@ -80,10 +80,29 @@
     background: rgba(0, 0, 0, 0.55);
   }
 
+  .sheet {
+    padding: 1.75rem 2rem 2rem;
+  }
+
   img {
     display: block;
     width: 100%;
     height: 200px;
     object-fit: cover;
+  }
+
+  @media (max-width: 639px) {
+    dialog {
+      width: min(760px, calc(100vw - 16px));
+      max-height: calc(100dvh - 16px);
+    }
+
+    .sheet {
+      padding: 1.25rem 1.15rem 1.5rem;
+    }
+
+    img {
+      height: 104px;
+    }
   }
 </style>

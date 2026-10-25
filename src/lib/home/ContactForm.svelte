@@ -7,7 +7,7 @@
     headingId,
     initialSubject = '',
     hideHeading = false,
-    submitLabel = 'Get In Touch',
+    submitLabel = 'Get in touch',
     element = $bindable(null)
   }: {
     headingId: string;
@@ -61,7 +61,7 @@
       id={headingId}
       style="margin: 0 0 1.5rem; color: var(--makeda-coffee); font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: 700; letter-spacing: 0.18em; line-height: 1.2; text-transform: uppercase"
     >
-      Get In Touch
+      Get in touch
     </h2>
   {/if}
   <label class="field">
@@ -122,7 +122,9 @@
     border-radius: 0;
     background: transparent;
     color: var(--makeda-ink);
-    font: inherit;
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: inherit;
   }
 
   .field input {
@@ -133,6 +135,12 @@
     min-height: 160px;
     padding-top: 8px;
     resize: vertical;
+  }
+
+  @media (max-width: 639px) {
+    .field textarea {
+      min-height: 112px;
+    }
   }
 
   .field input:focus,

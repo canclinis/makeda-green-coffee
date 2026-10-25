@@ -33,10 +33,10 @@ describe('Button', () => {
 
   it('renders a disabled submit button', async () => {
     render(Button, {
-      props: { type: 'submit', disabled: true, children: text('Get In Touch') }
+      props: { type: 'submit', disabled: true, children: text('Get in touch') }
     });
 
-    const submit = page.getByRole('button', { name: 'Get In Touch' });
+    const submit = page.getByRole('button', { name: 'Get in touch' });
     await expect.element(submit).toHaveAttribute('type', 'submit');
     await expect.element(submit).toBeDisabled();
   });

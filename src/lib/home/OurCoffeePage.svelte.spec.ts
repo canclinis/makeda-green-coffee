@@ -4,7 +4,6 @@ import { render } from 'vitest-browser-svelte';
 import OurCoffeePage from './OurCoffeePage.svelte';
 
 const arriving = [
-  ['Fully Washed K3 Special Selection', '2026', '42'],
   ['Fully Washed K3 Classic', '2026', '92'],
   ['Natural K3 Special Selection', '2026', '84'],
   ['Natural K3 Classic', '2026', '100']
@@ -34,7 +33,8 @@ describe('OurCoffeePage', () => {
     }
   });
 
-  it('lists specialty and commercial lots and names the crop in the inquiry', async () => {
+  it('lists specialty and commercial lots and names the crop in the enquiry', async () => {
+    await page.viewport(1200, 900);
     render(OurCoffeePage);
 
     const nav = page.getByRole('navigation', { name: 'Primary' });
@@ -61,14 +61,6 @@ describe('OurCoffeePage', () => {
       await expect.element(row.getByRole('button', { name: 'Order' })).toBeInTheDocument();
     }
 
-    const inStore = lots
-      .getByRole('row')
-      .filter({ hasText: 'Fully Washed K3 Special Selection' })
-      .filter({ hasText: 'In store' })
-      .filter({ hasText: '2025' })
-      .filter({ hasText: '2' });
-    await expect.element(inStore).toBeInTheDocument();
-
     await expect
       .element(lots.getByRole('columnheader', { name: 'Crop' }).nth(1))
       .toBeInTheDocument();
@@ -77,26 +69,31 @@ describe('OurCoffeePage', () => {
       .filter({ hasText: 'Natural K4' })
       .filter({ hasText: '2025' })
       .filter({ hasText: '1' })
-      .filter({ hasText: 'In store' });
+      .filter({ hasText: 'In stock' });
     await expect.element(k4).toBeInTheDocument();
 
     await k4.getByRole('button', { name: 'Order' }).click();
 
-    const dialog = page.getByRole('dialog', { name: 'Coffee inquiry' });
+    const dialog = page.getByRole('dialog', { name: 'Coffee enquiry' });
     await expect.element(dialog).toBeVisible();
     await expect
       .element(dialog.getByRole('textbox', { name: 'Subject *' }))
-      .toHaveValue('Inquiry: Natural K4, 2025');
+      .toHaveValue('Enquiry: Natural K4, 2025');
 
     await dialog.getByRole('button', { name: 'Close' }).click();
 
-    await inStore.getByRole('button', { name: 'Order' }).click();
+    const classic = lots
+      .getByRole('row')
+      .filter({ hasText: 'Fully Washed K3 Classic' })
+      .filter({ hasText: '2026' });
+    await classic.getByRole('button', { name: 'Order' }).click();
     await expect
       .element(dialog.getByRole('textbox', { name: 'Subject *' }))
-      .toHaveValue('Inquiry: Fully Washed K3 Special Selection, 2025');
+      .toHaveValue('Enquiry: Fully Washed K3 Classic, 2026');
   });
 
   it('shows a header photo when a lot is opened', async () => {
+    await page.viewport(1200, 900);
     render(OurCoffeePage);
 
     const lots = page.getByRole('table', { name: 'Coffee lots' });
@@ -108,7 +105,8 @@ describe('OurCoffeePage', () => {
       .toBeVisible();
   });
 
-  it('shows a header photo on the coffee inquiry', async () => {
+  it('shows a header photo on the coffee enquiry', async () => {
+    await page.viewport(1200, 900);
     render(OurCoffeePage);
 
     const lots = page.getByRole('table', { name: 'Coffee lots' });
@@ -118,7 +116,7 @@ describe('OurCoffeePage', () => {
       .getByRole('button', { name: 'Order' })
       .click();
 
-    const dialog = page.getByRole('dialog', { name: 'Coffee inquiry' });
+    const dialog = page.getByRole('dialog', { name: 'Coffee enquiry' });
     await expect
       .element(
         dialog.getByRole('img', {
@@ -129,6 +127,7 @@ describe('OurCoffeePage', () => {
   });
 
   it('opens lot details and PDF downloads for the clicked row', async () => {
+    await page.viewport(1200, 900);
     render(OurCoffeePage);
 
     const lots = page.getByRole('table', { name: 'Coffee lots' });
@@ -138,34 +137,14 @@ describe('OurCoffeePage', () => {
     const k4Dialog = page.getByRole('dialog', { name: 'Natural K4' });
     await expect.element(k4Dialog).toBeVisible();
     await expect.element(k4Dialog.getByText(/approachable natural-process offer/i)).toBeVisible();
-    await expect.element(k4Dialog.getByText(/2025 crop · 1 bags · In store/i)).toBeVisible();
+    await expect.element(k4Dialog.getByText(/2025 crop · 1 bag · In stock/i)).toBeVisible();
     await expect
       .element(k4Dialog.getByRole('link', { name: /Download Origin profile/i }))
       .toHaveAttribute('href', '/coffee-sheets/natural-k4-2025.pdf');
 
     await userEvent.keyboard('{Escape}');
 
-    const inStore = lots
-      .getByRole('row')
-      .filter({ hasText: 'Fully Washed K3 Special Selection' })
-      .filter({ hasText: 'In store' })
-      .filter({ hasText: '2025' });
-    await inStore.click();
-
-    const microlot = page.getByRole('dialog', {
-      name: 'Fully Washed K3 Special Selection'
-    });
-    await expect.element(microlot).toBeVisible();
-    await expect
-      .element(microlot.getByText(/Best of Congo Cooperative Competition 2025/i))
-      .toBeVisible();
-    await expect
-      .element(microlot.getByRole('link', { name: /Download SCA cupping note/i }))
-      .toHaveAttribute('href', '/coffee-sheets/cupping-note-sca-2025-microlot.pdf');
-
-    await userEvent.keyboard('{Escape}');
-
     await k4.getByRole('button', { name: 'Order' }).click();
-    await expect.element(page.getByRole('dialog', { name: 'Coffee inquiry' })).toBeVisible();
+    await expect.element(page.getByRole('dialog', { name: 'Coffee enquiry' })).toBeVisible();
   });
 });

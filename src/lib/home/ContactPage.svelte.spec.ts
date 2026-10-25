@@ -29,7 +29,7 @@ describe('ContactPage', () => {
       .element(contact.getByRole('textbox', { name: 'Subject *' }))
       .toHaveValue("I'd like to get in touch");
 
-    const submit = page.getByRole('button', { name: 'Get In Touch' });
+    const submit = page.getByRole('button', { name: 'Get in touch' });
     await expect.element(submit).toHaveStyle({
       backgroundColor: 'rgb(92, 16, 34)',
       color: 'rgb(255, 255, 255)'

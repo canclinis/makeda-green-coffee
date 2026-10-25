@@ -49,6 +49,7 @@ Every change that touches pages, media, or copy considers **accessibility**, **c
 
 - **Crawlable document.** Important copy, links, and structure live in the HTML. Prefer real text and links over text locked in images or video-only content. Server-rendered routes stay readable without running client JS for the main content.
 - **Semantics.** Real headings in order, landmarks (`nav`, `main`, `footer`, labelled regions), buttons and links that say what they do, `alt` on informative images (empty `alt` only when decorative). Keyboard can reach and operate interactive controls.
+- **Form fields on mobile.** Text inputs, selects, and textareas use **at least 16px** computed font size so iOS Safari does not zoom on focus. Field labels and chrome type can stay smaller; do not block zoom in the viewport meta tag.
 - **Titles and meta.** Each route has a clear `<title>`; keep names and topics that matter for search in the document.
 - **Media.** Size and compress images and video for the slot they fill; set width/height (or aspect ratio) to limit layout shift; lazy-load below-the-fold media; keep the LCP candidate eager and unblocked.
 - **Weight.** Ship the smallest assets and CSS that still match the brand. Extra fonts, scripts, and client work on first paint only when the feature needs them.

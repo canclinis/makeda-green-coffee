@@ -130,6 +130,7 @@
 
 <video
   bind:this={video}
+  class="film"
   {src}
   {poster}
   {width}
@@ -143,3 +144,12 @@
   onpause={onPause}
   onended={onEnded}
 ></video>
+
+<style>
+  @media (min-width: 640px) and (max-width: 759px) {
+    .film {
+      max-height: 320px;
+      object-fit: cover;
+    }
+  }
+</style>

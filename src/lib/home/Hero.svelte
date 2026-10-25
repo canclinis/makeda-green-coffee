@@ -24,20 +24,15 @@
   </div>
 </section>
 
-<section style="background: var(--makeda-coffee); color: #fff; padding: 28px 0">
-  <div
-    class="container"
-    style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px"
-  >
-    <p
-      style="flex: 1 1 16rem; margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase"
-    >
+<section class="hero-cta">
+  <div class="container hero-cta-inner">
+    <p class="hero-cta-copy">
       Bring home a unique coffee, a symbol of strength and courage.
     </p>
     <Button variant="default" onclick={() => (contactOpen = true)}>Order now</Button>
     <Modal
       bind:open={contactOpen}
-      title="Get In Touch"
+      title="Get in touch"
       image={{
         src: '/images/volcano.jpg',
         alt: 'A volcano rising above dense forest',
@@ -53,3 +48,55 @@
     </Modal>
   </div>
 </section>
+
+<style>
+  .hero-cta {
+    background: var(--makeda-coffee);
+    color: #fff;
+    padding: 28px 0;
+  }
+
+  .hero-cta-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .hero-cta-copy {
+    flex: 1 1 16rem;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    line-height: 1.45;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 639px) {
+    .hero-cta {
+      padding: 20px 0 24px;
+    }
+
+    .hero-cta-inner {
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 20px;
+      width: 100%;
+      margin-inline: 0;
+    }
+
+    .hero-cta-copy {
+      flex: none;
+      padding-inline: 20px;
+    }
+
+    .hero-cta-inner :global(.button) {
+      /* Page section frame is 12px each side. */
+      width: calc(100% - 24px);
+      margin-inline: auto;
+    }
+  }
+</style>

@@ -15,9 +15,10 @@
   let inquirySubject = $state('');
   let lotOpen = $state(false);
   let selectedLot = $state<CoffeeLot | null>(null);
+  let activeCategory = $state<'specialty' | 'commercial'>('specialty');
 
   async function requestInfo(lot: CoffeeLot) {
-    inquirySubject = `Inquiry: ${lot.origin}, ${lot.crop}`;
+    inquirySubject = `Enquiry: ${lot.origin}, ${lot.crop}`;
     await tick();
     inquiryOpen = true;
   }
@@ -41,16 +42,40 @@
 
 <Page>
   <PageSection headingId="our-coffee-heading" title="OUR COFFEE">
+    <div class="lot-tabs" role="tablist" aria-label="Coffee categories">
+      <button
+        type="button"
+        class="lot-tab"
+        role="tab"
+        id="lot-tab-specialty"
+        aria-selected={activeCategory === 'specialty'}
+        aria-controls="lot-panel-specialty"
+        onclick={() => (activeCategory = 'specialty')}
+      >
+        Specialty
+      </button>
+      <button
+        type="button"
+        class="lot-tab"
+        role="tab"
+        id="lot-tab-commercial"
+        aria-selected={activeCategory === 'commercial'}
+        aria-controls="lot-panel-commercial"
+        onclick={() => (activeCategory = 'commercial')}
+      >
+        Commercial
+      </button>
+    </div>
     <div style="overflow-x: auto">
       <table>
         <caption>Coffee lots</caption>
-        {@render lotGroup('Specialty coffee', specialty)}
-        {@render lotGroup('Commercial coffee', commercial)}
+        {@render lotGroup('Specialty coffee', specialty, 'specialty')}
+        {@render lotGroup('Commercial coffee', commercial, 'commercial')}
       </table>
     </div>
     <Modal
       bind:open={inquiryOpen}
-      title="Coffee inquiry"
+      title="Coffee enquiry"
       image={{
         src: '/images/lots/dried-on-bed.jpg',
         alt: 'Hands sorting green coffee beans on a drying bed'
@@ -75,8 +100,13 @@
   </PageSection>
 </Page>
 
-{#snippet lotGroup(title: string, rows: CoffeeLot[])}
-  <tbody>
+{#snippet lotGroup(title: string, rows: CoffeeLot[], category: 'specialty' | 'commercial')}
+  <tbody
+    id="lot-panel-{category}"
+    class="lot-group"
+    class:is-active={activeCategory === category}
+    aria-labelledby="lot-tab-{category}"
+  >
     <tr>
       <th class="group" colspan="5" scope="rowgroup">{title}</th>
     </tr>
@@ -89,7 +119,7 @@
     </tr>
     {#each rows as lot (lot.id)}
       <tr onclick={() => openLot(lot)} onkeydown={(event) => onRowKeydown(event, lot)} tabindex="0">
-        <td data-label="Origin" style="font-weight: 600">{lot.origin}</td>
+        <td class="lot-origin" data-label="Origin">{lot.origin}</td>
         <td class="center" data-label="Crop">{lot.crop}</td>
         <td class="center" data-label="Bags">{lot.bags}</td>
         <td class="center" data-label="Status">{lot.status}</td>
@@ -110,6 +140,43 @@
 {/snippet}
 
 <style>
+  .lot-tabs {
+    display: none;
+  }
+
+  .lot-tab {
+    flex: 1;
+    min-height: 44px;
+    margin: 0;
+    padding: 12px 8px 10px;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    background: transparent;
+    color: rgba(17, 17, 17, 0.52);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.25;
+    text-transform: none;
+    cursor: pointer;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .lot-tab[aria-selected='true'] {
+    color: var(--makeda-coffee);
+    border-bottom-color: var(--makeda-coffee);
+    font-weight: 700;
+  }
+
+  .lot-tab:focus-visible {
+    outline: 2px solid var(--makeda-coffee);
+    outline-offset: -2px;
+  }
+
   table {
     width: 100%;
     border-collapse: collapse;
@@ -173,7 +240,18 @@
     outline-offset: -2px;
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 959px) {
+    .lot-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    tbody.lot-group:not(.is-active) {
+      display: none;
+    }
+
     table,
     tbody,
     tr,
@@ -181,6 +259,18 @@
     th {
       display: block;
       width: auto;
+    }
+
+    tbody.lot-group.is-active {
+      display: block;
+    }
+
+    tr:has(> .group) {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
     }
 
     tr:has(th[scope='col']) {
@@ -192,28 +282,70 @@
     }
 
     tr:has(td) {
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      margin: 0 0 14px;
+      padding: 16px 14px 14px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: #fff;
+    }
+
+    tr:has(td):last-child {
+      margin-bottom: 0;
+    }
+
+    td {
+      padding: 0;
+      border-bottom: 0;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    td.lot-origin {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    td.lot-origin::before {
+      display: none;
+    }
+
+    td[data-label]:not(.lot-origin) {
+      display: grid;
+      grid-template-columns: 5.75rem 1fr;
+      gap: 4px 10px;
+      align-items: baseline;
+      padding: 5px 0;
     }
 
     td[data-label]::before {
       content: attr(data-label);
-      display: block;
-      margin-bottom: 2px;
-      font-size: 11px;
+      margin: 0;
+      color: rgba(17, 17, 17, 0.55);
+      font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
+      line-height: 1.3;
       text-transform: uppercase;
     }
 
-    td {
-      padding: 2px 0;
-      border-bottom: 0;
+    td[data-label='Status'] {
+      color: rgba(17, 17, 17, 0.72);
       font-size: 13px;
     }
 
     td:last-child {
-      padding-top: 12px;
+      padding-top: 14px;
+    }
+
+    .center {
+      text-align: left;
+    }
+
+    td:last-child :global(.button) {
+      width: 100%;
     }
   }
 </style>

@@ -9,10 +9,10 @@ describe('ContactForm', () => {
     vi.unstubAllGlobals();
   });
 
-  it('keeps Get In Touch readable when hovered', async () => {
+  it('keeps Get in touch readable when hovered', async () => {
     render(ContactForm, { props: { headingId: 'contact-heading' } });
 
-    const submit = page.getByRole('button', { name: 'Get In Touch' });
+    const submit = page.getByRole('button', { name: 'Get in touch' });
     await submit.hover();
 
     await expect.element(submit).toHaveStyle({
@@ -53,7 +53,7 @@ describe('ContactForm', () => {
     await page.getByLabelText('Subject *').fill('Green coffee');
     await page.getByLabelText('Message *').fill('Hello from the roastery');
     await page.getByRole('checkbox', { name: /privacy policy/ }).click();
-    await page.getByRole('button', { name: 'Get In Touch' }).click();
+    await page.getByRole('button', { name: 'Get in touch' }).click();
 
     await expect.element(page.getByText('Your message has been sent.')).toBeVisible();
 

@@ -3,12 +3,14 @@
   import type { CoffeeLot } from './coffee-lots';
 
   let { lot }: { lot: CoffeeLot } = $props();
+
+  const bags = $derived(lot.bags === '1' ? '1 bag' : `${lot.bags} bags`);
 </script>
 
 <p
   style="margin: 0 0 0.75rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase"
 >
-  {lot.crop} crop · {lot.bags} bags · {lot.status}
+  {lot.crop} crop · {bags} · {lot.status}
 </p>
 {#if lot.selection}
   <p
@@ -34,19 +36,6 @@
     </tr>
   </tbody>
 </table>
-
-{#if lot.highlights?.length}
-  <h3
-    style="margin: 0 0 0.75rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase"
-  >
-    Highlights
-  </h3>
-  <ul style="margin: 0 0 1.25rem; padding-left: 1.1rem; line-height: 1.5">
-    {#each lot.highlights as highlight (highlight)}
-      <li>{highlight}</li>
-    {/each}
-  </ul>
-{/if}
 
 {#if lot.profileNote}
   <p style="margin: 0 0 1.25rem; line-height: 1.55; font-size: 0.85rem; opacity: 0.85">
@@ -105,5 +94,23 @@
   tr:last-child th,
   tr:last-child td {
     border-bottom: 0;
+  }
+
+  @media (max-width: 639px) {
+    th,
+    td {
+      display: block;
+      width: auto;
+    }
+
+    th {
+      padding-bottom: 0.15rem;
+      border-bottom: 0;
+      background: transparent;
+    }
+
+    td {
+      padding-top: 0;
+    }
   }
 </style>
