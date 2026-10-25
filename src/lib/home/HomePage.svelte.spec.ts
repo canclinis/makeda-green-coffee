@@ -32,28 +32,21 @@ describe('HomePage', () => {
 		await expect.element(page.getByLabelText('Hero film')).toBeInTheDocument();
 
 		await expect.element(page.getByRole('heading', { name: 'The Project' })).toBeInTheDocument();
-		await expect.element(page.getByText(/Resistance Coffee/)).toBeInTheDocument();
+		await expect.element(page.getByText(/symbol of resistance/)).toBeInTheDocument();
 		await expect.element(page.getByRole('heading', { name: /OUR MISSION/ })).toBeInTheDocument();
-		await expect.element(page.getByRole('heading', { name: /OUR COFFEE/ })).toBeInTheDocument();
-		const lots = page.getByRole('table', { name: 'Specialty coffee, crop 2026' });
-		await expect.element(lots.getByRole('columnheader', { name: 'Origin' })).toBeInTheDocument();
-		await expect.element(lots.getByRole('columnheader', { name: 'Bags' })).toBeInTheDocument();
-		await expect.element(lots.getByRole('columnheader', { name: 'Status' })).toBeInTheDocument();
-		for (const [origin, bags] of [
-			['Arabica Fully Washed K3 Microlot Special Selection', '42 × 60 kg'],
-			['Arabica Fully Washed K3', '92 × 60 kg'],
-			['Arabica Natural K3 Special Selection', '84 × 60 kg'],
-			['Arabica Natural K3', '100 × 60 kg']
-		]) {
-			const row = lots.getByRole('row').filter({ hasText: origin }).filter({ hasText: bags });
-			await expect
-				.element(row.getByRole('cell', { name: origin, exact: true }))
-				.toBeInTheDocument();
-			await expect.element(row.getByRole('cell', { name: bags, exact: true })).toBeInTheDocument();
-			await expect
-				.element(row.getByRole('cell', { name: 'Arriving soon', exact: true }))
-				.toBeInTheDocument();
-		}
+		const coffee = page.getByRole('region', { name: /OUR COFFEE/ });
+		await expect.element(coffee).toBeInTheDocument();
+		await expect.element(coffee.getByText(/Lake Kivu/)).toBeInTheDocument();
+		await expect
+			.element(
+				coffee.getByRole('img', {
+					name: 'A farmer letting washed coffee beans fall through his hands'
+				})
+			)
+			.toBeInTheDocument();
+		await expect
+			.element(page.getByRole('link', { name: 'Discover our coffees' }))
+			.toHaveAttribute('href', '/our-coffee');
 
 		await page.getByRole('button', { name: 'Order now' }).click();
 		const dialog = page.getByRole('dialog', { name: 'Get In Touch' });

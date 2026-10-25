@@ -34,3 +34,7 @@ vite.config.ts.timestamp-*
 
 # Local Cursor rules (machine-specific)
 .cursor/rules/*.local.mdc
+
+# Local configuration files
+prettier.config.js
+.vscode/settings.json
