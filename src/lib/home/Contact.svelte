@@ -1,5 +1,16 @@
 <script lang="ts">
 	import ContactForm from './ContactForm.svelte';
+
+	const subject = 'Makeda Green Coffee';
+
+	let contactForm = $state<HTMLFormElement | null>(null);
+
+	function openForm() {
+		contactForm?.scrollIntoView({ block: 'start' });
+		contactForm
+			?.querySelector<HTMLInputElement>('input[name="name"]')
+			?.focus({ preventScroll: true });
+	}
 </script>
 
 <section id="contact" class="contact" aria-labelledby="contact-heading">
@@ -48,17 +59,16 @@
 						/>
 					</svg>
 				</a>
-			</div>
-			<div class="contact-links">
-				<a class="button button-ghost" href="mailto:info@makedagreencoffee.com">
+				<button class="icon-button" type="button" aria-label="Email" onclick={openForm}>
 					<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
 						<path
 							fill="currentColor"
 							d="M2 6.5A2.5 2.5 0 0 1 4.5 4h15A2.5 2.5 0 0 1 22 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 17.5v-11Zm2.2-.5 7.3 5.1a.8.8 0 0 0 .9 0L20 6H4.2ZM20 8.2l-6.7 4.7a2.3 2.3 0 0 1-2.6 0L4 8.2V17.5c0 .3.2.5.5.5h15c.3 0 .5-.2.5-.5V8.2Z"
 						/>
 					</svg>
-					Contact Us
-				</a>
+				</button>
+			</div>
+			<div class="contact-links">
 				<a class="phone" href="tel:+46708749626">
 					<img src="/images/icon-phone.svg" alt="" width="18" height="18" />
 					+ 46 70 874 96 26
@@ -70,6 +80,6 @@
 			</div>
 		</div>
 
-		<ContactForm headingId="contact-heading" />
+		<ContactForm headingId="contact-heading" initialSubject={subject} bind:element={contactForm} />
 	</div>
 </section>

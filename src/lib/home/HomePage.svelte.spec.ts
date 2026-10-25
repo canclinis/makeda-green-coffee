@@ -48,4 +48,18 @@ describe('HomePage', () => {
 		await expect.element(dialog.getByLabelText('Message *')).toBeVisible();
 		await expect.element(dialog.getByRole('checkbox', { name: /privacy policy/ })).toBeVisible();
 	});
+
+	it('opens the contact form from the email icon with a subject already filled', async () => {
+		render(HomePage);
+
+		const contact = page.getByRole('region', { name: 'Get In Touch' });
+		await expect.element(contact.getByRole('link', { name: 'Contact Us' })).not.toBeInTheDocument();
+
+		await contact.getByRole('button', { name: 'Email' }).click();
+
+		await expect.element(contact.getByRole('textbox', { name: 'Name *' })).toHaveFocus();
+		await expect
+			.element(contact.getByRole('textbox', { name: 'Subject *' }))
+			.toHaveValue('Makeda Green Coffee');
+	});
 });

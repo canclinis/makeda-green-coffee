@@ -130,28 +130,20 @@ p {
 	border-color: #fff;
 }
 
-.button-ghost {
-	background: transparent;
-	color: #fff;
-	border-color: rgba(255, 255, 255, 0.35);
-}
-
-.button-ghost:hover {
-	background: #fff;
-	color: var(--makeda-ink);
-	border-color: #fff;
-}
-
 .icon-button {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	width: 36px;
 	height: 36px;
+	padding: 0;
 	border: 1px solid rgba(255, 255, 255, 0.35);
 	border-radius: 50%;
+	background: transparent;
 	color: #fff;
+	font: inherit;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 .icon-button:hover {
@@ -507,6 +499,10 @@ p {
 	letter-spacing: 0.18em;
 	line-height: 1.2;
 	text-transform: uppercase;
+}
+
+.contact-form {
+	scroll-margin-top: 8.5rem;
 }
 
 @media (min-width: 960px) {
