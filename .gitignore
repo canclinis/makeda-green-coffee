@@ -31,3 +31,6 @@ vite.config.ts.timestamp-*
 /coverage/
 *.log
 *.tsbuildinfo
+
+# Local Cursor rules (machine-specific)
+.cursor/rules/*.local.mdc
