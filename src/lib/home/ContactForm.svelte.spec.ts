@@ -1,11 +1,39 @@
 import { page } from 'vitest/browser';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import '../design/design.css';
 import ContactForm from './ContactForm.svelte';
 
 describe('ContactForm', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
+  });
+
+  it('keeps Get In Touch readable when hovered', async () => {
+    render(ContactForm, { props: { headingId: 'contact-heading' } });
+
+    const submit = page.getByRole('button', { name: 'Get In Touch' });
+    await submit.hover();
+
+    await expect.element(submit).toHaveStyle({
+      color: 'rgb(92, 16, 34)',
+      backgroundColor: 'rgb(255, 255, 255)',
+      borderTopColor: 'rgb(92, 16, 34)'
+    });
+  });
+
+  it('links the consent box to the privacy policy without ticking it', async () => {
+    render(ContactForm, { props: { headingId: 'contact-heading' } });
+
+    const policy = page.getByRole('link', { name: 'privacy policy' });
+    await expect.element(policy).toHaveAttribute('href', '/privacy');
+    await expect.element(policy).toHaveAttribute('target', '_blank');
+
+    const link = await policy.findElement();
+    link.addEventListener('click', (event) => event.preventDefault());
+    link.click();
+
+    await expect.element(page.getByRole('checkbox', { name: /privacy policy/ })).not.toBeChecked();
   });
 
   it('sends the message and confirms it was sent', async () => {

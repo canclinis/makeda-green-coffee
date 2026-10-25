@@ -38,3 +38,4 @@ vite.config.ts.timestamp-*
 # Local configuration files
 prettier.config.js
 .vscode/settings.json
+AGENTS.local.md

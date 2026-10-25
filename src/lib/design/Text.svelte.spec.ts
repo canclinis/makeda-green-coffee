@@ -17,6 +17,6 @@ describe('Text', () => {
 
     const paragraph = page.elementLocator(container.querySelector('p') as HTMLElement);
     await expect.element(paragraph).toHaveTextContent('Grown on volcanic soil.');
-    await expect.element(paragraph).toHaveClass('paragraph', 'copy');
+    await expect.element(paragraph).toHaveClass('copy');
   });
 });

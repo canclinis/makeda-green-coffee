@@ -1,4 +1,5 @@
 <script lang="ts">
+  import '../lib/design/design.css';
   import type { LayoutProps } from './$types';
 
   let { children }: LayoutProps = $props();

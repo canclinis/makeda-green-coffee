@@ -9,18 +9,18 @@ function text(content: string) {
 }
 
 describe('Button', () => {
-  it('renders a light button', async () => {
-    render(Button, { props: { children: text('Order now') } });
+  it('renders a white button on a dark field', async () => {
+    render(Button, { props: { variant: 'default', children: text('Order now') } });
 
     const order = page.getByRole('button', { name: 'Order now' });
     await expect.element(order).toBeInTheDocument();
     await expect.element(order).toHaveClass('button');
+    await expect.element(order).not.toHaveClass('button-burgundy');
   });
 
-  it('renders a burgundy link', async () => {
+  it('renders a burgundy link by default', async () => {
     render(Button, {
       props: {
-        variant: 'burgundy',
         href: '/our-coffee',
         children: text('Discover our coffees')
       }
@@ -29,25 +29,6 @@ describe('Button', () => {
     const discover = page.getByRole('link', { name: 'Discover our coffees' });
     await expect.element(discover).toHaveAttribute('href', '/our-coffee');
     await expect.element(discover).toHaveClass('button', 'button-burgundy');
-  });
-
-  it('renders an icon link', async () => {
-    render(Button, {
-      props: {
-        variant: 'icon',
-        href: 'https://instagram.com/makedagreencoffee',
-        'aria-label': 'Instagram',
-        target: '_blank',
-        rel: 'noreferrer',
-        children: text('icon')
-      }
-    });
-
-    const instagram = page.getByRole('link', { name: 'Instagram' });
-    await expect
-      .element(instagram)
-      .toHaveAttribute('href', 'https://instagram.com/makedagreencoffee');
-    await expect.element(instagram).toHaveClass('icon-button');
   });
 
   it('renders a disabled submit button', async () => {

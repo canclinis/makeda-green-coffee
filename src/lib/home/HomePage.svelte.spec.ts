@@ -23,7 +23,7 @@ describe('HomePage', () => {
       .toHaveAttribute('href', '/about');
     await expect
       .element(nav.getByRole('link', { name: 'Contact', exact: true }))
-      .toBeInTheDocument();
+      .toHaveAttribute('href', '/contact');
 
     await expect
       .element(page.getByRole('region', { name: 'Makeda Green Coffee' }))
@@ -54,6 +54,9 @@ describe('HomePage', () => {
     const dialog = page.getByRole('dialog', { name: 'Get In Touch' });
     await expect.element(dialog).toBeVisible();
     await expect
+      .element(dialog.getByRole('img', { name: 'A volcano rising above dense forest' }))
+      .toBeVisible();
+    await expect
       .element(dialog.getByRole('textbox', { name: 'Subject *' }))
       .toHaveValue("I'd like to order coffee");
 
@@ -63,19 +66,25 @@ describe('HomePage', () => {
     await expect.element(dialog.getByLabelText('Subject *')).toBeVisible();
     await expect.element(dialog.getByLabelText('Message *')).toBeVisible();
     await expect.element(dialog.getByRole('checkbox', { name: /privacy policy/ })).toBeVisible();
-  });
-
-  it('opens the contact form from the email icon with a subject already filled', async () => {
-    render(HomePage);
-
-    const contact = page.getByRole('region', { name: 'Get In Touch' });
-    await expect.element(contact.getByRole('link', { name: 'Contact Us' })).not.toBeInTheDocument();
-
-    await contact.getByRole('button', { name: 'Email' }).click();
-
-    await expect.element(contact.getByRole('textbox', { name: 'Name *' })).toHaveFocus();
     await expect
-      .element(contact.getByRole('textbox', { name: 'Subject *' }))
-      .toHaveValue("I'd like to get in touch");
+      .element(page.getByRole('region', { name: 'Get In Touch' }))
+      .not.toBeInTheDocument();
+
+    const footer = page.getByRole('contentinfo');
+    await expect
+      .element(footer.getByRole('link', { name: 'Vimeo' }))
+      .toHaveAttribute('href', 'https://vimeo.com/user192364448');
+    await expect
+      .element(footer.getByRole('link', { name: 'Instagram' }))
+      .toHaveAttribute('href', 'https://instagram.com/makedagreencoffee');
+    await expect
+      .element(footer.getByRole('link', { name: 'Email' }))
+      .toHaveAttribute('href', '/contact');
+    await expect
+      .element(footer.getByRole('link', { name: '+ 46 70 874 96 26' }))
+      .toHaveAttribute('href', 'tel:+46708749626');
+    await expect
+      .element(footer.getByRole('link', { name: '+ 39 349 76 46 077' }))
+      .toHaveAttribute('href', 'tel:+393497646077');
   });
 });

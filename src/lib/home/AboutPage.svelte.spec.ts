@@ -17,5 +17,8 @@ describe('AboutPage', () => {
           .getByRole('link', { name: 'About', exact: true })
       )
       .toHaveAttribute('href', '/about');
+    await expect
+      .element(page.getByRole('contentinfo').getByRole('link', { name: 'Vimeo' }))
+      .toHaveAttribute('href', 'https://vimeo.com/user192364448');
   });
 });

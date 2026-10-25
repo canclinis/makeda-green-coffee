@@ -1,0 +1,11 @@
+---
+description: How Makeda writes Svelte and CSS. Use when adding styles, classes, layout, or components.
+globs: src/**/*.svelte,src/**/*.css
+alwaysApply: false
+---
+
+# Makeda code
+
+Before adding a style, a class, a layout, or a component, read `docs/code/style.md` and follow it.
+
+**KISS** and **readability**: one element's properties go in its `style` attribute; extract a component when reused (not before); keep files under 250 lines; consider accessibility, crawlers, CWV, and SEO on every page change.

@@ -6,8 +6,8 @@
   let contactOpen = $state(false);
 </script>
 
-<section id="top" class="hero" aria-label="Makeda Green Coffee">
-  <div class="hero-video">
+<section id="top" aria-label="Makeda Green Coffee">
+  <div>
     <video
       src="/video/hero.mp4"
       poster="/images/hero-poster.jpg"
@@ -20,15 +20,52 @@
   </div>
 </section>
 
-<section class="order-bar">
-  <div class="container order-bar-inner">
-    <p class="order-line">Bring home a unique coffee, a symbol of strength and courage.</p>
-    <Button onclick={() => (contactOpen = true)}>Order now</Button>
-    <Modal bind:open={contactOpen} labelledBy="contact-modal-heading">
+<section style="background: var(--makeda-coffee); color: #fff; padding: 28px 0">
+  <div
+    class="container"
+    style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px"
+  >
+    <p
+      style="flex: 1 1 16rem; margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase"
+    >
+      Bring home a unique coffee, a symbol of strength and courage.
+    </p>
+    <Button variant="default" onclick={() => (contactOpen = true)}>Order now</Button>
+    <Modal
+      bind:open={contactOpen}
+      title="Get In Touch"
+      image={{
+        src: '/images/volcano.jpg',
+        alt: 'A volcano rising above dense forest',
+        objectPosition: 'top'
+      }}
+    >
       <ContactForm
         headingId="contact-modal-heading"
+        hideHeading
         initialSubject="I'd like to order coffee"
+        submitLabel="Order now"
       />
     </Modal>
   </div>
 </section>
+
+<style>
+  #top {
+    scroll-margin-top: 72px;
+    line-height: 0;
+  }
+
+  #top div {
+    overflow: hidden;
+    line-height: 0;
+  }
+
+  #top video {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* Some frames have a 1px black row on the top and the bottom. */
+    transform: scale(1.02);
+  }
+</style>

@@ -2,9 +2,10 @@
   import type { Snippet } from 'svelte';
   import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 
-  type Variant = 'default' | 'burgundy' | 'icon';
+  type Variant = 'default' | 'burgundy';
 
   type Common = {
+    /** White button for dark fields (e.g. burgundy band). Default is burgundy. */
     variant?: Variant;
     children: Snippet;
     class?: string;
@@ -23,7 +24,7 @@
     );
 
   let {
-    variant = 'default',
+    variant = 'burgundy',
     href,
     type = 'button',
     children,
@@ -32,13 +33,7 @@
   }: Props = $props();
 
   const classes = $derived(
-    [
-      variant === 'icon' ? 'icon-button' : 'button',
-      variant === 'burgundy' ? 'button-burgundy' : '',
-      className
-    ]
-      .filter(Boolean)
-      .join(' ')
+    ['button', variant === 'burgundy' ? 'button-burgundy' : '', className].filter(Boolean).join(' ')
   );
 </script>
 
@@ -53,3 +48,42 @@
     {@render children()}
   </button>
 {/if}
+
+<style>
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 36px;
+    border: 1px solid transparent;
+    background: #fff;
+    color: var(--makeda-ink);
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background: transparent;
+    color: #fff;
+    border-color: #fff;
+  }
+
+  .button-burgundy {
+    background: var(--makeda-coffee);
+    color: #fff;
+    border-color: var(--makeda-coffee);
+  }
+
+  .button-burgundy:hover {
+    background: #fff;
+    color: var(--makeda-coffee);
+    border-color: var(--makeda-coffee);
+  }
+</style>

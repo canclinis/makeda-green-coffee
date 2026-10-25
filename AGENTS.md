@@ -9,6 +9,10 @@
 - **Visual / layout / UI chrome** → read [`docs/brand/visual-language.md`](docs/brand/visual-language.md). It is the brand: color, type, logo, photography, and page structure.
 - **Copy vs company profile** → treat the website English as live product copy. The Italian profile text in that file is the reference. Report gaps; do not silently rewrite page copy to match it.
 
+## Code
+
+- **Svelte, CSS, layout, components** → read [`docs/code/style.md`](docs/code/style.md) before adding a style, a layout, or a component. KISS, readability, accessibility/crawlers, CWV/SEO.
+
 ---
 
 You are able to use the Svelte MCP server, where you have access to comprehensive Svelte 5 and SvelteKit documentation. Here's how to use the available tools effectively:

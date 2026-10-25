@@ -1,13 +1,13 @@
-import { page } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import OurCoffeePage from './OurCoffeePage.svelte';
 
 const arriving = [
-  ['Arabica Fully Washed K3 Microlot Special Selection', '2026', '42 × 60 kg'],
-  ['Arabica Fully Washed K3', '2026', '92 × 60 kg'],
-  ['Arabica Natural K3 Special Selection', '2026', '84 × 60 kg'],
-  ['Arabica Natural K3', '2026', '100 × 60 kg']
+  ['Fully Washed K3 Special Selection', '2026', '42'],
+  ['Arabica Fully Washed K3', '2026', '92'],
+  ['Arabica Natural K3 Special Selection', '2026', '84'],
+  ['Arabica Natural K3', '2026', '100']
 ] as const;
 
 describe('OurCoffeePage', () => {
@@ -17,7 +17,10 @@ describe('OurCoffeePage', () => {
     const nav = page.getByRole('navigation', { name: 'Primary' });
     await expect
       .element(nav.getByRole('link', { name: 'Contact', exact: true }))
-      .toHaveAttribute('href', '/#contact');
+      .toHaveAttribute('href', '/contact');
+    await expect
+      .element(page.getByRole('contentinfo').getByRole('link', { name: 'Vimeo' }))
+      .toHaveAttribute('href', 'https://vimeo.com/user192364448');
 
     const specialty = page.getByRole('table', { name: 'Specialty coffee' });
     await expect.element(specialty.getByRole('columnheader', { name: 'Crop' })).toBeInTheDocument();
@@ -38,7 +41,7 @@ describe('OurCoffeePage', () => {
       .filter({ hasText: 'Arabica Fully Washed K3 Microlot Special Selection' })
       .filter({ hasText: 'In store' })
       .filter({ hasText: '2025' })
-      .filter({ hasText: '2 × 60 kg' });
+      .filter({ hasText: '2' });
     await expect.element(inStore).toBeInTheDocument();
 
     const commercial = page.getByRole('table', { name: 'Commercial coffee' });
@@ -49,13 +52,13 @@ describe('OurCoffeePage', () => {
       .getByRole('row')
       .filter({ hasText: 'Arabica Natural K4' })
       .filter({ hasText: '2025' })
-      .filter({ hasText: '1 × 60 kg' })
+      .filter({ hasText: '1' })
       .filter({ hasText: 'In store' });
     await expect.element(k4).toBeInTheDocument();
 
     await k4.getByRole('button', { name: 'Order' }).click();
 
-    const dialog = page.getByRole('dialog', { name: 'Get In Touch' });
+    const dialog = page.getByRole('dialog', { name: 'Coffee inquiry' });
     await expect.element(dialog).toBeVisible();
     await expect
       .element(dialog.getByRole('textbox', { name: 'Subject *' }))
@@ -69,7 +72,35 @@ describe('OurCoffeePage', () => {
       .toHaveValue('Inquiry: Arabica Fully Washed K3 Microlot Special Selection, 2025');
   });
 
-  it('opens a placeholder for the clicked lot', async () => {
+  it('shows a header photo when a lot is opened', async () => {
+    render(OurCoffeePage);
+
+    const commercial = page.getByRole('table', { name: 'Commercial coffee' });
+    await commercial.getByRole('row').filter({ hasText: 'Natural K4' }).click();
+
+    const dialog = page.getByRole('dialog', { name: 'Natural K4' });
+    await expect
+      .element(dialog.getByRole('img', { name: 'A farmer reaching into the coffee tree' }))
+      .toBeVisible();
+  });
+
+  it('shows a header photo on the coffee inquiry', async () => {
+    render(OurCoffeePage);
+
+    const commercial = page.getByRole('table', { name: 'Commercial coffee' });
+    await commercial.getByRole('row').filter({ hasText: 'Natural K4' }).getByRole('button', { name: 'Order' }).click();
+
+    const dialog = page.getByRole('dialog', { name: 'Coffee inquiry' });
+    await expect
+      .element(
+        dialog.getByRole('img', {
+          name: 'Hands sorting green coffee beans on a drying bed'
+        })
+      )
+      .toBeVisible();
+  });
+
+  it('opens lot details and PDF downloads for the clicked row', async () => {
     render(OurCoffeePage);
 
     const commercial = page.getByRole('table', { name: 'Commercial coffee' });
@@ -78,16 +109,13 @@ describe('OurCoffeePage', () => {
 
     const k4Dialog = page.getByRole('dialog', { name: 'Arabica Natural K4' });
     await expect.element(k4Dialog).toBeVisible();
+    await expect.element(k4Dialog.getByText(/approachable natural-process offer/i)).toBeVisible();
+    await expect.element(k4Dialog.getByText(/2025 crop · 1 × 60 kg · In store/i)).toBeVisible();
     await expect
-      .element(k4Dialog.getByText('More about this coffee is coming soon.'))
-      .toBeVisible();
-    await expect.element(k4Dialog.getByText('2025')).toBeVisible();
-    await expect.element(k4Dialog.getByText('1 × 60 kg')).toBeVisible();
+      .element(k4Dialog.getByRole('link', { name: /Download Origin profile/i }))
+      .toHaveAttribute('href', '/coffee-sheets/natural-k4-2025.pdf');
 
-    await k4Dialog.getByRole('button', { name: 'Close' }).click();
-    await expect
-      .element(page.getByText('More about this coffee is coming soon.'))
-      .not.toBeVisible();
+    await userEvent.keyboard('{Escape}');
 
     const specialty = page.getByRole('table', { name: 'Specialty coffee' });
     const inStore = specialty
@@ -101,17 +129,16 @@ describe('OurCoffeePage', () => {
       name: 'Arabica Fully Washed K3 Microlot Special Selection'
     });
     await expect.element(microlot).toBeVisible();
-    await expect.element(microlot.getByText('2 × 60 kg')).toBeVisible();
     await expect
-      .element(microlot.getByText('More about this coffee is coming soon.'))
+      .element(microlot.getByText(/Best of Congo Cooperative Competition 2025/i))
       .toBeVisible();
+    await expect
+      .element(microlot.getByRole('link', { name: /Download SCA cupping note/i }))
+      .toHaveAttribute('href', '/coffee-sheets/cupping-note-sca-2025-microlot.pdf');
 
-    await microlot.getByRole('button', { name: 'Close' }).click();
+    await userEvent.keyboard('{Escape}');
 
     await k4.getByRole('button', { name: 'Order' }).click();
-    await expect.element(page.getByRole('dialog', { name: 'Get In Touch' })).toBeVisible();
-    await expect
-      .element(page.getByText('More about this coffee is coming soon.'))
-      .not.toBeVisible();
+    await expect.element(page.getByRole('dialog', { name: 'Coffee inquiry' })).toBeVisible();
   });
 });

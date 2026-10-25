@@ -16,6 +16,5 @@ describe('SectionTitle', () => {
     const heading = page.getByRole('heading', { name: 'OUR MISSION', level: 2 });
     await expect.element(heading).toBeInTheDocument();
     await expect.element(heading).toHaveAttribute('id', 'mission-heading');
-    await expect.element(heading).toHaveClass('section-title');
   });
 });

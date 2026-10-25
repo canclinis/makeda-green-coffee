@@ -33,6 +33,8 @@ The symbol is one solid white silhouette: the shape of Africa, and inside it a w
 
 The wordmark sits centered under the symbol, white: Makeda, then GREEN COFFEE.
 
+Site assets in `static/images/`: full lockups `logo-hero.png` (burgundy, horizontal) and `logo-footer.png` (white, vertical); symbol only `logo-symbol-burgundy.jpg` (source: Drive `Logo Instagram3.jpg`, burgundy mark on white, no wordmark).
+
 On the cover the plate is a tall block in the top-right. Its bottom edge drops a little below the white block beside it and overlaps the photograph. On the site the same mark is small: burgundy logo in the white nav, and again in the footer.
 
 The cover also has a separate black coffee-bean glyph, vertical, with the center crease, centered under COMPANY PROFILE. That glyph is cover-only. It is not the logo.
@@ -108,14 +110,15 @@ One column of rows in the white field, with room around the stack. A simple blac
 
 The site uses the same materials. It is not a framed printout of the sheet.
 
-| Surface             | Treatment                                                                                       |
-| ------------------- | ----------------------------------------------------------------------------------------------- |
-| Sticky nav          | White strip, burgundy logo, uppercase Montserrat links                                          |
-| Hero                | Full-bleed video, picture to the viewport edges                                                 |
-| Order / contact CTA | Burgundy band, white uppercase type, white button                                               |
-| Project / Coffee    | White body; section labels use the black title bar                                              |
-| Mission / About     | Black title bar, then a single white column                                                     |
-| Contact / footer    | Black legal strip; the form is high contrast, on a dark field or a white field inside the frame |
+| Surface             | Treatment                                                                             |
+| ------------------- | ------------------------------------------------------------------------------------- |
+| Sticky nav          | White strip, burgundy logo, uppercase Montserrat links                                |
+| Hero                | Full-bleed video, picture to the viewport edges                                       |
+| Order / contact CTA | Burgundy band, white uppercase type, white button                                     |
+| Project / Coffee    | White body; section labels use the black title bar                                    |
+| Mission / About     | Black title bar, then a single white column                                           |
+| Footer              | Black strip, burgundy top edge. Logo, site links, contact, company details, copyright |
+| Contact             | The form is high contrast, on a dark field or a white field inside the frame          |
 
 New sections follow photo, black title, white body, black footer unless the user asks otherwise.
 
@@ -137,11 +140,11 @@ An exclamation is rare. The homepage uses one: “We’re a Swedish company with
 
 A prefilled mail subject is the first line of that letter. It says what the person wants, and which button they used, so the inbox can tell the messages apart.
 
-| Where they start                                                   | Subject                                                            |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| Order now, on the homepage                                         | I’d like to order coffee                                           |
-| Email icon, Contact, or the form at the bottom of the homepage     | I’d like to get in touch                                           |
-| Order on a coffee lot                                              | Inquiry: {coffee}, {year}                                          |
+| Where they start                           | Subject                   |
+| ------------------------------------------ | ------------------------- |
+| Order now, on the homepage                 | I’d like to order coffee  |
+| Email icon or the form on the contact page | I’d like to get in touch  |
+| Order on a coffee lot                      | Inquiry: {coffee}, {year} |
 
 The homepage lines this follows:
 
