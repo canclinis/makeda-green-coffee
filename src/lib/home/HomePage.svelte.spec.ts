@@ -35,9 +35,27 @@ describe('HomePage', () => {
 		await expect.element(page.getByText(/Resistance Coffee/)).toBeInTheDocument();
 		await expect.element(page.getByRole('heading', { name: /OUR MISSION/ })).toBeInTheDocument();
 		await expect.element(page.getByRole('heading', { name: /OUR COFFEE/ })).toBeInTheDocument();
-		await expect.element(page.getByText('D.R. Congo', { exact: true })).toBeInTheDocument();
+		const lots = page.getByRole('table', { name: 'Specialty coffee, crop 2026' });
+		await expect.element(lots.getByRole('columnheader', { name: 'Origin' })).toBeInTheDocument();
+		await expect.element(lots.getByRole('columnheader', { name: 'Bags' })).toBeInTheDocument();
+		await expect.element(lots.getByRole('columnheader', { name: 'Status' })).toBeInTheDocument();
+		for (const [origin, bags] of [
+			['Arabica Fully Washed K3 Microlot Special Selection', '42 × 60 kg'],
+			['Arabica Fully Washed K3', '92 × 60 kg'],
+			['Arabica Natural K3 Special Selection', '84 × 60 kg'],
+			['Arabica Natural K3', '100 × 60 kg']
+		]) {
+			const row = lots.getByRole('row').filter({ hasText: origin }).filter({ hasText: bags });
+			await expect
+				.element(row.getByRole('cell', { name: origin, exact: true }))
+				.toBeInTheDocument();
+			await expect.element(row.getByRole('cell', { name: bags, exact: true })).toBeInTheDocument();
+			await expect
+				.element(row.getByRole('cell', { name: 'Arriving soon', exact: true }))
+				.toBeInTheDocument();
+		}
 
-		await page.getByRole('button', { name: 'Contact' }).click();
+		await page.getByRole('button', { name: 'Order now' }).click();
 		const dialog = page.getByRole('dialog', { name: 'Get In Touch' });
 		await expect.element(dialog).toBeVisible();
 

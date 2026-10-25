@@ -1,30 +1,27 @@
 <script lang="ts">
 	import SectionTitle from './SectionTitle.svelte';
 
-	const desktopSpecs = [
-		['REGION', 'D.R. Congo'],
-		['SPECIES', 'Arabica'],
-		['VARIETAL', 'Blue Montain & Red Bourbon'],
-		['Harvesting Type', 'Handpicked'],
-		['Processing', 'Fully washed\nDried at the sun in African beds'],
-		['CLIMATE', 'Temperate Tropical'],
-		['Environment', 'Mountain Range'],
-		['ALTITUDE', '1450 – 1850 mt a.s.l.'],
-		['SOIL', 'Volcanic rich in organic matter'],
-		['CUP SCORE', '87+'],
-		[
-			'Cupping tasting notes',
-			'Red apple / Bergamot / Lemon / Flora notes / Blackberry / Grapefruit / Bright citric acidity'
-		]
-	];
-
-	const mobileSpecs = [
-		['Variety', '100% Arabica Red Bourbon'],
-		['Processing', 'Fully washed\nDried at the sun in African beds'],
-		[
-			'Cupping tasting notes',
-			'Aromas of lemony, Complex fruits, floral notes, blackberry, and grapefruit with bright citric acidity.'
-		]
+	const lots = [
+		{
+			origin: 'Arabica Fully Washed K3 Microlot Special Selection',
+			bags: '42 × 60 kg',
+			status: 'Arriving soon'
+		},
+		{
+			origin: 'Arabica Fully Washed K3',
+			bags: '92 × 60 kg',
+			status: 'Arriving soon'
+		},
+		{
+			origin: 'Arabica Natural K3 Special Selection',
+			bags: '84 × 60 kg',
+			status: 'Arriving soon'
+		},
+		{
+			origin: 'Arabica Natural K3',
+			bags: '100 × 60 kg',
+			status: 'Arriving soon'
+		}
 	];
 </script>
 
@@ -57,50 +54,27 @@
 				the
 				<span class="mark-yellow">coffee</span> is <span class="mark-yellow">handpicked</span>.
 			</p>
-			<p class="lead coffee-intro">
-				The <span class="mark-yellow">cooperative</span>
-				<span class="mark-yellow">produces</span> a <span class="mark-yellow">fully</span>
-				<span class="mark-yellow">washed</span>
-				<span class="mark-yellow">Arabica</span>
-				<span class="mark-yellow">Blue</span>
-				<span class="mark-yellow">Mountain</span>
-				<span class="mark-yellow">specialty</span>
-				<span class="mark-yellow">coffee</span>
-				<span class="mark-yellow">K3</span> (Kivu3).
-			</p>
-			<ul class="specs specs-desktop">
-				{#each desktopSpecs as [label, value] (label)}
-					<li>
-						<h3><span class="chip">{label}</span></h3>
-						<p>
-							{#each value.split('\n') as line, index (line)}
-								{#if index > 0}<br />{/if}
-								<span class="mark-yellow">{line}</span>
-							{/each}
-						</p>
-					</li>
-				{/each}
-			</ul>
-			<ul class="specs specs-mobile">
-				{#each mobileSpecs as [label, value] (label)}
-					<li>
-						<h3><span class="chip">{label}</span></h3>
-						<p>
-							{#each value.split('\n') as line, index (line)}
-								{#if index > 0}<br />{/if}
-								<span class="mark-yellow">{line}</span>
-							{/each}
-						</p>
-					</li>
-				{/each}
-			</ul>
 		</div>
-		<img
-			class="coffee-photo"
-			src="/images/coffee.jpeg"
-			width="1707"
-			height="2560"
-			alt="A farmer letting washed coffee beans fall through his hands"
-		/>
+		<div class="coffee-lots-scroll">
+			<table class="coffee-lots">
+				<caption>Specialty coffee, crop 2026</caption>
+				<thead>
+					<tr>
+						<th scope="col">Origin</th>
+						<th scope="col">Bags</th>
+						<th scope="col">Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each lots as lot (lot.origin)}
+						<tr>
+							<td>{lot.origin}</td>
+							<td>{lot.bags}</td>
+							<td>{lot.status}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
 	</div>
 </section>
