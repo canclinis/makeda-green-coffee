@@ -61,7 +61,6 @@
 					<li><a href={resolve('/our-coffee')}>Our coffee</a></li>
 					<li><a href={resolve('/about')}>About</a></li>
 					<li><a href={resolve('/contact')}>Contact</a></li>
-					<li><a href={resolve('/privacy')}>Privacy policy</a></li>
 				</ul>
 			</nav>
 
