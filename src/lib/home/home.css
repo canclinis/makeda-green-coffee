@@ -273,7 +273,7 @@ p {
 .about,
 #coffee {
 	background: #fff;
-	border-inline: 15px solid var(--makeda-coffee);
+	border-inline: 25px solid var(--makeda-coffee);
 }
 
 .project .container,
@@ -424,7 +424,6 @@ p {
 .contact {
 	background: var(--makeda-black);
 	color: #fff;
-	border-top: 10px solid var(--makeda-coffee);
 	scroll-margin-top: 24px;
 }
 
