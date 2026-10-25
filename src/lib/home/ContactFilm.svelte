@@ -11,15 +11,13 @@
     poster,
     label,
     width = 720,
-    height = 720,
-    sticky = false
+    height = 720
   }: {
     src: string;
     poster?: string;
     label: string;
     width?: number;
     height?: number;
-    sticky?: boolean;
   } = $props();
 
   let video = $state<HTMLVideoElement | null>(null);
@@ -132,8 +130,6 @@
 
 <video
   bind:this={video}
-  class="media"
-  class:sticky
   {src}
   {poster}
   {width}
@@ -142,22 +138,8 @@
   controls
   playsinline
   preload="metadata"
+  style="display: block; width: 100%; height: auto"
   onplay={onPlay}
   onpause={onPause}
   onended={onEnded}
 ></video>
-
-<style>
-  .media {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  @media (min-width: 960px) {
-    .sticky {
-      position: sticky;
-      top: 88px;
-    }
-  }
-</style>

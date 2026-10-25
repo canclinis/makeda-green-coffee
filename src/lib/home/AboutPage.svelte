@@ -9,10 +9,13 @@
 </svelte:head>
 
 {#snippet band()}
-  <div
-    role="presentation"
-    style="width: 100%; height: min(42vw, 360px); background: url('/images/about.jpg') center top / cover no-repeat"
-  ></div>
+  <img
+    src="/images/about.jpg"
+    alt="Coffee leaves covered in raindrops"
+    width="2560"
+    height="1702"
+    style="display: block; width: 100%; height: min(42vw, 360px); object-fit: cover; object-position: center top"
+  />
 {/snippet}
 
 <Page>

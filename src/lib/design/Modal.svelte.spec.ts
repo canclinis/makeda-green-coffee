@@ -2,6 +2,7 @@ import { createRawSnippet } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import './design.css';
 import Modal from './Modal.svelte';
 import SectionTitle from './SectionTitle.svelte';
 
@@ -22,6 +23,9 @@ describe('Modal', () => {
 
     await view.rerender({ open: true });
     await expect.element(dialog).toBeVisible();
+    await expect.element(dialog.getByRole('button', { name: 'Close' })).toHaveStyle({
+      color: 'rgb(17, 17, 17)'
+    });
     await expect.element(dialog.getByRole('heading', { name: 'Lot details' })).toBeVisible();
     await expect.element(dialog.getByText('More about this coffee is coming soon.')).toBeVisible();
 
@@ -80,6 +84,9 @@ describe('Modal', () => {
     await expect
       .element(dialog.getByRole('img', { name: 'Ripe coffee cherries on the branch' }))
       .toBeVisible();
+    await expect.element(dialog.getByRole('button', { name: 'Close' })).toHaveStyle({
+      color: 'rgb(255, 255, 255)'
+    });
   });
 
   it('uses a smaller title than a section title', async () => {

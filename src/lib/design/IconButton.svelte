@@ -2,9 +2,13 @@
   import type { Snippet } from 'svelte';
   import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 
+  type Tone = 'light' | 'ink';
+
   type Props = {
     children: Snippet;
     class?: string;
+    /** Light icons sit on a dark field. Ink icons sit on white. */
+    tone?: Tone;
   } & (
     | ({
         href?: undefined;
@@ -16,9 +20,18 @@
       } & Omit<HTMLAnchorAttributes, 'class' | 'href' | 'type'>)
   );
 
-  let { href, type = 'button', children, class: className, ...rest }: Props = $props();
+  let {
+    href,
+    type = 'button',
+    children,
+    class: className,
+    tone = 'light',
+    ...rest
+  }: Props = $props();
 
-  const classes = $derived(['icon-button', className].filter(Boolean).join(' '));
+  const classes = $derived(
+    ['icon-button', tone === 'ink' ? 'ink' : '', className].filter(Boolean).join(' ')
+  );
 </script>
 
 {#if href}
@@ -52,5 +65,16 @@
   .icon-button:hover {
     background: #fff;
     color: var(--makeda-ink);
+  }
+
+  .ink {
+    border-color: rgba(17, 17, 17, 0.28);
+    color: var(--makeda-ink);
+  }
+
+  .ink:hover {
+    background: var(--makeda-ink);
+    color: #fff;
+    border-color: var(--makeda-ink);
   }
 </style>

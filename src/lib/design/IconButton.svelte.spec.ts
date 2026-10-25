@@ -2,6 +2,7 @@ import { createRawSnippet } from 'svelte';
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import './design.css';
 import IconButton from './IconButton.svelte';
 
 function icon() {
@@ -36,5 +37,20 @@ describe('IconButton', () => {
     });
 
     await expect.element(page.getByRole('button', { name: 'Email' })).toHaveClass('icon-button');
+  });
+
+  it('uses ink on a light field', async () => {
+    render(IconButton, {
+      props: {
+        tone: 'ink',
+        'aria-label': 'Close',
+        children: icon()
+      }
+    });
+
+    await expect.element(page.getByRole('button', { name: 'Close' })).toHaveStyle({
+      color: 'rgb(17, 17, 17)',
+      borderTopColor: 'rgba(17, 17, 17, 0.28)'
+    });
   });
 });

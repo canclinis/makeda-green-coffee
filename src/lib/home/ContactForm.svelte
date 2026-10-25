@@ -7,14 +7,12 @@
     headingId,
     initialSubject = '',
     hideHeading = false,
-    dark = false,
     submitLabel = 'Get In Touch',
     element = $bindable(null)
   }: {
     headingId: string;
     initialSubject?: string;
     hideHeading?: boolean;
-    dark?: boolean;
     submitLabel?: string;
     element?: HTMLFormElement | null;
   } = $props();
@@ -57,9 +55,14 @@
   }
 </script>
 
-<form class:dark bind:this={element} onsubmit={onSubmit}>
+<form style="scroll-margin-top: 8.5rem" bind:this={element} onsubmit={onSubmit}>
   {#if !hideHeading}
-    <h2 id={headingId}>Get In Touch</h2>
+    <h2
+      id={headingId}
+      style="margin: 0 0 1.5rem; color: var(--makeda-coffee); font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: 700; letter-spacing: 0.18em; line-height: 1.2; text-transform: uppercase"
+    >
+      Get In Touch
+    </h2>
   {/if}
   <label class="field">
     <span>Name *</span>
@@ -88,7 +91,7 @@
       and agree that you can use this message to reply to me.
     </span>
   </label>
-  <Button type="submit" variant={dark ? 'default' : 'burgundy'} disabled={sending}>
+  <Button type="submit" disabled={sending}>
     {submitLabel}
   </Button>
   {#if status}
@@ -97,24 +100,6 @@
 </form>
 
 <style>
-  form {
-    scroll-margin-top: 8.5rem;
-  }
-
-  h2 {
-    margin: 0 0 1.5rem;
-    color: var(--makeda-coffee);
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    line-height: 1.2;
-    text-transform: uppercase;
-  }
-
-  .dark h2 {
-    color: #fff;
-  }
-
   .field {
     display: flex;
     flex-direction: column;
@@ -140,12 +125,6 @@
     font: inherit;
   }
 
-  .dark .field input,
-  .dark .field textarea {
-    border-bottom-color: rgba(255, 255, 255, 0.28);
-    color: #fff;
-  }
-
   .field input {
     height: 40px;
   }
@@ -162,11 +141,6 @@
     border-bottom-color: var(--makeda-coffee);
   }
 
-  .dark .field input:focus,
-  .dark .field textarea:focus {
-    border-bottom-color: #fff;
-  }
-
   input[type='checkbox'] {
     margin-top: 4px;
     accent-color: var(--makeda-coffee);
@@ -175,13 +149,5 @@
   label a {
     color: var(--makeda-coffee);
     font-weight: 600;
-  }
-
-  .dark label a {
-    color: #fff;
-  }
-
-  .dark input[type='checkbox'] {
-    accent-color: #fff;
   }
 </style>

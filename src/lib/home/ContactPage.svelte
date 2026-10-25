@@ -26,13 +26,12 @@
     src="/video/coffee_pill_women.mp4"
     poster="/images/contact-film-poster.jpg"
     label="Coffee film"
-    sticky
   />
 {/snippet}
 
 <Page onEmail={openForm}>
   <PageSection id="contact" headingId="contact-heading" title="CONTACT">
-    <ZigZag mediaSide="left" mediaSlot={contactFilm}>
+    <ZigZag mediaSide="left" sticky mediaSlot={contactFilm}>
       <ContactForm
         headingId="contact-heading"
         hideHeading

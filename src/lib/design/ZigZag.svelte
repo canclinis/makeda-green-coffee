@@ -17,17 +17,22 @@
     mediaSide,
     media,
     mediaSlot,
+    sticky = false,
     children
   }: {
     mediaSide: 'left' | 'right';
+    sticky?: boolean;
     children: Snippet;
-  } & ({ media: Media; mediaSlot?: undefined } | { media?: undefined; mediaSlot: Snippet }) =
-    $props();
+  } & (
+    { media: Media; mediaSlot?: undefined } | { media?: undefined; mediaSlot: Snippet }
+  ) = $props();
 </script>
 
 {#snippet frame()}
   {#if mediaSlot}
-    {@render mediaSlot()}
+    <div class="media" class:sticky>
+      {@render mediaSlot()}
+    </div>
   {:else if media?.type === 'image'}
     <img
       class="media"

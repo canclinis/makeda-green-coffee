@@ -6,16 +6,20 @@
   let contactOpen = $state(false);
 </script>
 
-<section id="top" aria-label="Makeda Green Coffee">
-  <div>
+<section id="top" aria-label="Makeda Green Coffee" style="scroll-margin-top: 72px; line-height: 0">
+  <div style="overflow: hidden; line-height: 0">
+    <!-- Some frames have a 1px black row on the top and the bottom. -->
     <video
       src="/video/hero.mp4"
       poster="/images/hero-poster.jpg"
+      width="1920"
+      height="818"
       autoplay
       muted
       loop
       playsinline
       aria-label="Hero film"
+      style="display: block; width: 100%; height: auto; transform: scale(1.02)"
     ></video>
   </div>
 </section>
@@ -49,23 +53,3 @@
     </Modal>
   </div>
 </section>
-
-<style>
-  #top {
-    scroll-margin-top: 72px;
-    line-height: 0;
-  }
-
-  #top div {
-    overflow: hidden;
-    line-height: 0;
-  }
-
-  #top video {
-    display: block;
-    width: 100%;
-    height: auto;
-    /* Some frames have a 1px black row on the top and the bottom. */
-    transform: scale(1.02);
-  }
-</style>

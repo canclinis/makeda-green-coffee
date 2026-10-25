@@ -21,4 +21,13 @@ describe('AboutPage', () => {
       .element(page.getByRole('contentinfo').getByRole('link', { name: 'Vimeo' }))
       .toHaveAttribute('href', 'https://vimeo.com/user192364448');
   });
+
+  it('shows the coffee leaves as a photo with a reserved size', async () => {
+    render(AboutPage);
+
+    const photo = page.getByRole('img', { name: 'Coffee leaves covered in raindrops' });
+    await expect.element(photo).toBeVisible();
+    await expect.element(photo).toHaveAttribute('width', '2560');
+    await expect.element(photo).toHaveAttribute('height', '1702');
+  });
 });

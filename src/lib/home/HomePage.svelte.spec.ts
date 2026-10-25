@@ -4,6 +4,14 @@ import { render } from 'vitest-browser-svelte';
 import HomePage from './HomePage.svelte';
 
 describe('HomePage', () => {
+  it('reserves space for the hero film', async () => {
+    render(HomePage);
+
+    const film = page.getByLabelText('Hero film');
+    await expect.element(film).toHaveAttribute('width', '1920');
+    await expect.element(film).toHaveAttribute('height', '818');
+  });
+
   it('tells the project story and collects contact instead of taking an order', async () => {
     render(HomePage);
 
