@@ -68,4 +68,50 @@ describe('OurCoffeePage', () => {
       .element(dialog.getByRole('textbox', { name: 'Subject *' }))
       .toHaveValue('Inquiry: Arabica Fully Washed K3 Microlot Special Selection, crop 2025');
   });
+
+  it('opens a placeholder for the clicked lot', async () => {
+    render(OurCoffeePage);
+
+    const commercial = page.getByRole('table', { name: 'Commercial coffee' });
+    const k4 = commercial.getByRole('row').filter({ hasText: 'Arabica Natural K4' });
+    await k4.click();
+
+    const k4Dialog = page.getByRole('dialog', { name: 'Arabica Natural K4' });
+    await expect.element(k4Dialog).toBeVisible();
+    await expect
+      .element(k4Dialog.getByText('More about this coffee is coming soon.'))
+      .toBeVisible();
+    await expect.element(k4Dialog.getByText('2025')).toBeVisible();
+    await expect.element(k4Dialog.getByText('1 × 60 kg')).toBeVisible();
+
+    await k4Dialog.getByRole('button', { name: 'Close' }).click();
+    await expect
+      .element(page.getByText('More about this coffee is coming soon.'))
+      .not.toBeVisible();
+
+    const specialty = page.getByRole('table', { name: 'Specialty coffee' });
+    const inStore = specialty
+      .getByRole('row')
+      .filter({ hasText: 'Arabica Fully Washed K3 Microlot Special Selection' })
+      .filter({ hasText: 'In store' })
+      .filter({ hasText: '2025' });
+    await inStore.click();
+
+    const microlot = page.getByRole('dialog', {
+      name: 'Arabica Fully Washed K3 Microlot Special Selection'
+    });
+    await expect.element(microlot).toBeVisible();
+    await expect.element(microlot.getByText('2 × 60 kg')).toBeVisible();
+    await expect
+      .element(microlot.getByText('More about this coffee is coming soon.'))
+      .toBeVisible();
+
+    await microlot.getByRole('button', { name: 'Close' }).click();
+
+    await k4.getByRole('button', { name: 'Order' }).click();
+    await expect.element(page.getByRole('dialog', { name: 'Get In Touch' })).toBeVisible();
+    await expect
+      .element(page.getByText('More about this coffee is coming soon.'))
+      .not.toBeVisible();
+  });
 });

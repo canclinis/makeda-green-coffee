@@ -130,3 +130,35 @@ p {
   background: #fff;
   color: var(--makeda-ink);
 }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  width: min(640px, calc(100vw - 32px));
+  height: fit-content;
+  max-height: calc(100vh - 48px);
+  margin: auto;
+  padding: 48px 32px 32px;
+  overflow: auto;
+  border: 10px solid var(--makeda-coffee);
+  background: var(--makeda-black);
+  color: #fff;
+}
+
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}

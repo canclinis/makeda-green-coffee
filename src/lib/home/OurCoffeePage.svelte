@@ -1,6 +1,7 @@
 <script lang="ts">
   import { tick } from 'svelte';
   import Button from '../design/Button.svelte';
+  import Modal from '../design/Modal.svelte';
   import ContactForm from './ContactForm.svelte';
   import SectionTitle from '../design/SectionTitle.svelte';
   import SiteNav from './SiteNav.svelte';
@@ -55,17 +56,27 @@
     }
   ];
 
-  let dialog = $state<HTMLDialogElement | null>(null);
+  let inquiryOpen = $state(false);
   let inquirySubject = $state('');
+  let lotOpen = $state(false);
+  let selectedLot = $state<Lot | null>(null);
 
   async function requestInfo(lot: Lot) {
     inquirySubject = `Inquiry: ${lot.origin}, crop ${lot.crop}`;
     await tick();
-    dialog?.showModal();
+    inquiryOpen = true;
   }
 
-  function onBackdrop(event: MouseEvent) {
-    if (event.target === dialog) dialog?.close();
+  function openLot(lot: Lot) {
+    selectedLot = lot;
+    lotOpen = true;
+  }
+
+  function onRowKeydown(event: KeyboardEvent, lot: Lot) {
+    if (event.target !== event.currentTarget) return;
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    openLot(lot);
   }
 </script>
 
@@ -81,21 +92,19 @@
     {@render lotTable('Specialty coffee', specialty)}
     {@render lotTable('Commercial coffee', commercial)}
   </div>
-  <dialog
-    class="contact-modal"
-    bind:this={dialog}
-    aria-labelledby="coffee-inquiry-heading"
-    onclick={onBackdrop}
-  >
-    <button class="modal-close" type="button" aria-label="Close" onclick={() => dialog?.close()}>
-      ×
-    </button>
+  <Modal bind:open={inquiryOpen} labelledBy="coffee-inquiry-heading">
     {#if inquirySubject}
       {#key inquirySubject}
         <ContactForm headingId="coffee-inquiry-heading" initialSubject={inquirySubject} />
       {/key}
     {/if}
-  </dialog>
+  </Modal>
+  <Modal bind:open={lotOpen} title={selectedLot?.origin ?? 'Coffee'}>
+    {#if selectedLot}
+      <p>{selectedLot.crop} crop. {selectedLot.bags}. {selectedLot.status}.</p>
+      <p>More about this coffee is coming soon.</p>
+    {/if}
+  </Modal>
 </section>
 
 {#snippet lotTable(caption: string, rows: Lot[])}
@@ -113,13 +122,25 @@
       </thead>
       <tbody>
         {#each rows as lot (`${lot.origin}-${lot.crop}`)}
-          <tr>
+          <tr
+            onclick={() => openLot(lot)}
+            onkeydown={(event) => onRowKeydown(event, lot)}
+            tabindex="0"
+          >
             <td data-label="Origin">{lot.origin}</td>
             <td data-label="Crop">{lot.crop}</td>
             <td data-label="Bags">{lot.bags}</td>
             <td data-label="Status">{lot.status}</td>
             <td>
-              <Button variant="burgundy" onclick={() => requestInfo(lot)}>Order</Button>
+              <Button
+                variant="burgundy"
+                onclick={(event: MouseEvent) => {
+                  event.stopPropagation();
+                  requestInfo(lot);
+                }}
+              >
+                Order
+              </Button>
             </td>
           </tr>
         {/each}

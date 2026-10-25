@@ -1,16 +1,9 @@
 <script lang="ts">
   import Button from '../design/Button.svelte';
+  import Modal from '../design/Modal.svelte';
   import ContactForm from './ContactForm.svelte';
 
-  let dialog = $state<HTMLDialogElement | null>(null);
-
-  function openContact() {
-    dialog?.showModal();
-  }
-
-  function onBackdrop(event: MouseEvent) {
-    if (event.target === dialog) dialog?.close();
-  }
+  let contactOpen = $state(false);
 </script>
 
 <section id="top" class="hero" aria-label="Makeda Green Coffee">
@@ -30,17 +23,9 @@
 <section class="order-bar">
   <div class="container order-bar-inner">
     <p class="order-line">Bring home a unique coffee, a symbol of strength and courage.</p>
-    <Button onclick={openContact}>Order now</Button>
-    <dialog
-      class="contact-modal"
-      bind:this={dialog}
-      aria-labelledby="contact-modal-heading"
-      onclick={onBackdrop}
-    >
-      <button class="modal-close" type="button" aria-label="Close" onclick={() => dialog?.close()}>
-        ×
-      </button>
+    <Button onclick={() => (contactOpen = true)}>Order now</Button>
+    <Modal bind:open={contactOpen} labelledBy="contact-modal-heading">
       <ContactForm headingId="contact-modal-heading" />
-    </dialog>
+    </Modal>
   </div>
 </section>
