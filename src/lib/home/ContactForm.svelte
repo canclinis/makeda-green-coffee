@@ -1,5 +1,6 @@
 <script lang="ts">
   import { untrack } from 'svelte';
+  import Button from '../design/Button.svelte';
 
   let {
     headingId,
@@ -74,7 +75,7 @@
       accordance with GDPR regulations.
     </span>
   </label>
-  <button class="button" type="submit" disabled={sending}>Get In Touch</button>
+  <Button type="submit" disabled={sending}>Get In Touch</Button>
   {#if status}
     <p class="form-status" role="status">{status}</p>
   {/if}

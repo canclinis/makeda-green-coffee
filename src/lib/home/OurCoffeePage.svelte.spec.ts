@@ -30,7 +30,7 @@ describe('OurCoffeePage', () => {
         .filter({ hasText: bags })
         .filter({ hasText: 'Arriving soon' });
       await expect.element(row).toBeInTheDocument();
-      await expect.element(row.getByRole('button', { name: 'Request info' })).toBeInTheDocument();
+      await expect.element(row.getByRole('button', { name: 'Order' })).toBeInTheDocument();
     }
 
     const inStore = specialty
@@ -53,7 +53,7 @@ describe('OurCoffeePage', () => {
       .filter({ hasText: 'In store' });
     await expect.element(k4).toBeInTheDocument();
 
-    await k4.getByRole('button', { name: 'Request info' }).click();
+    await k4.getByRole('button', { name: 'Order' }).click();
 
     const dialog = page.getByRole('dialog', { name: 'Get In Touch' });
     await expect.element(dialog).toBeVisible();
@@ -63,7 +63,7 @@ describe('OurCoffeePage', () => {
 
     await dialog.getByRole('button', { name: 'Close' }).click();
 
-    await inStore.getByRole('button', { name: 'Request info' }).click();
+    await inStore.getByRole('button', { name: 'Order' }).click();
     await expect
       .element(dialog.getByRole('textbox', { name: 'Subject *' }))
       .toHaveValue('Inquiry: Arabica Fully Washed K3 Microlot Special Selection, crop 2025');

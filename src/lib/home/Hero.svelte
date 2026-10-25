@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Button from '../design/Button.svelte';
   import ContactForm from './ContactForm.svelte';
 
   let dialog = $state<HTMLDialogElement | null>(null);
@@ -27,9 +28,9 @@
 </section>
 
 <section class="order-bar">
-  <div class="container container-large order-bar-inner">
+  <div class="container order-bar-inner">
     <p class="order-line">Bring home a unique coffee, a symbol of strength and courage.</p>
-    <button class="button" type="button" onclick={openContact}>Order now</button>
+    <Button onclick={openContact}>Order now</Button>
     <dialog
       class="contact-modal"
       bind:this={dialog}

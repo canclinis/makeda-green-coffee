@@ -1,0 +1,132 @@
+:root {
+  --makeda-coffee: #5c1022;
+  --makeda-black: #000000;
+  --makeda-ink: #111111;
+  --font-ui: Montserrat, 'Helvetica Neue', Arial, sans-serif;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--makeda-ink);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--makeda-coffee);
+  color: #fff;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+p {
+  margin: 0 0 1.1rem;
+}
+
+.container {
+  width: min(1200px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+.section {
+  padding-bottom: 72px;
+}
+
+.section-title {
+  margin: 0;
+  padding: 0.7em 24px;
+  background: var(--makeda-black);
+  color: #fff;
+  font-size: clamp(1.35rem, 2.4vw + 1rem, 3rem);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.paragraph {
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.copy {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 36px;
+  border: 1px solid transparent;
+  background: #fff;
+  color: var(--makeda-ink);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+
+.button-burgundy {
+  background: var(--makeda-coffee);
+  color: #fff;
+  border-color: var(--makeda-coffee);
+}
+
+.button-burgundy:hover {
+  background: #fff;
+  color: var(--makeda-coffee);
+  border-color: var(--makeda-coffee);
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  background: #fff;
+  color: var(--makeda-ink);
+}

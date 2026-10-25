@@ -16,12 +16,11 @@ describe('HomePage', () => {
       .element(nav.getByRole('link', { name: 'The Project', exact: true }))
       .toBeInTheDocument();
     await expect
-      .element(nav.getByRole('link', { name: 'Mission', exact: true }))
-      .toBeInTheDocument();
-    await expect
       .element(nav.getByRole('link', { name: 'Coffee', exact: true }))
       .toBeInTheDocument();
-    await expect.element(nav.getByRole('link', { name: 'About', exact: true })).toBeInTheDocument();
+    await expect
+      .element(nav.getByRole('link', { name: 'About', exact: true }))
+      .toHaveAttribute('href', '/about');
     await expect
       .element(nav.getByRole('link', { name: 'Contact', exact: true }))
       .toBeInTheDocument();
@@ -33,7 +32,6 @@ describe('HomePage', () => {
 
     await expect.element(page.getByRole('heading', { name: 'The Project' })).toBeInTheDocument();
     await expect.element(page.getByText(/symbol of resistance/)).toBeInTheDocument();
-    await expect.element(page.getByRole('heading', { name: /OUR MISSION/ })).toBeInTheDocument();
     const coffee = page.getByRole('region', { name: /OUR COFFEE/ });
     await expect.element(coffee).toBeInTheDocument();
     await expect.element(coffee.getByText(/Lake Kivu/)).toBeInTheDocument();
@@ -47,6 +45,10 @@ describe('HomePage', () => {
     await expect
       .element(page.getByRole('link', { name: 'Discover our coffees' }))
       .toHaveAttribute('href', '/our-coffee');
+    await expect.element(page.getByRole('heading', { name: 'WHO WE ARE' })).not.toBeInTheDocument();
+    await expect
+      .element(page.getByRole('heading', { name: /OUR MISSION/ }))
+      .not.toBeInTheDocument();
 
     await page.getByRole('button', { name: 'Order now' }).click();
     const dialog = page.getByRole('dialog', { name: 'Get In Touch' });

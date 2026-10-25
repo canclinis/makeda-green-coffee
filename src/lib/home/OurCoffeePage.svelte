@@ -1,7 +1,8 @@
 <script lang="ts">
   import { tick } from 'svelte';
+  import Button from '../design/Button.svelte';
   import ContactForm from './ContactForm.svelte';
-  import SectionTitle from './SectionTitle.svelte';
+  import SectionTitle from '../design/SectionTitle.svelte';
   import SiteNav from './SiteNav.svelte';
   import './home.css';
 
@@ -76,7 +77,7 @@
 
 <section class="section coffee-page" aria-labelledby="our-coffee-heading">
   <SectionTitle id="our-coffee-heading">OUR COFFEE</SectionTitle>
-  <div class="container container-xlarge coffee-catalog">
+  <div class="container coffee-catalog">
     {@render lotTable('Specialty coffee', specialty)}
     {@render lotTable('Commercial coffee', commercial)}
   </div>
@@ -118,9 +119,7 @@
             <td data-label="Bags">{lot.bags}</td>
             <td data-label="Status">{lot.status}</td>
             <td>
-              <button class="button button-burgundy" type="button" onclick={() => requestInfo(lot)}>
-                Request info
-              </button>
+              <Button variant="burgundy" onclick={() => requestInfo(lot)}>Order</Button>
             </td>
           </tr>
         {/each}
