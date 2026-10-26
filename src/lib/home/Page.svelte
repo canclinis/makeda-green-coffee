@@ -3,15 +3,9 @@
   import SiteFooter from './SiteFooter.svelte';
   import SiteNav from './SiteNav.svelte';
 
-  let {
-    onEmail,
-    children
-  }: {
-    onEmail?: () => void;
-    children: Snippet;
-  } = $props();
+  let { children }: { children: Snippet } = $props();
 </script>
 
 <SiteNav />
 {@render children()}
-<SiteFooter {onEmail} />
+<SiteFooter />

@@ -4,8 +4,6 @@
 	import Modal from '../design/Modal.svelte';
 	import ContactForm from './ContactForm.svelte';
 
-	let { onEmail }: { onEmail?: () => void } = $props();
-
 	let contactOpen = $state(false);
 
 	const year = new Date().getFullYear();
@@ -87,23 +85,21 @@
 	</div>
 </footer>
 
-{#if !onEmail}
-	<Modal
-		bind:open={contactOpen}
-		title="Get in touch"
-		image={{
-			src: '/images/volcano.jpg',
-			alt: 'A volcano rising above dense forest',
-			objectPosition: 'top'
-		}}
-	>
-		<ContactForm
-			headingId="email-contact-heading"
-			hideHeading
-			initialSubject="I'd like to get in touch"
-		/>
-	</Modal>
-{/if}
+<Modal
+	bind:open={contactOpen}
+	title="Get in touch"
+	image={{
+		src: '/images/volcano.jpg',
+		alt: 'A volcano rising above dense forest',
+		objectPosition: 'top'
+	}}
+>
+	<ContactForm
+		headingId="email-contact-heading"
+		hideHeading
+		initialSubject="I'd like to get in touch"
+	/>
+</Modal>
 
 {#snippet contactLinks()}
 	<ul>
@@ -162,15 +158,9 @@
 				/>
 			</svg>
 		</IconButton>
-		{#if onEmail}
-			<IconButton aria-label="Email" onclick={onEmail}>
-				{@render emailIcon()}
-			</IconButton>
-		{:else}
-			<IconButton aria-label="Email" onclick={() => (contactOpen = true)}>
-				{@render emailIcon()}
-			</IconButton>
-		{/if}
+		<IconButton aria-label="Email" onclick={() => (contactOpen = true)}>
+			{@render emailIcon()}
+		</IconButton>
 	</div>
 {/snippet}
 

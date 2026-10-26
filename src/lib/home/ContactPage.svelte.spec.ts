@@ -38,15 +38,15 @@ describe('ContactPage', () => {
     await expect.element(page.getByRole('contentinfo')).toBeInTheDocument();
   });
 
-  it('opens the form from the email icon with a subject already filled', async () => {
+  it('opens the contact modal from the email icon', async () => {
     render(ContactPage);
 
-    const contact = page.getByRole('region', { name: 'CONTACT' });
     await page.getByRole('contentinfo').getByRole('button', { name: 'Email' }).click();
 
-    await expect.element(contact.getByRole('textbox', { name: 'Name *' })).toHaveFocus();
+    const dialog = page.getByRole('dialog', { name: 'Get in touch' });
+    await expect.element(dialog).toBeVisible();
     await expect
-      .element(contact.getByRole('textbox', { name: 'Subject *' }))
+      .element(dialog.getByRole('textbox', { name: 'Subject *' }))
       .toHaveValue("I'd like to get in touch");
   });
 });

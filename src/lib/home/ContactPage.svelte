@@ -6,15 +6,6 @@
   import Page from './Page.svelte';
 
   const subject = "I'd like to get in touch";
-
-  let contactForm = $state<HTMLFormElement | null>(null);
-
-  function openForm() {
-    contactForm?.scrollIntoView({ block: 'start' });
-    contactForm
-      ?.querySelector<HTMLInputElement>('input[name="name"]')
-      ?.focus({ preventScroll: true });
-  }
 </script>
 
 <svelte:head>
@@ -29,15 +20,10 @@
   />
 {/snippet}
 
-<Page onEmail={openForm}>
+<Page>
   <PageSection id="contact" headingId="contact-heading" title="CONTACT">
     <ZigZag mediaSide="left" sticky mediaSlot={contactFilm}>
-      <ContactForm
-        headingId="contact-heading"
-        hideHeading
-        initialSubject={subject}
-        bind:element={contactForm}
-      />
+      <ContactForm headingId="contact-heading" hideHeading initialSubject={subject} />
     </ZigZag>
   </PageSection>
 </Page>
