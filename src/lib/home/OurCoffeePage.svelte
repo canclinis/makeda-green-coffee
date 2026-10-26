@@ -3,6 +3,7 @@
   import Button from '../design/Button.svelte';
   import Modal from '../design/Modal.svelte';
   import PageSection from '../design/PageSection.svelte';
+  import Text from '../design/Text.svelte';
   import ContactForm from './ContactForm.svelte';
   import Page from './Page.svelte';
   import CoffeeLotDetail from './CoffeeLotDetail.svelte';
@@ -42,6 +43,10 @@
 
 <Page>
   <PageSection headingId="our-coffee-heading" title="OUR COFFEE">
+    <Text style="max-width: 42rem">
+      Green coffee from Lake Kivu: specialty and commercial, fully washed and natural, K3 and K4, in
+      60 kg bags.
+    </Text>
     <div class="lot-tabs" role="tablist" aria-label="Coffee categories">
       <button
         type="button"

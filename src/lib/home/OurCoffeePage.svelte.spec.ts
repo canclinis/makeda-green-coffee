@@ -18,6 +18,19 @@ function columnBox(name: string, index: number) {
 }
 
 describe('OurCoffeePage', () => {
+  it('introduces the current offer above the lots', async () => {
+    render(OurCoffeePage);
+
+    const offer = page.getByRole('region', { name: 'OUR COFFEE' });
+    await expect
+      .element(
+        offer.getByText(
+          'Green coffee from Lake Kivu: specialty and commercial, fully washed and natural, K3 and K4, in 60 kg bags.'
+        )
+      )
+      .toBeVisible();
+  });
+
   it('lines up specialty and commercial columns', async () => {
     render(OurCoffeePage);
     await page.viewport(1200, 900);
