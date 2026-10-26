@@ -118,7 +118,7 @@
 		<tr>
 			<th scope="col">Origin</th>
 			<th class="center" scope="col">Crop</th>
-			<th class="center" scope="col">Bags (60 kg)</th>
+			<th class="center" scope="col">Bags</th>
 			<th class="center" scope="col">Status</th>
 			<th class="center" scope="col">Request</th>
 		</tr>
