@@ -6,6 +6,10 @@
 
 <svelte:head>
   <title>About — Makeda Green Coffee</title>
+  <meta
+    name="description"
+    content="Antonio and Giovanni bring green coffee from Kivu cooperatives to roasters in Europe, directly and on fair terms."
+  />
 </svelte:head>
 
 {#snippet band()}

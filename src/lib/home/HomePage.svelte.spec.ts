@@ -4,6 +4,14 @@ import { render } from 'vitest-browser-svelte';
 import HomePage from './HomePage.svelte';
 
 describe('HomePage', () => {
+  it('describes the homepage for search as green coffee for roasters', () => {
+    render(HomePage);
+
+    expect(document.head.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
+      'Green coffee from Kivu cooperatives for roasters. A fair-trade project with farmers in eastern DR Congo, a region that has faced years of conflict.'
+    );
+  });
+
   it('reserves space for the hero film', async () => {
     render(HomePage);
 

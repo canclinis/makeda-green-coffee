@@ -5,6 +5,14 @@ import '../design/design.css';
 import ContactPage from './ContactPage.svelte';
 
 describe('ContactPage', () => {
+  it('describes how to enquire about Kivu green coffee for search', () => {
+    render(ContactPage);
+
+    expect(document.head.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
+      'Write to Makeda Green Coffee about green coffee from Kivu for your roastery.'
+    );
+  });
+
   it('shows contact with the film beside the form', async () => {
     render(ContactPage);
 

@@ -4,6 +4,14 @@ import { render } from 'vitest-browser-svelte';
 import AboutPage from './AboutPage.svelte';
 
 describe('AboutPage', () => {
+  it('describes the founders and the fair-trade supply for search', () => {
+    render(AboutPage);
+
+    expect(document.head.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
+      'Antonio and Giovanni bring green coffee from Kivu cooperatives to roasters in Europe, directly and on fair terms.'
+    );
+  });
+
   it('introduces the founders on their own page', async () => {
     render(AboutPage);
 

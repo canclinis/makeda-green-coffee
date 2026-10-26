@@ -10,6 +10,10 @@
 
 <svelte:head>
   <title>Contact — Makeda Green Coffee</title>
+  <meta
+    name="description"
+    content="Write to Makeda Green Coffee about green coffee from Kivu for your roastery."
+  />
 </svelte:head>
 
 {#snippet contactFilm()}

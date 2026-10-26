@@ -39,6 +39,10 @@
 
 <svelte:head>
 	<title>Our coffee — Makeda Green Coffee</title>
+	<meta
+		name="description"
+		content="Green coffee from Lake Kivu for roasters: specialty and commercial, fully washed and natural, in 60 kg bags."
+	/>
 </svelte:head>
 
 <Page>
