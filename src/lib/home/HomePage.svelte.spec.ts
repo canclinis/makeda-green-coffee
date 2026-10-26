@@ -83,9 +83,7 @@ describe('HomePage', () => {
     await expect
       .element(footer.getByRole('link', { name: 'Instagram' }))
       .toHaveAttribute('href', 'https://instagram.com/makedagreencoffee');
-    await expect
-      .element(footer.getByRole('link', { name: 'Email' }))
-      .toHaveAttribute('href', '/contact');
+    await expect.element(footer.getByRole('button', { name: 'Email' })).toBeInTheDocument();
     await expect
       .element(footer.getByRole('link', { name: '+ 46 70 874 96 26' }))
       .toHaveAttribute('href', 'tel:+46708749626');

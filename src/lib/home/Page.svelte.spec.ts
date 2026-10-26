@@ -22,9 +22,7 @@ describe('Page', () => {
     await expect
       .element(footer.getByRole('link', { name: 'Vimeo' }))
       .toHaveAttribute('href', 'https://vimeo.com/user192364448');
-    await expect
-      .element(footer.getByRole('link', { name: 'Email' }))
-      .toHaveAttribute('href', '/contact');
+    await expect.element(footer.getByRole('button', { name: 'Email' })).toBeInTheDocument();
 
     const footerNav = footer.locator('.desktop').getByRole('navigation', { name: 'Footer' });
     await expect
@@ -59,5 +57,28 @@ describe('Page', () => {
     await expect
       .element(footer.getByRole('link', { name: 'Back to top' }))
       .toHaveAttribute('href', '/#top');
+  });
+
+  it('opens the contact form from the email icon', async () => {
+    await page.viewport(1200, 800);
+    render(Page, {
+      props: {
+        children: createRawSnippet(() => ({
+          render: () => '<p>Resistance Coffee</p>'
+        }))
+      }
+    });
+
+    await page.getByRole('contentinfo').getByRole('button', { name: 'Email' }).click();
+
+    const dialog = page.getByRole('dialog', { name: 'Get in touch' });
+    await expect.element(dialog).toBeVisible();
+    await expect
+      .element(dialog.getByRole('img', { name: 'A volcano rising above dense forest' }))
+      .toBeVisible();
+    await expect
+      .element(dialog.getByRole('textbox', { name: 'Subject *' }))
+      .toHaveValue("I'd like to get in touch");
+    await expect.element(dialog.getByLabelText('Name *')).toBeVisible();
   });
 });

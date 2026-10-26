@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import IconButton from '../design/IconButton.svelte';
+	import Modal from '../design/Modal.svelte';
+	import ContactForm from './ContactForm.svelte';
 
 	let { onEmail }: { onEmail?: () => void } = $props();
+
+	let contactOpen = $state(false);
 
 	const year = new Date().getFullYear();
 </script>
@@ -83,6 +87,24 @@
 	</div>
 </footer>
 
+{#if !onEmail}
+	<Modal
+		bind:open={contactOpen}
+		title="Get in touch"
+		image={{
+			src: '/images/volcano.jpg',
+			alt: 'A volcano rising above dense forest',
+			objectPosition: 'top'
+		}}
+	>
+		<ContactForm
+			headingId="email-contact-heading"
+			hideHeading
+			initialSubject="I'd like to get in touch"
+		/>
+	</Modal>
+{/if}
+
 {#snippet contactLinks()}
 	<ul>
 		<li>
@@ -145,7 +167,7 @@
 				{@render emailIcon()}
 			</IconButton>
 		{:else}
-			<IconButton href={resolve('/contact')} aria-label="Email">
+			<IconButton aria-label="Email" onclick={() => (contactOpen = true)}>
 				{@render emailIcon()}
 			</IconButton>
 		{/if}
