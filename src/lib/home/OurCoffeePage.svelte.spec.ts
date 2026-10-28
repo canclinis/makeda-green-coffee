@@ -18,10 +18,23 @@ function columnBox(name: string, index: number) {
 }
 
 describe('OurCoffeePage', () => {
+  it('titles the page for green coffee for roasters', async () => {
+    render(OurCoffeePage);
+
+    expect(document.title).toBe('Green coffee for roasters — Makeda Green Coffee');
+    expect(document.head.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
+      'Green coffee for roasters. Specialty and commercial lots from Lake Kivu cooperatives: fully washed and natural, K3 and K4, in 60 kg bags. Enquire about a lot.'
+    );
+    await expect
+      .element(page.getByRole('heading', { level: 1, name: 'Green coffee for roasters' }))
+      .toBeInTheDocument();
+    expect(document.querySelectorAll('h1')).toHaveLength(1);
+  });
+
   it('introduces the current offer above the lots', async () => {
     render(OurCoffeePage);
 
-    const offer = page.getByRole('region', { name: 'OUR COFFEE' });
+    const offer = page.getByRole('region', { name: 'Green coffee for roasters' });
     await expect
       .element(
         offer.getByText(
@@ -35,7 +48,7 @@ describe('OurCoffeePage', () => {
     render(OurCoffeePage);
     await page.viewport(1200, 900);
 
-    for (const name of ['Origin', 'Crop', 'Bags (60 kg)', 'Status', 'Request']) {
+    for (const name of ['Origin', 'Crop', 'Bags', 'Status', 'Request']) {
       await expect
         .element(page.getByRole('columnheader', { name, exact: true }).nth(1))
         .toBeVisible();

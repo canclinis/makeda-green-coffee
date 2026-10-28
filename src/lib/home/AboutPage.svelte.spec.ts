@@ -4,18 +4,25 @@ import { render } from 'vitest-browser-svelte';
 import AboutPage from './AboutPage.svelte';
 
 describe('AboutPage', () => {
-  it('describes the founders and the fair-trade supply for search', () => {
+  it('titles the page Who are we', async () => {
     render(AboutPage);
 
+    expect(document.title).toBe('Who are we — Makeda Green Coffee');
     expect(document.head.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
-      'Antonio and Giovanni bring green coffee from Kivu cooperatives to roasters in Europe, directly and on fair terms.'
+      'Fair-trade green coffee from Kivu. Antonio and Giovanni follow it from the cooperatives to the roastery door, with no intermediaries. Enquire about the project.'
     );
+    await expect
+      .element(page.getByRole('heading', { level: 1, name: 'Who are we' }))
+      .toBeInTheDocument();
+    expect(document.querySelectorAll('h1')).toHaveLength(1);
   });
 
   it('introduces the founders on their own page', async () => {
     render(AboutPage);
 
-    await expect.element(page.getByRole('heading', { name: 'WHO WE ARE' })).toBeInTheDocument();
+    await expect
+      .element(page.getByRole('heading', { level: 1, name: 'Who are we' }))
+      .toBeInTheDocument();
     await expect.element(page.getByText(/Antonio and Giovanni/)).toBeInTheDocument();
     await expect.element(page.getByRole('heading', { name: /OUR MISSION/ })).toBeInTheDocument();
     await expect

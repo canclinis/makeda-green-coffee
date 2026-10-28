@@ -6,10 +6,10 @@
 </script>
 
 <svelte:head>
-  <title>Makeda Green Coffee</title>
+  <title>Green coffee beans from Congo — Makeda Green Coffee</title>
   <meta
     name="description"
-    content="Green coffee from Kivu cooperatives for roasters. A fair-trade project with farmers in eastern DR Congo, a region that has faced years of conflict."
+    content="Green coffee beans from Kivu cooperatives in eastern DR Congo, for roasters in Europe. A fair-trade project with the farmers, from the field to delivery."
   />
 </svelte:head>
 

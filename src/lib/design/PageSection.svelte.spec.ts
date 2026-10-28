@@ -9,7 +9,7 @@ import OurCoffeePage from '../home/OurCoffeePage.svelte';
 import PrivacyPage from '../home/PrivacyPage.svelte';
 
 function pageSections(container: HTMLElement) {
-  return [...container.querySelectorAll('h2')]
+  return [...container.querySelectorAll('h1, h2')]
     .filter((heading) => heading.parentElement?.tagName === 'SECTION')
     .map((heading) => {
       const section = heading.parentElement as HTMLElement;
@@ -39,7 +39,7 @@ describe('PageSection', () => {
 
     for (const Page of pages) {
       const view = render(Page);
-      await expect.element(page.getByRole('heading', { level: 2 }).first()).toBeVisible();
+      await expect.element(page.getByRole('heading', { level: 1 }).first()).toBeVisible();
       rows.push(...pageSections(view.container));
       await view.unmount();
     }

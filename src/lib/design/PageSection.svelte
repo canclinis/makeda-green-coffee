@@ -6,6 +6,7 @@
     id,
     headingId,
     title,
+    level = 2,
     band,
     prose = false,
     children
@@ -13,6 +14,7 @@
     id?: string;
     headingId: string;
     title: string;
+    level?: 1 | 2;
     band?: Snippet;
     prose?: boolean;
     children: Snippet;
@@ -23,7 +25,7 @@
   {#if band}
     {@render band()}
   {/if}
-  <SectionTitle id={headingId}>{title}</SectionTitle>
+  <SectionTitle id={headingId} {level}>{title}</SectionTitle>
   <div class="container well" style="padding: 36px 0 56px">
     {#if prose}
       <div style="max-width: 42rem; margin-inline: auto">

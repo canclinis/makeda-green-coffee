@@ -4,12 +4,17 @@ import { render } from 'vitest-browser-svelte';
 import HomePage from './HomePage.svelte';
 
 describe('HomePage', () => {
-  it('describes the homepage for search as green coffee for roasters', () => {
+  it('titles the homepage for green coffee beans from Congo', async () => {
     render(HomePage);
 
+    expect(document.title).toBe('Green coffee beans from Congo — Makeda Green Coffee');
     expect(document.head.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
-      'Green coffee from Kivu cooperatives for roasters. A fair-trade project with farmers in eastern DR Congo, a region that has faced years of conflict.'
+      'Green coffee beans from Kivu cooperatives in eastern DR Congo, for roasters in Europe. A fair-trade project with the farmers, from the field to delivery.'
     );
+    await expect
+      .element(page.getByRole('heading', { level: 1, name: 'Green coffee from farmers to roasters' }))
+      .toBeInTheDocument();
+    expect(document.querySelectorAll('h1')).toHaveLength(1);
   });
 
   it('reserves space for the hero film', async () => {
@@ -44,7 +49,9 @@ describe('HomePage', () => {
       .toBeInTheDocument();
     await expect.element(page.getByLabelText('Hero film')).toBeInTheDocument();
 
-    await expect.element(page.getByRole('heading', { name: 'The Project' })).toBeInTheDocument();
+    await expect
+      .element(page.getByRole('heading', { level: 1, name: 'Green coffee from farmers to roasters' }))
+      .toBeInTheDocument();
     await expect.element(page.getByText(/symbol of resistance/)).toBeInTheDocument();
     const coffee = page.getByRole('region', { name: /OUR COFFEE/ });
     await expect.element(coffee).toBeInTheDocument();

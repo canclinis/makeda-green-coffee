@@ -6,10 +6,14 @@
 
 <svelte:head>
   <title>Privacy — Makeda Green Coffee</title>
+  <meta
+    name="description"
+    content="Privacy notice for this website: the name, email, and message you send on the contact form, how long we keep them, and how to ask us to delete them."
+  />
 </svelte:head>
 
 <Page>
-  <PageSection headingId="privacy-heading" title="PRIVACY" prose>
+  <PageSection headingId="privacy-heading" level={1} title="Privacy" prose>
     <Text>This notice covers this website.</Text>
     <Text>
       If you use the contact form, we receive your name, email address, and message so we can reply.
@@ -17,8 +21,8 @@
       deliver your message. We keep it in our inbox as part of our correspondence with you.
     </Text>
     <Text>
-      We do not use analytics or advertising cookies. Loading the site may share your IP address with
-      those providers.
+      We do not use analytics or advertising cookies. Loading the site may share your IP address
+      with those providers.
     </Text>
     <Text>
       You can ask to see, correct, or delete what we hold, or withdraw the consent you gave on the

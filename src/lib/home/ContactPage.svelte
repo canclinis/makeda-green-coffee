@@ -9,10 +9,10 @@
 </script>
 
 <svelte:head>
-  <title>Contact — Makeda Green Coffee</title>
+  <title>Order Kivu green coffee — Makeda Green Coffee</title>
   <meta
     name="description"
-    content="Write to Makeda Green Coffee about green coffee from Kivu for your roastery."
+    content="Send an enquiry to order green coffee from Lake Kivu, eastern DR Congo, for your roastery: specialty or commercial, fully washed or natural, in 60 kg bags."
   />
 </svelte:head>
 
@@ -25,7 +25,7 @@
 {/snippet}
 
 <Page>
-  <PageSection id="contact" headingId="contact-heading" title="CONTACT">
+  <PageSection id="contact" headingId="contact-heading" level={1} title="Contact">
     <ZigZag mediaSide="left" sticky mediaSlot={contactFilm}>
       <ContactForm headingId="contact-heading" hideHeading initialSubject={subject} />
     </ZigZag>

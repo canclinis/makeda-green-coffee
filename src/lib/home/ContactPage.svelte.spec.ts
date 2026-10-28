@@ -5,12 +5,17 @@ import '../design/design.css';
 import ContactPage from './ContactPage.svelte';
 
 describe('ContactPage', () => {
-  it('describes how to enquire about Kivu green coffee for search', () => {
+  it('titles the page for ordering Kivu green coffee', async () => {
     render(ContactPage);
 
+    expect(document.title).toBe('Order Kivu green coffee — Makeda Green Coffee');
     expect(document.head.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
-      'Write to Makeda Green Coffee about green coffee from Kivu for your roastery.'
+      'Send an enquiry to order green coffee from Lake Kivu, eastern DR Congo, for your roastery: specialty or commercial, fully washed or natural, in 60 kg bags.'
     );
+    await expect
+      .element(page.getByRole('heading', { level: 1, name: 'Order Kivu green coffee' }))
+      .toBeInTheDocument();
+    expect(document.querySelectorAll('h1')).toHaveLength(1);
   });
 
   it('shows contact with the film beside the form', async () => {
@@ -22,7 +27,7 @@ describe('ContactPage', () => {
       .toHaveAttribute('href', '/contact');
 
     await expect
-      .element(page.getByRole('heading', { name: 'CONTACT', exact: true }))
+      .element(page.getByRole('heading', { level: 1, name: 'Order Kivu green coffee' }))
       .toBeInTheDocument();
     const film = page.getByLabelText('Coffee film');
     await expect.element(film).toBeVisible();
@@ -31,7 +36,7 @@ describe('ContactPage', () => {
     await expect.element(film).toHaveAttribute('controls', '');
     await expect.element(film).toHaveAttribute('preload', 'metadata');
 
-    const contact = page.getByRole('region', { name: 'CONTACT' });
+    const contact = page.getByRole('region', { name: 'Order Kivu green coffee' });
     await expect.element(contact.getByLabelText('Name *')).toBeVisible();
     await expect
       .element(contact.getByRole('textbox', { name: 'Subject *' }))

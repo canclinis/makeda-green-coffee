@@ -5,20 +5,23 @@
     id,
     class: className = '',
     style,
+    level = 2,
     children
   }: {
     id?: string;
     class?: string;
     style?: string;
+    level?: 1 | 2;
     children: Snippet;
   } = $props();
 </script>
 
-<h2 class={className || undefined} {id} {style}>
+<svelte:element this={level === 1 ? 'h1' : 'h2'} class={className || undefined} {id} {style}>
   {@render children()}
-</h2>
+</svelte:element>
 
 <style>
+  h1,
   h2 {
     margin: 0;
     padding: 0.7em 24px;

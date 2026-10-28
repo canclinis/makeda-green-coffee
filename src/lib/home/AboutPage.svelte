@@ -5,10 +5,10 @@
 </script>
 
 <svelte:head>
-  <title>About — Makeda Green Coffee</title>
+  <title>Who are we — Makeda Green Coffee</title>
   <meta
     name="description"
-    content="Antonio and Giovanni bring green coffee from Kivu cooperatives to roasters in Europe, directly and on fair terms."
+    content="Green coffee from Kivu. Antonio and Giovanni follow it from the cooperatives to the roastery door, with no intermediaries. Enquire about the project."
   />
 </svelte:head>
 
@@ -23,7 +23,7 @@
 {/snippet}
 
 <Page>
-  <PageSection {band} headingId="about-heading" title="WHO WE ARE" prose>
+  <PageSection {band} headingId="about-heading" level={1} title="Who are we" prose>
     <Text>
       The founders, Antonio and Giovanni, are close friends who have worked with NGOs on human
       rights projects since 2007.

@@ -4,7 +4,7 @@
   import ZigZag from '../design/ZigZag.svelte';
 </script>
 
-<PageSection id="project" headingId="project-heading" title="The Project">
+<PageSection id="project" headingId="project-heading" level={1} title="Green coffee from farmers to roasters">
   <ZigZag
     mediaSide="right"
     media={{

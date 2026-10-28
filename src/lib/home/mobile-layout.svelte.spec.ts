@@ -78,7 +78,7 @@ describe('phone layout', () => {
     render(HomePage);
 
     const order = await box(page.getByRole('button', { name: 'Order now' }));
-    const section = await box(page.getByRole('heading', { name: 'The Project' }));
+    const section = await box(page.getByRole('heading', { name: 'Green coffee from farmers to roasters' }));
 
     expect(Math.abs(order.left - section.left)).toBeLessThan(2);
     expect(Math.abs(order.right - section.right)).toBeLessThan(2);
@@ -195,7 +195,9 @@ describe('phone layout', () => {
     await expect.element(contact).not.toHaveAttribute('open');
 
     await contact.getByText('Contact', { exact: true }).click();
-    await expect.element(contact.getByRole('link', { name: /info@makedagreencoffee\.com/ })).toBeVisible();
+    await expect
+      .element(contact.getByRole('link', { name: /info@makedagreencoffee\.com/ }))
+      .toBeVisible();
     await expect.element(sweden).toBeVisible();
     await expect.element(italy).toBeVisible();
     await expect.element(sweden).toHaveAttribute('href', 'tel:+46708749626');
