@@ -9,7 +9,7 @@ describe('HomePage', () => {
 
     expect(document.title).toBe('Green coffee beans from Congo — Makeda Green Coffee');
     expect(document.head.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
-      'Green coffee beans from Kivu cooperatives in eastern DR Congo, for roasters in Europe. A fair-trade project with the farmers, from the field to delivery.'
+      'Green coffee beans from Kivu cooperatives in eastern DR Congo, for roasters in Europe. We stay close to the cooperatives, from the field to delivery.'
     );
     await expect
       .element(page.getByRole('heading', { level: 1, name: 'Green coffee from Congo' }))
@@ -53,7 +53,10 @@ describe('HomePage', () => {
       .element(page.getByRole('heading', { level: 1, name: 'Green coffee from Congo' }))
       .toBeInTheDocument();
     await expect
-      .element(page.getByText(/green coffee beans from\s+eastern DR Congo/))
+      .element(page.getByText(/Kivu cooperatives reach roasters in Europe/))
+      .toBeInTheDocument();
+    await expect
+      .element(page.getByText(/green coffee beans from\s+eastern\s+DR Congo/))
       .toBeInTheDocument();
     await expect.element(page.getByText(/symbol of resistance/)).toBeInTheDocument();
     const coffee = page.getByRole('region', { name: /From farmers to roasters/ });

@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-  <title>Who are we — Makeda Green Coffee</title>
+  <title>About Makeda Green Coffee</title>
   <meta
     name="description"
     content="Green coffee from Kivu. Antonio and Giovanni follow it from the cooperatives to the roastery door, with no intermediaries. Enquire about the project."

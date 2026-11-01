@@ -4,12 +4,12 @@ import { render } from 'vitest-browser-svelte';
 import AboutPage from './AboutPage.svelte';
 
 describe('AboutPage', () => {
-  it('titles the page Who are we', async () => {
+  it('titles the about page for Makeda Green Coffee', async () => {
     render(AboutPage);
 
-    expect(document.title).toBe('Who are we — Makeda Green Coffee');
+    expect(document.title).toBe('About Makeda Green Coffee');
     expect(document.head.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
-      'Fair-trade green coffee from Kivu. Antonio and Giovanni follow it from the cooperatives to the roastery door, with no intermediaries. Enquire about the project.'
+      'Green coffee from Kivu. Antonio and Giovanni follow it from the cooperatives to the roastery door, with no intermediaries. Enquire about the project.'
     );
     await expect
       .element(page.getByRole('heading', { level: 1, name: 'Who are we' }))
