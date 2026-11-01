@@ -78,7 +78,7 @@ describe('phone layout', () => {
     render(HomePage);
 
     const order = await box(page.getByRole('button', { name: 'Order now' }));
-    const section = await box(page.getByRole('heading', { name: 'Green coffee from farmers to roasters' }));
+    const section = await box(page.getByRole('heading', { name: 'Green coffee from Congo' }));
 
     expect(Math.abs(order.left - section.left)).toBeLessThan(2);
     expect(Math.abs(order.right - section.right)).toBeLessThan(2);

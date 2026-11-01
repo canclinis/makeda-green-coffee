@@ -4,7 +4,7 @@
   import ZigZag from '../design/ZigZag.svelte';
 </script>
 
-<PageSection id="project" headingId="project-heading" level={1} title="Green coffee from farmers to roasters">
+<PageSection id="project" headingId="project-heading" level={1} title="Green coffee from Congo">
   <ZigZag
     mediaSide="right"
     media={{
@@ -17,9 +17,10 @@
     }}
   >
     <Text>
-      Makeda Green Coffee is a sustainability and fair-trade project, founded in 2021. Our aim is to
-      help the coffee farmers of Kivu, a region of the Congo scarred by decades of war, reach
-      roasteries in Europe.
+      We help the coffee farmers of Kivu reach roasters in Europe with green coffee beans from
+      eastern DR Congo. Makeda Green Coffee is a sustainability and fair-trade project, founded in
+      2021, in a
+      region scarred by decades of war.
     </Text>
     <Text>
       This coffee is a symbol of resistance. The women and men who grow it risk their lives to bring

@@ -12,7 +12,7 @@ describe('HomePage', () => {
       'Green coffee beans from Kivu cooperatives in eastern DR Congo, for roasters in Europe. A fair-trade project with the farmers, from the field to delivery.'
     );
     await expect
-      .element(page.getByRole('heading', { level: 1, name: 'Green coffee from farmers to roasters' }))
+      .element(page.getByRole('heading', { level: 1, name: 'Green coffee from Congo' }))
       .toBeInTheDocument();
     expect(document.querySelectorAll('h1')).toHaveLength(1);
   });
@@ -50,10 +50,13 @@ describe('HomePage', () => {
     await expect.element(page.getByLabelText('Hero film')).toBeInTheDocument();
 
     await expect
-      .element(page.getByRole('heading', { level: 1, name: 'Green coffee from farmers to roasters' }))
+      .element(page.getByRole('heading', { level: 1, name: 'Green coffee from Congo' }))
+      .toBeInTheDocument();
+    await expect
+      .element(page.getByText(/green coffee beans from\s+eastern DR Congo/))
       .toBeInTheDocument();
     await expect.element(page.getByText(/symbol of resistance/)).toBeInTheDocument();
-    const coffee = page.getByRole('region', { name: /OUR COFFEE/ });
+    const coffee = page.getByRole('region', { name: /From farmers to roasters/ });
     await expect.element(coffee).toBeInTheDocument();
     await expect.element(coffee.getByText(/Lake Kivu/)).toBeInTheDocument();
     await expect
