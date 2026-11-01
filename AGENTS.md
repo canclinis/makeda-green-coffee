@@ -12,6 +12,7 @@
 ## Code
 
 - **Svelte, CSS, layout, components** → read [`docs/code/style.md`](docs/code/style.md) before adding a style, a layout, or a component. KISS, readability, accessibility/crawlers, CWV/SEO.
+- **Hero film or contact film** → read [`docs/code/films.md`](docs/code/films.md). Still images are done. This is the remaining media work.
 
 ---
 
