@@ -1,6 +1,7 @@
 <script lang="ts">
   import Button from '../design/Button.svelte';
   import Modal from '../design/Modal.svelte';
+  import { volcano } from '../images';
   import ContactForm from './ContactForm.svelte';
 
   let contactOpen = $state(false);
@@ -11,7 +12,7 @@
     <!-- Some frames have a 1px black row on the top and the bottom. -->
     <video
       src="/video/hero.mp4"
-      poster="/images/hero-poster.jpg"
+      poster="/images/hero-poster.webp"
       width="1920"
       height="818"
       autoplay
@@ -34,7 +35,7 @@
       bind:open={contactOpen}
       title="Get in touch"
       image={{
-        src: '/images/volcano.jpg',
+        src: volcano,
         alt: 'A volcano rising above dense forest',
         objectPosition: 'top'
       }}

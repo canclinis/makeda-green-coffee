@@ -4,6 +4,7 @@
   import Modal from '../design/Modal.svelte';
   import PageSection from '../design/PageSection.svelte';
   import Text from '../design/Text.svelte';
+  import { driedOnBed } from '../images';
   import ContactForm from './ContactForm.svelte';
   import Page from './Page.svelte';
   import CoffeeLotDetail from './CoffeeLotDetail.svelte';
@@ -86,7 +87,7 @@
       bind:open={inquiryOpen}
       title="Coffee enquiry"
       image={{
-        src: '/images/lots/dried-on-bed.jpg',
+        src: driedOnBed,
         alt: 'Hands sorting green coffee beans on a drying bed'
       }}
     >

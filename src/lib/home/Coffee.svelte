@@ -4,6 +4,7 @@
   import PageSection from '../design/PageSection.svelte';
   import Text from '../design/Text.svelte';
   import ZigZag from '../design/ZigZag.svelte';
+  import { coffee } from '../images';
 </script>
 
 <PageSection id="coffee" headingId="coffee-heading" title="From farmers to roasters">
@@ -11,9 +12,7 @@
     mediaSide="left"
     media={{
       type: 'image',
-      src: '/images/coffee.jpeg',
-      width: 1707,
-      height: 2560,
+      ...coffee,
       alt: 'A farmer letting washed coffee beans fall through his hands',
       sticky: true,
       style: 'border: 1px solid rgba(0, 0, 0, 0.08)'

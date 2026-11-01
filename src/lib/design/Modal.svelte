@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import IconButton from './IconButton.svelte';
+  import Image from './Image.svelte';
   import SectionTitle from './SectionTitle.svelte';
 
   let {
@@ -11,7 +12,11 @@
   }: {
     open?: boolean;
     title: string;
-    image?: { src: string; alt: string; objectPosition?: string };
+    image?: {
+      src: string;
+      alt: string;
+      objectPosition?: string;
+    };
     children: Snippet;
   } = $props();
 
@@ -39,7 +44,13 @@
 
 <dialog bind:this={dialog} aria-labelledby={headingId} onclick={onBackdrop} onclose={onDialogClose}>
   {#if image}
-    <img src={image.src} alt={image.alt} style:object-position={image.objectPosition} />
+    <Image
+      src={image.src}
+      width={1200}
+      height={333}
+      alt={image.alt}
+      style={image.objectPosition ? `object-position: ${image.objectPosition}` : undefined}
+    />
   {/if}
   <div style="position: absolute; top: 10px; right: 10px; z-index: 1">
     <IconButton
@@ -84,7 +95,7 @@
     padding: 1.75rem 2rem 2rem;
   }
 
-  img {
+  dialog :global(img) {
     display: block;
     width: 100%;
     height: 200px;
@@ -101,7 +112,7 @@
       padding: 1.25rem 1.15rem 1.5rem;
     }
 
-    img {
+    dialog :global(img) {
       height: 104px;
     }
   }

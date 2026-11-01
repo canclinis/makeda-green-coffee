@@ -32,7 +32,7 @@ describe('ContactPage', () => {
     const film = page.getByLabelText('Coffee film');
     await expect.element(film).toBeVisible();
     await expect.element(film).toHaveAttribute('src', '/video/coffee_pill_women.mp4');
-    await expect.element(film).toHaveAttribute('poster', '/images/contact-film-poster.jpg');
+    await expect.element(film).toHaveAttribute('poster', '/images/contact-film-poster.webp');
     await expect.element(film).toHaveAttribute('controls', '');
     await expect.element(film).toHaveAttribute('preload', 'metadata');
 

@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import './design.css';
 import Modal from './Modal.svelte';
+import mark from './Image.fixture.webp';
 import SectionTitle from './SectionTitle.svelte';
 
 describe('Modal', () => {
@@ -74,7 +75,7 @@ describe('Modal', () => {
         open: true,
         title: 'Lot details',
         image: {
-          src: '/images/lots/drying.jpg',
+          src: mark,
           alt: 'Women sorting coffee cherries on raised drying beds'
         },
         children: createRawSnippet(() => ({
@@ -84,11 +85,12 @@ describe('Modal', () => {
     });
 
     const dialog = page.getByRole('dialog', { name: 'Lot details' });
-    await expect
-      .element(
-        dialog.getByRole('img', { name: 'Women sorting coffee cherries on raised drying beds' })
-      )
-      .toBeVisible();
+    const photo = dialog.getByRole('img', {
+      name: 'Women sorting coffee cherries on raised drying beds'
+    });
+    await expect.element(photo).toBeVisible();
+    await expect.element(photo).toHaveAttribute('width', '1200');
+    await expect.element(photo).toHaveAttribute('height', '333');
     await expect.element(dialog.getByRole('button', { name: 'Close' })).toHaveStyle({
       color: 'rgb(255, 255, 255)'
     });

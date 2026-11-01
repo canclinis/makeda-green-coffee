@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import Image from '../design/Image.svelte';
 	import IconButton from '../design/IconButton.svelte';
 	import Modal from '../design/Modal.svelte';
+	import { logoFooter, volcano } from '../images';
 	import ContactForm from './ContactForm.svelte';
 
 	let contactOpen = $state(false);
@@ -14,13 +16,7 @@
 		<div class="compact">
 			<div class="compact-top">
 				<a href={resolve('/#top')} class="logo-link">
-					<img
-						src="/images/logo-footer.png"
-						width="250"
-						height="353"
-						alt="Makeda Green Coffee"
-						class="logo"
-					/>
+					<Image {...logoFooter} alt="Makeda Green Coffee" />
 				</a>
 				{@render socials()}
 			</div>
@@ -46,14 +42,8 @@
 
 		<div class="columns desktop">
 			<div class="brand">
-				<a href={resolve('/#top')} class="logo-link">
-					<img
-						src="/images/logo-footer.png"
-						width="250"
-						height="353"
-						alt="Makeda Green Coffee"
-						class="logo logo-large"
-					/>
+				<a href={resolve('/#top')} class="logo-link logo-link-large">
+					<Image {...logoFooter} alt="Makeda Green Coffee" />
 				</a>
 				<p class="tagline">We don’t just trade coffee. We build relationships.</p>
 				{@render socials()}
@@ -89,7 +79,7 @@
 	bind:open={contactOpen}
 	title="Get in touch"
 	image={{
-		src: '/images/volcano.jpg',
+		src: volcano,
 		alt: 'A volcano rising above dense forest',
 		objectPosition: 'top'
 	}}
@@ -213,13 +203,13 @@
 		text-decoration: none;
 	}
 
-	.logo {
+	.logo-link :global(img) {
 		display: block;
 		width: 88px;
 		height: auto;
 	}
 
-	.logo-large {
+	.logo-link-large :global(img) {
 		width: 132px;
 	}
 

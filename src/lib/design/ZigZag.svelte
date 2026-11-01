@@ -1,17 +1,31 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
+  import Image from './Image.svelte';
 
-  type Frame = {
+  type ImageMedia = {
+    type: 'image';
     src: string;
+    width: number;
+    height: number;
+    alt: string;
+    priority?: boolean;
+    loading?: 'eager' | 'lazy';
+    style?: string;
+    sticky?: boolean;
+  };
+
+  type VideoMedia = {
+    type: 'video';
+    src: string;
+    label: string;
+    poster?: string;
     width?: number;
     height?: number;
     style?: string;
     sticky?: boolean;
   };
 
-  type Media =
-    | (Frame & { type: 'image'; alt: string })
-    | (Frame & { type: 'video'; label: string; poster?: string });
+  type Media = ImageMedia | VideoMedia;
 
   let {
     mediaSide,
@@ -34,15 +48,16 @@
       {@render mediaSlot()}
     </div>
   {:else if media?.type === 'image'}
-    <img
-      class="media"
-      class:sticky={media.sticky}
-      src={media.src}
-      alt={media.alt}
-      width={media.width}
-      height={media.height}
-      style={media.style}
-    />
+    <div class="media" class:sticky={media.sticky} style={media.style}>
+      <Image
+        src={media.src}
+        width={media.width}
+        height={media.height}
+        alt={media.alt}
+        priority={media.priority}
+        loading={media.loading}
+      />
+    </div>
   {:else if media?.type === 'video'}
     <video
       class="media"
@@ -82,6 +97,12 @@
   }
 
   .media {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .media :global(img) {
     display: block;
     width: 100%;
     height: auto;

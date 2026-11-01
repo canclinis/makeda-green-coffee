@@ -19,7 +19,7 @@
 {#snippet contactFilm()}
   <ContactFilm
     src="/video/coffee_pill_women.mp4"
-    poster="/images/contact-film-poster.jpg"
+    poster="/images/contact-film-poster.webp"
     label="Coffee film"
   />
 {/snippet}

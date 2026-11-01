@@ -1,3 +1,5 @@
+import { cherries, drying, picker, redCherries, sorting } from '../images';
+
 export type CoffeeLotPdf = {
   label: string;
   href: string;
@@ -15,7 +17,10 @@ export type CoffeeLot = {
   crop: string;
   bags: string;
   status: string;
-  image: { src: string; alt: string; objectPosition?: string };
+  image: {
+    src: string;
+    alt: string;
+  };
   selection?: string;
   summary: string;
   originDetails: CoffeeLotDetailField[];
@@ -38,7 +43,7 @@ export const specialtyLots: CoffeeLot[] = [
     bags: '42',
     status: 'Arriving soon',
     image: {
-      src: '/images/lots/cherries.jpg',
+      src: cherries,
       alt: 'Ripe coffee cherries on the branch'
     },
     selection: 'Presidential selection',
@@ -69,7 +74,7 @@ export const specialtyLots: CoffeeLot[] = [
     bags: '92',
     status: 'Arriving soon',
     image: {
-      src: '/images/lots/drying.jpg',
+      src: drying,
       alt: 'Women sorting coffee cherries on raised drying beds'
     },
     selection: 'Specialty selection',
@@ -95,7 +100,7 @@ export const specialtyLots: CoffeeLot[] = [
     bags: '84',
     status: 'Arriving soon',
     image: {
-      src: '/images/lots/red-cherries.jpg',
+      src: redCherries,
       alt: 'A basket of ripe red coffee cherries'
     },
     selection: 'Natural selected lot',
@@ -121,7 +126,7 @@ export const specialtyLots: CoffeeLot[] = [
     bags: '100',
     status: 'Arriving soon',
     image: {
-      src: '/images/lots/sorting.jpg',
+      src: sorting,
       alt: 'Women hand-sorting green coffee'
     },
     selection: 'Natural classic',
@@ -150,7 +155,7 @@ export const commercialLots: CoffeeLot[] = [
     bags: '1',
     status: 'In stock',
     image: {
-      src: '/images/lots/picker.jpg',
+      src: picker,
       alt: 'A farmer reaching into the coffee tree'
     },
     selection: 'Natural',

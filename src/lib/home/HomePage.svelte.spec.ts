@@ -80,9 +80,10 @@ describe('HomePage', () => {
     await page.getByRole('button', { name: 'Order now' }).click();
     const dialog = page.getByRole('dialog', { name: 'Get in touch' });
     await expect.element(dialog).toBeVisible();
-    await expect
-      .element(dialog.getByRole('img', { name: 'A volcano rising above dense forest' }))
-      .toBeVisible();
+    const volcano = dialog.getByRole('img', { name: 'A volcano rising above dense forest' });
+    await expect.element(volcano).toBeVisible();
+    await expect.element(volcano).toHaveAttribute('width', '1200');
+    await expect.element(volcano).toHaveAttribute('height', '333');
     await expect
       .element(dialog.getByRole('textbox', { name: 'Subject *' }))
       .toHaveValue("I'd like to order coffee");

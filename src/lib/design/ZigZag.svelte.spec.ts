@@ -3,6 +3,7 @@ import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import ZigZag from './ZigZag.svelte';
+import mark from './Image.fixture.webp';
 
 function text(content: string) {
   return createRawSnippet(() => ({ render: () => `<p>${content}</p>` }));
@@ -25,10 +26,10 @@ describe('ZigZag', () => {
         mediaSide: 'left',
         media: {
           type: 'image',
-          src: '/images/coffee.jpeg',
-          alt: 'Washed beans falling through a farmer’s hands',
-          width: 1707,
-          height: 2560
+          src: mark,
+          width: 8,
+          height: 8,
+          alt: 'Washed beans falling through a farmer’s hands'
         },
         children: text('From the heart of Lake Kivu.')
       }
@@ -49,10 +50,10 @@ describe('ZigZag', () => {
         mediaSide: 'right',
         media: {
           type: 'image',
-          src: '/images/logo-symbol-burgundy.jpg',
-          alt: 'Makeda symbol',
-          width: 420,
-          height: 420
+          src: mark,
+          width: 8,
+          height: 8,
+          alt: 'Makeda symbol'
         },
         children: text('A project of sustainability and fair trade.')
       }
@@ -90,7 +91,7 @@ describe('ZigZag', () => {
         media: {
           type: 'video',
           src: '/video/hero.mp4',
-          poster: '/images/hero-poster.jpg',
+          poster: '/images/hero-poster.webp',
           label: 'Farmers at the washing station'
         },
         children: text('Beside the film.')

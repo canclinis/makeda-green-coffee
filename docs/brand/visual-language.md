@@ -33,7 +33,7 @@ The symbol is one solid white silhouette: the shape of Africa, and inside it a w
 
 The wordmark sits centered under the symbol, white: Makeda, then GREEN COFFEE.
 
-Site assets in `static/images/`: full lockups `logo-hero.png` (burgundy, horizontal) and `logo-footer.png` (white, vertical); symbol only `logo-symbol-burgundy.jpg` (source: Drive `Logo Instagram3.jpg`, burgundy mark on white, no wordmark).
+Site assets in `src/lib/assets/`: full lockups `logo-hero.webp` (burgundy, horizontal) and `logo-footer.webp` (white, vertical); symbol only `logo-symbol-burgundy.webp` (source: Drive `Logo Instagram3.jpg`, burgundy mark on white, no wordmark).
 
 On the cover the plate is a tall block in the top-right. Its bottom edge drops a little below the white block beside it and overlaps the photograph. On the site the same mark is small: burgundy logo in the white nav, and again in the footer.
 

@@ -1,6 +1,8 @@
 <script lang="ts">
+  import Image from '../design/Image.svelte';
   import PageSection from '../design/PageSection.svelte';
   import Text from '../design/Text.svelte';
+  import { about } from '../images';
   import Page from './Page.svelte';
 </script>
 
@@ -13,12 +15,11 @@
 </svelte:head>
 
 {#snippet band()}
-  <img
-    src="/images/about.jpg"
+  <Image
+    {...about}
     alt="Coffee leaves covered in raindrops"
-    width="2560"
-    height="1702"
-    style="display: block; width: 100%; height: min(42vw, 360px); object-fit: cover; object-position: center top"
+    priority
+    style="width: 100%; height: min(42vw, 360px); object-fit: cover; object-position: center top"
   />
 {/snippet}
 

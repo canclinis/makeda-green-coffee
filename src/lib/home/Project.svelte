@@ -2,6 +2,7 @@
   import PageSection from '../design/PageSection.svelte';
   import Text from '../design/Text.svelte';
   import ZigZag from '../design/ZigZag.svelte';
+  import { logoSymbol } from '../images';
 </script>
 
 <PageSection id="project" headingId="project-heading" level={1} title="Green coffee from Congo">
@@ -9,10 +10,9 @@
     mediaSide="right"
     media={{
       type: 'image',
-      src: '/images/logo-symbol-burgundy.jpg',
-      width: 420,
-      height: 420,
+      ...logoSymbol,
       alt: '',
+      loading: 'eager',
       style: 'width: min(100%, 320px); margin-inline: auto'
     }}
   >

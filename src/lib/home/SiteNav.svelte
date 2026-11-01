@@ -1,10 +1,12 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
+  import Image from '../design/Image.svelte';
+  import { logoHero } from '../images';
 </script>
 
 <nav aria-label="Primary">
   <a href={resolve('/#top')}>
-    <img src="/images/logo-hero.png" width="140" height="52" alt="Makeda Green Coffee" />
+    <Image {...logoHero} alt="Makeda Green Coffee" loading="eager" />
   </a>
   <ul>
     <li><a href={resolve('/our-coffee')}>Our coffee</a></li>
@@ -30,7 +32,7 @@
     flex-shrink: 0;
   }
 
-  nav > a img {
+  nav > a :global(img) {
     display: block;
     width: 88px;
     height: auto;
@@ -64,7 +66,7 @@
       padding: 12px 16px;
     }
 
-    nav > a img {
+    nav > a :global(img) {
       width: 72px;
     }
 

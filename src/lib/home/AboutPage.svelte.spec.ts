@@ -42,7 +42,7 @@ describe('AboutPage', () => {
 
     const photo = page.getByRole('img', { name: 'Coffee leaves covered in raindrops' });
     await expect.element(photo).toBeVisible();
-    await expect.element(photo).toHaveAttribute('width', '2560');
-    await expect.element(photo).toHaveAttribute('height', '1702');
+    await expect.element(photo).toHaveAttribute('width', '1600');
+    await expect.element(photo).toHaveAttribute('height', '720');
   });
 });
