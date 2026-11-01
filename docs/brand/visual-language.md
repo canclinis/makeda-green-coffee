@@ -90,7 +90,7 @@ Four paragraphs of plain prose: the project, Antonio, Giovanni, Giacomo. No foun
 
 Title: LA NOSTRA MISSIONE.
 
-One lead sentence, then four items. Each item is a dash at the left margin and a sentence. Space between items, as separate blocks, not a tight list. The first item starts with a capital. The next three start lowercase. Every item ends with a semicolon except the last, which ends with a full stop. The items share one grammatical form (on the site, each opens with an -ing verb: importing, bringing, improving, following).
+One lead sentence, then four items. Each item is a small burgundy coffee bean at the left margin and a sentence. Space between items, as separate blocks, not a tight list. The first item starts with a capital. The next three start lowercase. Every item ends with a semicolon except the last, which ends with a full stop. The items share one grammatical form (on the site, each opens with an -ing verb: importing, bringing, improving, following).
 
 ### Contatti
 

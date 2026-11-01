@@ -14,6 +14,13 @@
   />
 </svelte:head>
 
+{#snippet coffeeBean()}
+  <svg viewBox="0 0 44 44" aria-hidden="true">
+    <ellipse cx="22" cy="22" rx="14" ry="17.4" fill="currentColor" />
+    <path d="M22 10.0v27.6" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" />
+  </svg>
+{/snippet}
+
 {#snippet band()}
   <Image
     {...about}
@@ -43,30 +50,61 @@
 
   <PageSection id="mission" headingId="mission-heading" title="OUR MISSION" prose>
     <Text>Makeda Green Coffee has four main objectives:</Text>
-    <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 1.1rem">
+    <ul>
       <li>
-        – Importing coffee from cooperatives in the Kivu region, to support the region’s growing
-        economy;
+        {@render coffeeBean()}
+        <span>
+          Importing coffee from cooperatives in the Kivu region, to support the region’s growing
+          economy;
+        </span>
       </li>
       <li>
-        – bringing green coffee to European roasters who want a quality product, on terms and at
-        prices that are fair to small and medium-sized producers;
+        {@render coffeeBean()}
+        <span>
+          bringing green coffee to European roasters who want a quality product, on terms and at
+          prices that are fair to small and medium-sized producers;
+        </span>
       </li>
       <li>
-        – improving the quality of coffee growing and processing in the cooperatives, by reinvesting
-        part of our profits in equipment, training and logistical support;
+        {@render coffeeBean()}
+        <span>
+          improving the quality of coffee growing and processing in the cooperatives, by reinvesting
+          part of our profits in equipment, training and logistical support;
+        </span>
       </li>
       <li>
-        – following every step ourselves, from the Congo to the roastery door, with no
-        intermediaries between the cooperative and the roaster.
+        {@render coffeeBean()}
+        <span>
+          following every step ourselves, from the Congo to the roastery door, with no
+          intermediaries between the cooperative and the roaster.
+        </span>
       </li>
     </ul>
   </PageSection>
 </Page>
 
 <style>
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 1.15rem;
+  }
+
   li {
+    display: grid;
+    grid-template-columns: 1.25rem 1fr;
+    column-gap: 0.75rem;
+    align-items: start;
     font-size: 17px;
     line-height: 1.7;
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.18em;
+    color: var(--makeda-coffee);
   }
 </style>
