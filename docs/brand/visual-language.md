@@ -17,7 +17,7 @@ Cherry red, leaf green, skin, and earth stay inside photographs. They are not UI
 
 ## Type
 
-One family: Montserrat (weights 400, 600, 700), or a geometric sans of the same kind. Helvetica Neue and Arial are the fallbacks.
+One family: Darwin Pro, self-hosted from `static/fonts/darwin-pro-regular.woff2`. Helvetica Neue and Arial are the fallbacks. The file is Regular. Titles stay bold; the browser thickens Regular where a heavier cut is not in the file.
 
 - **Section title.** Uppercase, bold, wide tracking, white, centered in a black bar.
 - **Cover title.** Uppercase, bold, wide tracking, black, centered in the white half. Two lines: COMPANY / PROFILE.
@@ -112,7 +112,7 @@ The site uses the same materials. It is not a framed printout of the sheet.
 
 | Surface             | Treatment                                                                             |
 | ------------------- | ------------------------------------------------------------------------------------- |
-| Sticky nav          | White strip, burgundy logo, uppercase Montserrat links                                |
+| Sticky nav          | White strip, burgundy logo, uppercase Darwin Pro links                                |
 | Hero                | Full-bleed video, picture to the viewport edges                                       |
 | Order / contact CTA | Burgundy band, white uppercase type, white button                                     |
 | Project / Coffee    | White body; section labels use the black title bar                                    |
@@ -124,7 +124,7 @@ New sections follow photo, black title, white body, black footer unless the user
 
 Motion stays quiet. A section arrives as type on a flat field.
 
-Keep these out of the chrome: orange and yellow highlights, gradient-filled words, Darwin Pro or Playfair, a staggered zigzag of mission points, a black letterbox around the hero video.
+Keep these out of the chrome: orange and yellow highlights, gradient-filled words, Playfair, a staggered zigzag of mission points, a black letterbox around the hero video.
 
 ## Voice
 
