@@ -41,7 +41,7 @@ export const specialtyLots: CoffeeLot[] = [
     origin: 'Fully Washed K3 Special Selection',
     crop: '2026',
     bags: '42',
-    status: 'Arriving soon',
+    status: 'In stock',
     image: {
       src: cherries,
       alt: 'Ripe coffee cherries on the branch'
@@ -72,7 +72,7 @@ export const specialtyLots: CoffeeLot[] = [
     origin: 'Fully Washed K3 Classic',
     crop: '2026',
     bags: '92',
-    status: 'Arriving soon',
+    status: 'In stock',
     image: {
       src: drying,
       alt: 'Women sorting coffee cherries on raised drying beds'
@@ -98,7 +98,7 @@ export const specialtyLots: CoffeeLot[] = [
     origin: 'Natural K3 Special Selection',
     crop: '2026',
     bags: '84',
-    status: 'Arriving soon',
+    status: 'In stock',
     image: {
       src: redCherries,
       alt: 'A basket of ripe red coffee cherries'
@@ -124,7 +124,7 @@ export const specialtyLots: CoffeeLot[] = [
     origin: 'Natural K3 Classic',
     crop: '2026',
     bags: '100',
-    status: 'Arriving soon',
+    status: 'In stock',
     image: {
       src: sorting,
       alt: 'Women hand-sorting green coffee'
