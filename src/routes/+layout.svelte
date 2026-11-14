@@ -3,6 +3,9 @@
   import { canonicalUrl } from '../lib/canonical-url';
   import '../lib/design/design.css';
   import type { LayoutProps } from './$types';
+  import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit-next';
+
+  injectSpeedInsights();
 
   let { children }: LayoutProps = $props();
 
