@@ -97,23 +97,25 @@ describe('HomePage', () => {
       .element(page.getByRole('heading', { name: /OUR MISSION/ }))
       .not.toBeInTheDocument();
 
-    await page.getByRole('button', { name: 'Order now' }).click();
-    const dialog = page.getByRole('dialog', { name: 'Get in touch' });
+    await page.getByRole('button', { name: 'Get free sample' }).click();
+    const dialog = page.getByRole('dialog', { name: 'Get a free sample' });
     await expect.element(dialog).toBeVisible();
-    const volcano = dialog.getByRole('img', { name: 'A volcano rising above dense forest' });
-    await expect.element(volcano).toBeVisible();
-    await expect.element(volcano).toHaveAttribute('width', '1200');
-    await expect.element(volcano).toHaveAttribute('height', '333');
+    await expect.element(dialog.getByRole('heading', { name: 'Get a free sample' })).toBeVisible();
     await expect
-      .element(dialog.getByRole('textbox', { name: 'Subject *' }))
-      .toHaveValue("I'd like to order coffee");
-
-    await expect.element(dialog.getByRole('heading', { name: 'Get in touch' })).toBeVisible();
-    await expect.element(dialog.getByLabelText('Name *')).toBeVisible();
-    await expect.element(dialog.getByLabelText('Email *')).toBeVisible();
-    await expect.element(dialog.getByLabelText('Subject *')).toBeVisible();
-    await expect.element(dialog.getByLabelText('Message *')).toBeVisible();
-    await expect.element(dialog.getByRole('checkbox', { name: /privacy policy/ })).toBeVisible();
+      .element(dialog.getByRole('checkbox', { name: 'Fully Washed K3 Classic', exact: true }))
+      .toBeVisible();
+    await expect
+      .element(dialog.getByRole('checkbox', { name: 'Natural K4', exact: true }))
+      .toBeVisible();
+    await expect.element(dialog.getByText('Step 1 of 4')).toBeVisible();
+    await expect
+      .element(dialog.getByRole('heading', { name: 'Which coffees would you like to try?' }))
+      .toBeVisible();
+    await expect.element(dialog.getByRole('button', { name: 'Next' })).toBeVisible();
+    await expect.element(dialog.getByLabelText('Name *')).not.toBeInTheDocument();
+    await expect
+      .element(dialog.getByRole('button', { name: 'Get samples' }))
+      .not.toBeInTheDocument();
     await expect
       .element(page.getByRole('region', { name: 'Get in touch' }))
       .not.toBeInTheDocument();
@@ -132,5 +134,20 @@ describe('HomePage', () => {
     await expect
       .element(footer.getByRole('link', { name: '+ 39 349 76 46 077' }))
       .toHaveAttribute('href', 'tel:+393497646077');
+  });
+
+  it('keeps the sample window in place when the step changes', async () => {
+    render(HomePage);
+
+    await page.getByRole('button', { name: 'Get free sample' }).click();
+    const dialog = page.getByRole('dialog', { name: 'Get a free sample' });
+    const top = (await dialog.element()).getBoundingClientRect().top;
+
+    await dialog.getByRole('checkbox', { name: 'Natural K4', exact: true }).click();
+    await dialog.getByRole('button', { name: 'Next' }).click();
+    await dialog.getByRole('radio', { name: '50 g', exact: true }).click();
+    await dialog.getByRole('button', { name: 'Next' }).click();
+
+    expect(Math.abs((await dialog.element()).getBoundingClientRect().top - top)).toBeLessThan(2);
   });
 });

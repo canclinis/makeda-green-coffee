@@ -77,7 +77,7 @@ describe('phone layout', () => {
     await page.viewport(390, 800);
     render(HomePage);
 
-    const order = await box(page.getByRole('button', { name: 'Order now' }));
+    const order = await box(page.getByRole('button', { name: 'Get free sample' }));
     const section = await box(page.getByRole('heading', { name: 'Green coffee from Congo' }));
 
     expect(Math.abs(order.left - section.left)).toBeLessThan(2);
@@ -93,7 +93,7 @@ describe('phone layout', () => {
     const range = copy.ownerDocument.createRange();
     range.selectNodeContents(copy);
     const textBottom = range.getBoundingClientRect().bottom;
-    const order = await box(page.getByRole('button', { name: 'Order now' }));
+    const order = await box(page.getByRole('button', { name: 'Get free sample' }));
 
     expect(order.top).toBeGreaterThan(textBottom);
     expect(order.top - textBottom).toBeLessThan(48);

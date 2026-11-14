@@ -2,10 +2,9 @@
   import Button from '../design/Button.svelte';
   import Film from '../design/Film.svelte';
   import Modal from '../design/Modal.svelte';
-  import { volcano } from '../images';
-  import ContactForm from './ContactForm.svelte';
+  import SampleForm from './SampleForm.svelte';
 
-  let contactOpen = $state(false);
+  let sampleOpen = $state(false);
 </script>
 
 <section id="top" aria-label="Makeda Green Coffee" style="scroll-margin-top: 72px; line-height: 0">
@@ -27,22 +26,9 @@
 <section class="hero-cta">
   <div class="container hero-cta-inner">
     <p class="hero-cta-copy">Bring home a unique coffee, a symbol of strength and courage.</p>
-    <Button variant="default" onclick={() => (contactOpen = true)}>Order now</Button>
-    <Modal
-      bind:open={contactOpen}
-      title="Get in touch"
-      image={{
-        src: volcano,
-        alt: 'A volcano rising above dense forest',
-        objectPosition: 'top'
-      }}
-    >
-      <ContactForm
-        headingId="contact-modal-heading"
-        hideHeading
-        initialSubject="I'd like to order coffee"
-        submitLabel="Order now"
-      />
+    <Button variant="default" onclick={() => (sampleOpen = true)}>Get free sample</Button>
+    <Modal pinned bind:open={sampleOpen} title="Get a free sample">
+      <SampleForm onclose={() => (sampleOpen = false)} />
     </Modal>
   </div>
 </section>

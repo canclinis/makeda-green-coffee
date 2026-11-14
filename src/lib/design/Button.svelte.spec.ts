@@ -31,6 +31,21 @@ describe('Button', () => {
     await expect.element(discover).toHaveClass('button', 'button-burgundy');
   });
 
+  it('rounds every button the same way', async () => {
+    render(Button, { props: { children: text('Next') } });
+    render(Button, { props: { variant: 'default', children: text('Get free sample') } });
+
+    const next = getComputedStyle(
+      page.getByRole('button', { name: 'Next' }).element()
+    ).borderRadius;
+    const sample = getComputedStyle(
+      page.getByRole('button', { name: 'Get free sample' }).element()
+    ).borderRadius;
+
+    expect(next).toBe(sample);
+    expect(next).not.toBe('0px');
+  });
+
   it('renders a disabled submit button', async () => {
     render(Button, {
       props: { type: 'submit', disabled: true, children: text('Get in touch') }

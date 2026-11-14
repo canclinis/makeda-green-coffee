@@ -6,11 +6,14 @@
 
   let {
     open = $bindable(false),
+    pinned = false,
     title,
     image,
     children
   }: {
     open?: boolean;
+    /** Keep the top edge still when the content gets shorter or taller. */
+    pinned?: boolean;
     title: string;
     image?: {
       src: string;
@@ -42,7 +45,13 @@
   }
 </script>
 
-<dialog bind:this={dialog} aria-labelledby={headingId} onclick={onBackdrop} onclose={onDialogClose}>
+<dialog
+  class:pinned
+  bind:this={dialog}
+  aria-labelledby={headingId}
+  onclick={onBackdrop}
+  onclose={onDialogClose}
+>
   {#if image}
     <Image
       src={image.src}
@@ -82,9 +91,18 @@
     overflow: auto;
     border: 0;
     border-inline: 10px solid var(--makeda-coffee);
+    border-radius: 0;
     background: #fff;
     color: var(--makeda-ink);
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
+  }
+
+  dialog.pinned {
+    top: 40px;
+    bottom: auto;
+    height: fit-content;
+    max-height: calc(100vh - 80px);
+    margin-block: 0;
   }
 
   dialog::backdrop {
@@ -106,6 +124,11 @@
     dialog {
       width: min(760px, calc(100vw - 16px));
       max-height: calc(100dvh - 16px);
+    }
+
+    dialog.pinned {
+      top: 16px;
+      max-height: calc(100dvh - 32px);
     }
 
     .sheet {

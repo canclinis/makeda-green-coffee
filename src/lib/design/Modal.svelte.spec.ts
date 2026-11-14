@@ -69,6 +69,22 @@ describe('Modal', () => {
     await expect.element(dialog.getByText('The lot starts here.')).toBeInViewport();
   });
 
+  it('keeps square corners', async () => {
+    await render(Modal, {
+      props: {
+        open: true,
+        title: 'Lot details',
+        children: createRawSnippet(() => ({
+          render: () => '<p>More about this coffee is coming soon.</p>'
+        }))
+      }
+    });
+
+    const dialog = page.getByRole('dialog', { name: 'Lot details' });
+    await expect.element(dialog).toBeVisible();
+    expect(getComputedStyle(dialog.element()).borderRadius).toBe('0px');
+  });
+
   it('shows a header image for the lot', async () => {
     await render(Modal, {
       props: {

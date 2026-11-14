@@ -57,6 +57,7 @@
     min-height: 48px;
     padding: 0 36px;
     border: 1px solid transparent;
+    border-radius: 12px;
     background: #fff;
     color: var(--makeda-ink);
     font: inherit;
