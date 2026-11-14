@@ -4,11 +4,17 @@
 
   let { selected = $bindable() }: { selected: string[] } = $props();
 
-  const lots = [...specialtyLots, ...commercialLots];
+  const lots = [...specialtyLots, ...commercialLots].filter((lot) => lot.id !== 'natural-k4-2025');
+
+  function splitProcess(origin: string) {
+    const match = origin.match(/^(Fully Washed|Natural)(.*)$/);
+    return match ? { process: match[1], rest: match[2] } : { process: '', rest: origin };
+  }
 </script>
 
 <fieldset aria-labelledby="sample-step-question">
   {#each lots as lot (lot.id)}
+    {@const name = splitProcess(lot.origin)}
     <label class="card">
       <input
         type="checkbox"
@@ -19,7 +25,9 @@
       />
       <Image src={lot.image.src} alt={lot.image.alt} width={160} height={160} />
       <span class="card-copy">
-        <span class="card-name" id={`${lot.id}-name`}>{lot.origin}</span>
+        <span class="card-name" id={`${lot.id}-name`}
+          >{#if name.process}<strong>{name.process}</strong>{/if}{name.rest}</span
+        >
         <span
           >{lot.crop}{#if lot.selection}
             · {lot.selection}{/if}</span
@@ -87,6 +95,10 @@
 
   .card-name {
     font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .card-name strong {
     font-weight: 700;
   }
 </style>
