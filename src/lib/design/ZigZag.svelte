@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
+  import Film from './Film.svelte';
   import Image from './Image.svelte';
 
   type ImageMedia = {
@@ -59,19 +60,16 @@
       />
     </div>
   {:else if media?.type === 'video'}
-    <video
-      class="media"
-      class:sticky={media.sticky}
-      src={media.src}
-      poster={media.poster}
-      width={media.width}
-      height={media.height}
-      style={media.style}
-      aria-label={media.label}
-      controls
-      playsinline
-      preload="metadata"
-    ></video>
+    <div class="media" class:sticky={media.sticky} style={media.style}>
+      <Film
+        src={media.src}
+        poster={media.poster}
+        label={media.label}
+        width={media.width ?? 720}
+        height={media.height ?? 720}
+        preload="metadata"
+      />
+    </div>
   {/if}
 {/snippet}
 
@@ -102,7 +100,8 @@
     height: auto;
   }
 
-  .media :global(img) {
+  .media :global(img),
+  .media :global(video) {
     display: block;
     width: 100%;
     height: auto;

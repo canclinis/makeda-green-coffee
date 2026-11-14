@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from '../design/Button.svelte';
+  import Film from '../design/Film.svelte';
   import Modal from '../design/Modal.svelte';
   import { volcano } from '../images';
   import ContactForm from './ContactForm.svelte';
@@ -10,26 +11,22 @@
 <section id="top" aria-label="Makeda Green Coffee" style="scroll-margin-top: 72px; line-height: 0">
   <div style="overflow: hidden; line-height: 0">
     <!-- Some frames have a 1px black row on the top and the bottom. -->
-    <video
+    <Film
       src="/video/hero.mp4"
       poster="/images/hero-poster.webp"
-      width="1920"
-      height="818"
+      label="Hero film"
+      width={1920}
+      height={818}
       autoplay
-      muted
       loop
-      playsinline
-      aria-label="Hero film"
       style="display: block; width: 100%; height: auto; transform: scale(1.02)"
-    ></video>
+    />
   </div>
 </section>
 
 <section class="hero-cta">
   <div class="container hero-cta-inner">
-    <p class="hero-cta-copy">
-      Bring home a unique coffee, a symbol of strength and courage.
-    </p>
+    <p class="hero-cta-copy">Bring home a unique coffee, a symbol of strength and courage.</p>
     <Button variant="default" onclick={() => (contactOpen = true)}>Order now</Button>
     <Modal
       bind:open={contactOpen}

@@ -1,7 +1,7 @@
 <script lang="ts">
+  import Film from '../design/Film.svelte';
   import PageSection from '../design/PageSection.svelte';
   import ZigZag from '../design/ZigZag.svelte';
-  import ContactFilm from './ContactFilm.svelte';
   import ContactForm from './ContactForm.svelte';
   import Page from './Page.svelte';
 
@@ -17,17 +17,32 @@
 </svelte:head>
 
 {#snippet contactFilm()}
-  <ContactFilm
-    src="/video/coffee_pill_women.mp4"
-    poster="/images/contact-film-poster.webp"
-    label="Coffee film"
-  />
+  <div class="contact-film">
+    <Film
+      src="/video/coffee_pill_women.mp4"
+      poster="/images/contact-film-poster.webp"
+      label="Coffee film"
+      width={720}
+      height={720}
+      autoplay
+      preload="metadata"
+    />
+  </div>
 {/snippet}
 
 <Page>
-  <PageSection id="contact" headingId="contact-heading" level={1} title="Contact">
+  <PageSection id="contact" headingId="contact-heading" level={1} title="Order Kivu green coffee">
     <ZigZag mediaSide="left" sticky mediaSlot={contactFilm}>
       <ContactForm headingId="contact-heading" hideHeading initialSubject={subject} />
     </ZigZag>
   </PageSection>
 </Page>
+
+<style>
+  @media (min-width: 640px) and (max-width: 759px) {
+    .contact-film :global(video) {
+      max-height: 320px;
+      object-fit: cover;
+    }
+  }
+</style>

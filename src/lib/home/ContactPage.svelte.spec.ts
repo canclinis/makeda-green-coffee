@@ -33,7 +33,7 @@ describe('ContactPage', () => {
     await expect.element(film).toBeVisible();
     await expect.element(film).toHaveAttribute('src', '/video/coffee_pill_women.mp4');
     await expect.element(film).toHaveAttribute('poster', '/images/contact-film-poster.webp');
-    await expect.element(film).toHaveAttribute('controls', '');
+    await expect.element(film).not.toHaveAttribute('controls');
     await expect.element(film).toHaveAttribute('preload', 'metadata');
 
     const contact = page.getByRole('region', { name: 'Order Kivu green coffee' });

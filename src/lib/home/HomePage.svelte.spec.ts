@@ -23,6 +23,26 @@ describe('HomePage', () => {
     const film = page.getByLabelText('Hero film');
     await expect.element(film).toHaveAttribute('width', '1920');
     await expect.element(film).toHaveAttribute('height', '818');
+    await expect.element(film).not.toHaveAttribute('controls');
+  });
+
+  it('plays the hero film with its soundtrack', async () => {
+    render(HomePage);
+
+    const film = page.getByLabelText('Hero film');
+    await expect.element(film).toBeVisible();
+    await expect.poll(() => !(film.element() as HTMLVideoElement).paused).toBe(true);
+
+    if ((film.element() as HTMLVideoElement).muted) {
+      await page.getByRole('button', { name: 'Sound', exact: true }).click();
+    }
+
+    await expect
+      .poll(() => {
+        const el = film.element() as HTMLVideoElement;
+        return !el.muted && !el.paused;
+      })
+      .toBe(true);
   });
 
   it('tells the project story and collects contact instead of taking an order', async () => {
