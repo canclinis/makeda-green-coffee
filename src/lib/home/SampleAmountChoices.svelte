@@ -5,7 +5,10 @@
 
   const rows = [
     { caption: 'Free', sizes: sampleSizes.filter((size) => !size.paid) },
-    { caption: 'Price by email', sizes: sampleSizes.filter((size) => size.paid) }
+    {
+      caption: 'Cost may apply, confirmed by email',
+      sizes: sampleSizes.filter((size) => size.paid)
+    }
   ];
 </script>
 

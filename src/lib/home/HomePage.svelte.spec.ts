@@ -105,7 +105,7 @@ describe('HomePage', () => {
       .element(dialog.getByRole('checkbox', { name: 'Fully Washed K3 Classic', exact: true }))
       .toBeVisible();
     await expect
-      .element(dialog.getByRole('checkbox', { name: 'Natural K4', exact: true }))
+      .element(dialog.getByRole('checkbox', { name: 'Natural K3 Classic', exact: true }))
       .toBeVisible();
     await expect.element(dialog.getByText('Step 1 of 4')).toBeVisible();
     await expect
@@ -143,7 +143,7 @@ describe('HomePage', () => {
     const dialog = page.getByRole('dialog', { name: 'Get a free sample' });
     const top = (await dialog.element()).getBoundingClientRect().top;
 
-    await dialog.getByRole('checkbox', { name: 'Natural K4', exact: true }).click();
+    await dialog.getByRole('checkbox', { name: 'Natural K3 Classic', exact: true }).click();
     await dialog.getByRole('button', { name: 'Next' }).click();
     await dialog.getByRole('radio', { name: '50 g', exact: true }).click();
     await dialog.getByRole('button', { name: 'Next' }).click();

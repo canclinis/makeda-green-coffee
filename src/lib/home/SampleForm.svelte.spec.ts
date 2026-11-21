@@ -28,18 +28,22 @@ describe('SampleForm', () => {
       .element(page.getByRole('heading', { name: 'Which coffees would you like to try?' }))
       .toBeVisible();
     await expect
-      .element(page.getByRole('checkbox', { name: 'Natural K4', exact: true }))
+      .element(page.getByRole('checkbox', { name: 'Natural K3 Classic', exact: true }))
       .toBeVisible();
     await expect.element(page.getByLabelText('Name *')).not.toBeInTheDocument();
+  });
 
-    await page.getByRole('button', { name: 'Next' }).click();
+  it('keeps Next disabled until the current step can continue', async () => {
+    render(SampleForm);
 
-    const error = page.getByText('Choose at least one coffee.');
-    const coffee = page.getByRole('checkbox', { name: 'Natural K4', exact: true });
-    await expect.element(error).toBeVisible();
-    expect((await error.element()).getBoundingClientRect().top).toBeLessThan(
-      (await coffee.element()).getBoundingClientRect().top
-    );
+    const next = page.getByRole('button', { name: 'Next' });
+    await expect.element(next).toBeDisabled();
+
+    await page.getByRole('checkbox', { name: 'Natural K3 Classic', exact: true }).click();
+    await expect.element(next).toBeEnabled();
+
+    await page.getByRole('checkbox', { name: 'Natural K3 Classic', exact: true }).click();
+    await expect.element(next).toBeDisabled();
   });
 
   it('lists coffees without repeating the stock status', async () => {
@@ -49,6 +53,16 @@ describe('SampleForm', () => {
       .element(page.getByRole('checkbox', { name: 'Fully Washed K3 Classic', exact: true }))
       .toBeVisible();
     expect(await page.getByText('In stock').query()).toBeNull();
+  });
+
+  it('shows each coffee with its photo, name and year', async () => {
+    render(SampleForm);
+
+    const card = (
+      await page.getByRole('checkbox', { name: 'Natural K3 Classic', exact: true }).element()
+    ).closest('label');
+    expect(card?.querySelector('img')).not.toBeNull();
+    expect(card?.textContent).toContain('2026');
   });
 
   it('puts Back directly to the left of Next', async () => {
@@ -92,8 +106,7 @@ describe('SampleForm', () => {
     ).getBoundingClientRect();
     expect(paidRow.top).toBeGreaterThan(freeRow.bottom);
 
-    await page.getByRole('button', { name: 'Next' }).click();
-    await expect.element(page.getByText('Choose how many grams.')).toBeVisible();
+    await expect.element(page.getByRole('button', { name: 'Next' })).toBeDisabled();
 
     await page.getByRole('button', { name: 'Back' }).click();
     await expect
@@ -115,7 +128,7 @@ describe('SampleForm', () => {
     render(SampleForm, { props: { onclose: () => (closed = true) } });
 
     await page.getByRole('checkbox', { name: 'Fully Washed K3 Classic', exact: true }).click();
-    await page.getByRole('checkbox', { name: 'Natural K4', exact: true }).click();
+    await page.getByRole('checkbox', { name: 'Natural K3 Classic', exact: true }).click();
     await page.getByRole('button', { name: 'Next' }).click();
     await page.getByRole('radio', { name: '50 g', exact: true }).click();
     await page.getByRole('button', { name: 'Next' }).click();
@@ -126,12 +139,10 @@ describe('SampleForm', () => {
       .toBeVisible();
     expect(await page.getByText(/50 g each/).query()).toBeNull();
 
-    await page.getByRole('button', { name: 'Next' }).click();
-    await expect
-      .element(page.getByRole('heading', { name: 'Where should we send them?' }))
-      .toBeVisible();
+    await expect.element(page.getByRole('button', { name: 'Next' })).toBeDisabled();
 
     await fillContact();
+    await expect.element(page.getByRole('button', { name: 'Next' })).toBeDisabled();
     await page.getByLabelText('Message').fill('Our roaster needs 50 g.');
     await page.getByRole('checkbox', { name: /privacy policy/ }).click();
     await page.getByRole('button', { name: 'Next' }).click();
@@ -144,14 +155,14 @@ describe('SampleForm', () => {
     await expect
       .element(coffees.filter({ hasText: 'Fully Washed K3 Classic · 2026' }))
       .toBeVisible();
-    await expect.element(coffees.filter({ hasText: 'Natural K4 · 2025' })).toBeVisible();
+    await expect.element(coffees.filter({ hasText: 'Natural K3 Classic · 2026' })).toBeVisible();
     await expect.element(page.getByText('50 g of each — free')).toBeVisible();
     await expect.element(page.getByText('1200 Geneva')).toBeVisible();
     await expect.element(page.getByText('Our roaster needs 50 g.')).toBeVisible();
 
     await page.getByRole('button', { name: 'Change coffees' }).click();
     await expect
-      .element(page.getByRole('checkbox', { name: 'Natural K4', exact: true }))
+      .element(page.getByRole('checkbox', { name: 'Natural K3 Classic', exact: true }))
       .toBeChecked();
     await page.getByRole('button', { name: 'Next' }).click();
     await page.getByRole('button', { name: 'Next' }).click();
@@ -160,12 +171,12 @@ describe('SampleForm', () => {
     await page.getByRole('button', { name: 'Get samples' }).click();
 
     await expect
-      .element(page.getByText('Thank you, Ada. We’ll post 2 coffees, 50 g each, to Geneva.'))
+      .element(page.getByText('Thank you, Ada, for your request. Your order has been registered.'))
       .toBeVisible();
 
     const request = requests.find((entry) => entry.url.endsWith('/api/sample'));
     expect(JSON.parse(request?.body ?? '{}')).toMatchObject({
-      samples: ['washed-k3-2026', 'natural-k4-2025'],
+      samples: ['washed-k3-2026', 'natural-k3-2026'],
       grams: 50,
       roastery: 'Resistance Roastery',
       name: 'Ada Lovelace',
@@ -180,5 +191,61 @@ describe('SampleForm', () => {
 
     await page.getByRole('button', { name: 'Close' }).click();
     expect(closed).toBe(true);
+  });
+
+  async function reachPreview() {
+    await page.getByRole('checkbox', { name: 'Fully Washed K3 Classic', exact: true }).click();
+    await page.getByRole('button', { name: 'Next' }).click();
+    await page.getByRole('radio', { name: '50 g', exact: true }).click();
+    await page.getByRole('button', { name: 'Next' }).click();
+    await fillContact();
+    await page.getByRole('checkbox', { name: /privacy policy/ }).click();
+    await page.getByRole('button', { name: 'Next' }).click();
+    await expect
+      .element(page.getByRole('heading', { name: 'Does this look right?' }))
+      .toBeVisible();
+  }
+
+  it('replaces the preview with a loading view while sending, then shows the thanks', async () => {
+    let finish: (response: Response) => void = () => {};
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => new Promise<Response>((resolve) => (finish = resolve)))
+    );
+    render(SampleForm);
+    await reachPreview();
+
+    await page.getByRole('button', { name: 'Get samples' }).click();
+
+    await expect.element(page.getByRole('status')).toHaveTextContent('Sending your request');
+    expect(await page.getByRole('heading', { name: 'Does this look right?' }).query()).toBeNull();
+    expect(await page.getByText('Fully Washed K3 Classic · 2026').query()).toBeNull();
+    expect(await page.getByRole('button', { name: 'Get samples' }).query()).toBeNull();
+
+    finish(Response.json({ ok: true }));
+
+    await expect
+      .element(page.getByText('Thank you, Ada, for your request. Your order has been registered.'))
+      .toBeVisible();
+    expect(await page.getByText('Sending your request').query()).toBeNull();
+  });
+
+  it('goes back to the preview with an error when sending fails', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => Response.json({ ok: false }, { status: 500 }))
+    );
+    render(SampleForm);
+    await reachPreview();
+
+    await page.getByRole('button', { name: 'Get samples' }).click();
+
+    await expect
+      .element(page.getByText('We could not send your request. Please try again.'))
+      .toBeVisible();
+    await expect
+      .element(page.getByRole('heading', { name: 'Does this look right?' }))
+      .toBeVisible();
+    await expect.element(page.getByRole('button', { name: 'Get samples' })).toBeEnabled();
   });
 });

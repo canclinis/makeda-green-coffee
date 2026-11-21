@@ -4,6 +4,14 @@ import { render } from 'vitest-browser-svelte';
 import '../design/design.css';
 import ContactForm from './ContactForm.svelte';
 
+async function fillForm() {
+  await page.getByLabelText('Name *').fill('Ada');
+  await page.getByLabelText('Email *').fill('ada@example.com');
+  await page.getByLabelText('Subject *').fill('Green coffee');
+  await page.getByLabelText('Message *').fill('Hello from the roastery');
+  await page.getByRole('checkbox', { name: /privacy policy/ }).click();
+}
+
 describe('ContactForm', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
@@ -12,6 +20,7 @@ describe('ContactForm', () => {
   it('keeps Get in touch readable when hovered', async () => {
     render(ContactForm, { props: { headingId: 'contact-heading' } });
 
+    await fillForm();
     const submit = page.getByRole('button', { name: 'Get in touch' });
     await submit.hover();
 
@@ -20,6 +29,40 @@ describe('ContactForm', () => {
       backgroundColor: 'rgb(255, 255, 255)',
       borderTopColor: 'rgb(92, 16, 34)'
     });
+  });
+
+  it('keeps the send button disabled until the form is valid, then enables it', async () => {
+    render(ContactForm, { props: { headingId: 'contact-heading' } });
+
+    const submit = page.getByRole('button', { name: 'Get in touch' });
+    await expect.element(submit).toBeDisabled();
+
+    await fillForm();
+    await expect.element(submit).toBeEnabled();
+
+    await page.getByLabelText('Name *').fill('');
+    await expect.element(submit).toBeDisabled();
+  });
+
+  it('disables the send button and shows it is busy while sending', async () => {
+    let finish: (response: Response) => void = () => {};
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => new Promise<Response>((resolve) => (finish = resolve)))
+    );
+    render(ContactForm, { props: { headingId: 'contact-heading' } });
+
+    await fillForm();
+    const submit = page.getByRole('button', { name: 'Get in touch' });
+    await submit.click();
+
+    await expect.element(submit).toBeDisabled();
+    await expect.element(submit).toHaveAttribute('aria-busy', 'true');
+
+    finish(Response.json({ ok: true }));
+    await expect.element(page.getByText('Your message has been sent.')).toBeVisible();
+    await expect.element(submit).not.toHaveAttribute('aria-busy');
+    await expect.element(submit).toHaveClass('success');
   });
 
   it('links the consent box to the privacy policy without ticking it', async () => {
@@ -48,11 +91,7 @@ describe('ContactForm', () => {
 
     render(ContactForm, { props: { headingId: 'contact-heading' } });
 
-    await page.getByLabelText('Name *').fill('Ada');
-    await page.getByLabelText('Email *').fill('ada@example.com');
-    await page.getByLabelText('Subject *').fill('Green coffee');
-    await page.getByLabelText('Message *').fill('Hello from the roastery');
-    await page.getByRole('checkbox', { name: /privacy policy/ }).click();
+    await fillForm();
     await page.getByRole('button', { name: 'Get in touch' }).click();
 
     await expect.element(page.getByText('Your message has been sent.')).toBeVisible();

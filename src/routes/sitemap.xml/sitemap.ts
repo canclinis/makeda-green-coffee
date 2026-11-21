@@ -5,6 +5,7 @@ export const pageFiles = Object.keys(import.meta.glob('/src/routes/**/+page.svel
 export function sitemapResponse(files: readonly string[] = pageFiles): Response {
   const urls = files
     .map(pathnameFromPage)
+    .filter((pathname) => !pathname.startsWith('/admin'))
     .sort()
     .map((pathname) => canonicalUrl(pathname));
   const body = urls.map((url) => `  <url>\n    <loc>${url}</loc>\n  </url>`).join('\n');

@@ -36,6 +36,7 @@
   let stepHeading = $state<HTMLHeadingElement | null>(null);
   let alertEl = $state<HTMLParagraphElement | null>(null);
   let formEl = $state<HTMLFormElement | null>(null);
+  let contactValid = $state(false);
 
   const chosen = $derived(
     selected.flatMap((id) => {
@@ -45,8 +46,18 @@
   );
   const chosenSize = $derived(sampleSizes.find((size) => size.grams === grams));
   const amountLine = $derived(
-    chosenSize ? `${chosenSize.label} of each — ${chosenSize.paid ? 'price by email' : 'free'}` : ''
+    chosenSize
+      ? `${chosenSize.label} of each — ${chosenSize.paid ? 'cost may apply, confirmed by email' : 'free'}`
+      : ''
   );
+
+  const canContinue = $derived(
+    step === 1 ? selected.length > 0 : step === 2 ? grams !== '' : step === 3 ? contactValid : true
+  );
+
+  function updateValidity() {
+    contactValid = formEl?.checkValidity() ?? false;
+  }
 
   async function fail(message: string) {
     status = message;
@@ -58,6 +69,7 @@
     status = '';
     step = nextStep;
     await tick();
+    updateValidity();
     stepHeading?.focus();
   }
 
@@ -78,10 +90,9 @@
     if (step > 1) void go((step - 1) as 1 | 2 | 3 | 4);
   }
 
-  function thankYou(person: string, count: number, amount: string, place: string) {
+  function thankYou(person: string) {
     const first = person.trim().split(/\s+/)[0] || person;
-    const posted = count === 1 ? `1 coffee, ${amount}` : `${count} coffees, ${amount} each`;
-    return `Thank you, ${first}. We’ll post ${posted}, to ${place}.`;
+    return `Thank you, ${first}, for your request. Your order has been registered.`;
   }
 
   async function onSubmit(event: SubmitEvent) {
@@ -94,7 +105,7 @@
     if (!(form instanceof HTMLFormElement) || sending || !form.reportValidity()) return;
 
     sending = true;
-    status = 'Sending your request.';
+    status = '';
 
     try {
       const response = await fetch('/api/sample', {
@@ -117,7 +128,7 @@
       });
       if (!response.ok) throw new Error('Sample request was not accepted');
 
-      const posted = thankYou(name, selected.length, chosenSize?.label ?? '', city.trim());
+      const posted = thankYou(name);
       roastery = '';
       name = '';
       email = '';
@@ -146,8 +157,13 @@
     <p class="thanks">{thanks}</p>
     <Button type="button" onclick={() => onclose?.()}>Close</Button>
   </div>
+{:else if sending}
+  <div class="sending" role="status">
+    <span class="spinner" aria-hidden="true"></span>
+    <p>Sending your request…</p>
+  </div>
 {:else}
-  <form bind:this={formEl} onsubmit={onSubmit}>
+  <form bind:this={formEl} onsubmit={onSubmit} oninput={updateValidity} onchange={updateValidity}>
     <div class="progress" style:--progress={step / 4} aria-hidden="true">
       <span></span>
     </div>
@@ -198,9 +214,9 @@
         <button type="button" class="text-button" onclick={back}>Back</button>
       {/if}
       {#if step < 4}
-        <Button type="button" onclick={next}>Next</Button>
+        <Button type="button" disabled={!canContinue} onclick={next}>Next</Button>
       {:else}
-        <Button type="submit" disabled={sending}>Get samples</Button>
+        <Button type="submit" loading={sending}>Get samples</Button>
       {/if}
     </div>
   </form>
@@ -280,6 +296,37 @@
     color: var(--makeda-coffee);
   }
 
+  .sending {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 2.5rem 0;
+    text-align: center;
+  }
+
+  .sending p {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(17, 17, 17, 0.1);
+    border-top-color: var(--makeda-coffee);
+    border-radius: 50%;
+    animation: spin 800ms linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   .thanks {
     margin: 0 0 24px;
     font-size: 1.35rem;
@@ -290,6 +337,10 @@
   @media (prefers-reduced-motion: reduce) {
     .progress span {
       transition: none;
+    }
+
+    .spinner {
+      animation-duration: 2.4s;
     }
   }
 </style>

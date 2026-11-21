@@ -1,7 +1,8 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import { untrack } from 'svelte';
+  import { tick, untrack } from 'svelte';
   import Button from '../design/Button.svelte';
+  import { transientFlag } from '../design/transient.svelte.ts';
 
   let {
     headingId,
@@ -23,6 +24,14 @@
   let message = $state('');
   let status = $state('');
   let sending = $state(false);
+  let valid = $state(false);
+  const sent = transientFlag();
+
+  function updateValidity() {
+    valid = element?.checkValidity() ?? false;
+  }
+
+  $effect(updateValidity);
 
   async function onSubmit(event: SubmitEvent) {
     event.preventDefault();
@@ -47,6 +56,9 @@
       const privacy = form.querySelector('input[name="privacy"]');
       if (privacy instanceof HTMLInputElement) privacy.checked = false;
       status = 'Your message has been sent.';
+      sent.flash();
+      await tick();
+      updateValidity();
     } catch {
       status = 'We could not send your message. Please try again.';
     } finally {
@@ -55,7 +67,13 @@
   }
 </script>
 
-<form style="scroll-margin-top: 8.5rem" bind:this={element} onsubmit={onSubmit}>
+<form
+  style="scroll-margin-top: 8.5rem"
+  bind:this={element}
+  onsubmit={onSubmit}
+  oninput={updateValidity}
+  onchange={updateValidity}
+>
   {#if !hideHeading}
     <h2
       id={headingId}
@@ -91,7 +109,7 @@
       and agree that you can use this message to reply to me.
     </span>
   </label>
-  <Button type="submit" disabled={sending}>
+  <Button type="submit" disabled={!valid} loading={sending} success={sent.active}>
     {submitLabel}
   </Button>
   {#if status}

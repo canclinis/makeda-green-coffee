@@ -62,9 +62,14 @@
     cursor: pointer;
   }
 
-  .icon-button:hover {
+  .icon-button:not(:disabled):hover {
     background: #fff;
     color: var(--makeda-ink);
+  }
+
+  .icon-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
   }
 
   .ink {
@@ -72,7 +77,7 @@
     color: var(--makeda-ink);
   }
 
-  .ink:hover {
+  .ink:not(:disabled):hover {
     background: var(--makeda-ink);
     color: #fff;
     border-color: var(--makeda-ink);

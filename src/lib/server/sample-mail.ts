@@ -1,4 +1,6 @@
 import { commercialLots, specialtyLots } from '../home/coffee-lots.ts';
+import { findCustomerByEmail, type CustomerRecord } from '../home/customer-log.ts';
+import type { SampleRecord } from '../home/sample-log.ts';
 import { sampleSizes } from '../home/sample-sizes.ts';
 import type { MailSender, OutboundMail } from './contact-mail.ts';
 
@@ -10,7 +12,56 @@ const offers = [...specialtyLots, ...commercialLots];
 
 type SendResult = { ok: true } | { ok: false };
 
-export async function sendSampleRequest(input: unknown, send: MailSender): Promise<SendResult> {
+type Store<Row> = {
+  read: () => Promise<Row[]>;
+  write: (rows: Row[]) => Promise<void>;
+};
+
+type RequestFiles = {
+  customers: Store<CustomerRecord>;
+  samples: Store<SampleRecord>;
+};
+
+const COMMENT_MAX = 500;
+
+export async function fileSampleRequest(
+  input: unknown,
+  send: MailSender,
+  files: RequestFiles,
+  ids: { sample: string; customer: string },
+  requestedAt: string,
+  siteUrl: string
+): Promise<SendResult> {
+  const request = parseSampleRequest(input);
+  if (!request) return { ok: false };
+
+  const mailed = await sendSampleRequest(input, send, siteUrl);
+  if (!mailed.ok) return { ok: false };
+
+  const customers = await files.customers.read();
+  const saved = findCustomerByEmail(customers, request.email);
+  const customer = saved ?? { ...contactOf(request), id: ids.customer };
+  if (!saved) await files.customers.write([customer, ...customers]);
+
+  const samples = await files.samples.read();
+  await files.samples.write([
+    sampleRow(
+      request,
+      customer.id,
+      saved ? differences(saved, request) : '',
+      ids.sample,
+      requestedAt
+    ),
+    ...samples
+  ]);
+  return { ok: true };
+}
+
+export async function sendSampleRequest(
+  input: unknown,
+  send: MailSender,
+  siteUrl: string
+): Promise<SendResult> {
   const request = parseSampleRequest(input);
   if (!request) return { ok: false };
 
@@ -26,6 +77,8 @@ export async function sendSampleRequest(input: unknown, send: MailSender): Promi
         ? `Sample request — ${request.name} (price to send)`
         : `Free sample request — ${request.name}`,
       text: [
+        `Log this request: ${siteUrl}/admin/samples`,
+        '',
         'Samples',
         ...lines,
         '',
@@ -46,6 +99,61 @@ export async function sendSampleRequest(input: unknown, send: MailSender): Promi
   } catch {
     return { ok: false };
   }
+}
+
+type SampleRequest = NonNullable<ReturnType<typeof parseSampleRequest>>;
+
+function contactOf(request: SampleRequest): Omit<CustomerRecord, 'id'> {
+  return {
+    name: request.name,
+    roastery: request.roastery,
+    email: request.email,
+    phone: request.phone,
+    street: request.street,
+    postalCode: request.postalCode,
+    city: request.city,
+    country: request.country
+  };
+}
+
+const detailLabels: [keyof Omit<CustomerRecord, 'id' | 'email'>, string][] = [
+  ['name', 'Name'],
+  ['roastery', 'Roastery'],
+  ['phone', 'Phone'],
+  ['street', 'Street'],
+  ['postalCode', 'Postal code'],
+  ['city', 'City'],
+  ['country', 'Country']
+];
+
+/** What the form said that the saved customer does not already have. */
+function differences(saved: CustomerRecord, request: SampleRequest): string {
+  const said = contactOf(request);
+  const changed = detailLabels
+    .filter(([key]) => said[key] !== '' && said[key].toLowerCase() !== saved[key].toLowerCase())
+    .map(([key, label]) => `${label}: ${said[key]}`);
+  if (changed.length === 0) return '';
+  return `Request form said — ${changed.join('; ')}`.slice(0, COMMENT_MAX);
+}
+
+function sampleRow(
+  request: SampleRequest,
+  customerId: string,
+  comment: string,
+  id: string,
+  requestedAt: string
+): SampleRecord {
+  return {
+    id,
+    customerId,
+    status: 'ordered',
+    comment,
+    owner: '',
+    coffees: request.lots.map((lot) => `${lot.origin} · ${lot.crop}`).join('\n'),
+    amount: `${request.size.label} of each — ${request.size.paid ? 'paid, send price' : 'free'}`,
+    message: request.message,
+    requestedAt
+  };
 }
 
 function parseSampleRequest(input: unknown) {

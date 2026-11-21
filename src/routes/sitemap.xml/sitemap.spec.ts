@@ -18,6 +18,17 @@ describe('sitemap', () => {
     ]);
   });
 
+  it('leaves the stock admin out of the sitemap', async () => {
+    const response = sitemapResponse([
+      ...pageFiles,
+      '/src/routes/admin/+page.svelte',
+      '/src/routes/admin/login/+page.svelte'
+    ]);
+    const xml = await response.text();
+
+    expect(locations(xml).some((url) => new URL(url).pathname.startsWith('/admin'))).toBe(false);
+  });
+
   it('picks up a new page from its route file', async () => {
     const response = sitemapResponse([...pageFiles, '/src/routes/stories/+page.svelte']);
     const xml = await response.text();

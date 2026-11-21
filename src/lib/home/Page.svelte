@@ -3,9 +3,19 @@
   import SiteFooter from './SiteFooter.svelte';
   import SiteNav from './SiteNav.svelte';
 
-  let { children }: { children: Snippet } = $props();
+  let {
+    children,
+    menu = 'site',
+    section,
+    email
+  }: {
+    children: Snippet;
+    menu?: 'site' | 'admin';
+    section?: 'stock' | 'storage' | 'samples' | 'customers';
+    email?: string;
+  } = $props();
 </script>
 
-<SiteNav />
+<SiteNav {menu} {section} {email} />
 {@render children()}
 <SiteFooter />

@@ -17,9 +17,8 @@
     }}
   >
     <Text>
-      We help the Kivu cooperatives reach roasters in Europe with green coffee beans from eastern
-      DR Congo. Makeda Green Coffee started with them in 2021, in a region scarred by decades of
-      war.
+      We help the Kivu cooperatives reach roasters in Europe with green coffee beans from eastern DR
+      Congo. Makeda Green Coffee started with them in 2021, in a region scarred by decades of war.
     </Text>
     <Text>
       This coffee is a symbol of resistance. The women and men who grow it risk their lives to bring

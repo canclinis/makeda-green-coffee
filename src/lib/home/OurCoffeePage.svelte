@@ -9,9 +9,12 @@
   import Page from './Page.svelte';
   import CoffeeLotDetail from './CoffeeLotDetail.svelte';
   import { commercialLots, specialtyLots, type CoffeeLot } from './coffee-lots';
+  import { applyStock, type StockLevels } from './stock';
 
-  const specialty = specialtyLots;
-  const commercial = commercialLots;
+  let { stock = {} }: { stock?: StockLevels } = $props();
+
+  const specialty = $derived(applyStock(specialtyLots, stock));
+  const commercial = $derived(applyStock(commercialLots, stock));
 
   let inquiryOpen = $state(false);
   let inquirySubject = $state('');

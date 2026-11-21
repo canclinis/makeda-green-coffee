@@ -28,10 +28,7 @@
         <span class="card-name" id={`${lot.id}-name`}
           >{#if name.process}<strong>{name.process}</strong>{/if}{name.rest}</span
         >
-        <span
-          >{lot.crop}{#if lot.selection}
-            · {lot.selection}{/if}</span
-        >
+        <span>{lot.crop}</span>
       </span>
     </label>
   {/each}

@@ -1,4 +1,4 @@
-import { cherries, drying, picker, redCherries, sorting } from '../images';
+import { cherries, driedOnBed, drying, picker, redCherries } from '../images';
 
 export type CoffeeLotPdf = {
   label: string;
@@ -126,8 +126,8 @@ export const specialtyLots: CoffeeLot[] = [
     bags: '100',
     status: 'In stock',
     image: {
-      src: sorting,
-      alt: 'Women hand-sorting green coffee'
+      src: driedOnBed,
+      alt: 'Hands sorting green coffee beans on a drying bed'
     },
     selection: 'Natural classic',
     summary:
